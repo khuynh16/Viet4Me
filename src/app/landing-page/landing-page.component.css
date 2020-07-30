@@ -1,0 +1,162 @@
+.background {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ), url('../../assets/images/vietnam.jpg') no-repeat;
+    /* img source: https://unsplash.com/s/photos/vietnam-sunset */
+    background-size: cover;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-content {
+    text-align: center;
+    width: 600px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid green; */
+    position: relative;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    /* background-color: rgba(255, 255, 255, 0.5);  */
+}
+
+/* image source: https://blueswandaily.com/vietnamese-carriers-will-have-to-overcome-stiff-north-asian-competition-if-they-launch-services-to-the-us/ */
+.rect {
+    background-image: url('../../assets/images/viet_us_flags.jpg');
+    background-attachment: fixed;
+    background-size: auto 120%;
+    background-repeat: no-repeat;
+    /* width: 50px;
+    height: 50px; */
+    /* margin: 0 10px 10px 0; */
+    /* display: inline-block; */
+}
+
+.top-rectangle,
+.right-rectangle,
+.bottom-rectangle,
+.left-rectangle,
+.bottom-left-rectangle,
+.bottom-right-rectangle,
+.top-right-rectangle,
+.top-left-rectangle {
+    border-radius: 10px;
+    background-color: rgb(156, 156, 154);
+    opacity: 0.7;
+    position: absolute;
+}
+
+.top-rectangle {
+    height: 50px;
+    width: 89%;
+    top: -50px;
+    left: 1%;
+}
+
+.right-rectangle {
+    width: 50px;
+    height: 89%;
+    right: -50px;
+    top: 2%;
+}
+
+.bottom-rectangle {
+    width: 89%;
+    height: 50px;
+    bottom: -50px;
+    right: 1%;
+}
+
+.left-rectangle {
+    width: 50px;
+    height: 89%;
+    left: -50px;
+    bottom: 2%;
+}
+
+.bottom-left-rectangle {
+    width: 17%;
+    height: 50px;
+    left: -50px;
+    bottom: -50px;
+}
+
+.bottom-right-rectangle {
+    width: 50px;
+    height: 20%;
+    right: -50px;
+    bottom: -50px;
+}
+
+.top-right-rectangle {
+    width: 17%;
+    height: 50px;
+    top: -50px;
+    right: -50px;
+}
+
+.top-left-rectangle {
+    width: 50px;
+    height: 20%;
+    top: -50px;
+    left: -50px;
+}
+
+.landing-page-title {
+    font-size: 70px;
+    padding-bottom: 50px;
+    /* text-shadow: -4px 3px 0 #3a50d9, -14px 7px 0 #0a0e27; */
+}
+
+.landing-page-title, .main-button {
+    font-family: 'Acme', sans-serif;
+}
+
+/* button animation source from: https://uicookies.com/css-buttons/ */
+.main-button {
+    width: 140px;
+    height: 50px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.5s;
+    background: transparent;
+    color: rgba(255, 255, 255);
+    border-color: rgba(255, 255, 255);
+  }
+  
+  
+  .main-button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .main-button span:after {
+    content: '»';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .main-button:hover span {
+    padding-right: 25px;
+  }
+  
+  .main-button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+  
