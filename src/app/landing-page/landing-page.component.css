@@ -1,17 +1,17 @@
-.background {
+/* img source: https://unsplash.com/s/photos/vietnam-sunset */
+/* .background {
     height: 100vh;
     width: 100%;
     background: linear-gradient(
-        rgba(0, 0, 0, 0.5),
+        rgba(24, 21, 21, 0.5),
         rgba(0, 0, 0, 0.5)
       ), url('../../assets/images/vietnam.jpg') no-repeat;
-    /* img source: https://unsplash.com/s/photos/vietnam-sunset */
     background-size: cover;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
 .main-content {
     text-align: center;

@@ -1,0 +1,55 @@
+form {
+    background:rgba(0,0,0,0.5);
+    width: 450px;
+    height: 400px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px groove;
+}
+
+.hrLine {
+    width: 100%;
+}
+
+label:first-of-type{
+    margin-top: 15px;
+}
+
+label,
+.signInTitle,
+#username,
+#password,
+#signInSubmit {
+    font-family: 'Poppins', sans-serif;
+}
+
+#username, #password, #signInSubmit {
+    width: 300px;
+    height: 30px;
+}
+
+#username, 
+#password, 
+#signInSubmit {
+    font-size: 17px;
+    border-radius: 5px;
+}
+
+label {
+    padding-right: 200px;
+    font-size: 18px;
+}
+
+.signInTitle {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#signInSubmit {
+    color: white;
+    background-color: green;
+    border: none;
+}
