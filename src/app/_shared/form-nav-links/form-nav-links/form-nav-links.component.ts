@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-form-nav-links',
@@ -6,10 +7,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./form-nav-links.component.css']
 })
 export class FormNavLinksComponent implements OnInit {
+  isLogInPage: boolean;
+  currentRoute: ActivatedRoute;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private route: ActivatedRoute) {
+    this.currentRoute = route;
   }
 
+  ngOnInit(): void {
+    if (this.currentRoute.snapshot.url[0].path === 'log-in') {
+      this.isLogInPage = true;
+    } else if (this.currentRoute.snapshot.url[0].path === 'sign-up') {
+      this.isLogInPage = false;
+    }
+  }
+
+  onSwitchMode() {
+    if (this.currentRoute.snapshot.url[0].path === 'log-in') {
+      this.isLogInPage = true;
+    } else if (this.currentRoute.snapshot.url[0].path === 'sign-up') {
+      this.isLogInPage = false;
+    }
+  }
 }

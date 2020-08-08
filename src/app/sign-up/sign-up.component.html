@@ -3,28 +3,29 @@
         <hr class="hrLine">
         <h1 class="signUpTitle">Welcome! Create an Account.</h1>
         <hr class="hrLine">
-        <label for="newUsername">Enter a Username</label><br>
+        <label for="signUpEmail">Enter your Email</label>
+        <input 
+            type="email" 
+            id="signUpEmail" 
+            placeholder=" email...">
+        <br>
+        <label for="newUsername">Enter a Username</label>
         <input 
             type="text" 
             id="newUsername" 
-            placeholder="username..."
-            formControlName="username">
+            placeholder=" username...">
         <br>
         <label for="newPassword">Enter a Password</label>
-        <br>
         <input 
-            type="text" 
+            type="password" 
             id="newPassword" 
-            placeholder="password..."
-            formControlName="newPassword">
-            <br>
-        <label for="newPassword">Re-enter Password</label>
+            placeholder=" password...">
         <br>
+        <label for="reenterPassword">Re-enter Password</label>
         <input 
-            type="text" 
-            id="newPassword" 
-            placeholder="password..."
-            formControlName="newPassword">
+            type="password" 
+            id="reenterPassword" 
+            placeholder=" password...">
         <br><br>
         <input type="submit" id="signUpSubmit" value="Register">
         <br>
