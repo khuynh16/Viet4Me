@@ -1,0 +1,50 @@
+form {
+    background:rgba(0,0,0,0.5);
+    width: 450px;
+    height: 500px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px groove;
+}
+
+.hrLine {
+    width: 100%;
+}
+
+label:first-of-type{
+    margin-top: 15px;
+}
+
+#newUsername, 
+#newPassword, 
+#signUpSubmit,
+label {
+    width: 300px;
+    height: 30px;
+}
+
+#newUsername, 
+#newPassword, 
+#signUpSubmit {
+    font-size: 17px;
+    border-radius: 5px;
+}
+
+label {
+    font-size: 18px;
+}
+
+.signUpTitle {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#signUpSubmit {
+    color: white;
+    background-color: rgb(33, 189, 33);
+    border: none;
+    cursor: pointer;
+}

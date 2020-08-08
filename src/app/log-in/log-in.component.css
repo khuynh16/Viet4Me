@@ -18,38 +18,33 @@ label:first-of-type{
     margin-top: 15px;
 }
 
-label,
-.signInTitle,
-#username,
-#password,
-#signInSubmit {
-    font-family: 'Poppins', sans-serif;
-}
-
-#username, #password, #signInSubmit {
+#username, 
+#password, 
+#logInSubmit, 
+label {
     width: 300px;
     height: 30px;
 }
 
 #username, 
 #password, 
-#signInSubmit {
+#logInSubmit {
     font-size: 17px;
     border-radius: 5px;
 }
 
 label {
-    padding-right: 200px;
     font-size: 18px;
 }
 
-.signInTitle {
+.logInTitle {
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
-#signInSubmit {
+#logInSubmit {
     color: white;
-    background-color: green;
+    background-color: rgb(33, 189, 33);
     border: none;
+    cursor: pointer;
 }

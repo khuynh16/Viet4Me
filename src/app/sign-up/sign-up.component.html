@@ -1,1 +1,33 @@
-<p>sign-up works!</p>
+<div class="background fit-full-screen whiteText align-horizontal-vertical">
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <hr class="hrLine">
+        <h1 class="signUpTitle">Welcome! Create an Account.</h1>
+        <hr class="hrLine">
+        <label for="newUsername">Enter a Username</label><br>
+        <input 
+            type="text" 
+            id="newUsername" 
+            placeholder="username..."
+            formControlName="username">
+        <br>
+        <label for="newPassword">Enter a Password</label>
+        <br>
+        <input 
+            type="text" 
+            id="newPassword" 
+            placeholder="password..."
+            formControlName="newPassword">
+            <br>
+        <label for="newPassword">Re-enter Password</label>
+        <br>
+        <input 
+            type="text" 
+            id="newPassword" 
+            placeholder="password..."
+            formControlName="newPassword">
+        <br><br>
+        <input type="submit" id="signUpSubmit" value="Register">
+        <br>
+        <app-form-nav-links></app-form-nav-links>
+    </form>
+</div>

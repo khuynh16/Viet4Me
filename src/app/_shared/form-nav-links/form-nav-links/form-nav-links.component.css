@@ -1,0 +1,24 @@
+.form-nav-links,
+.form-nav-links a {
+    color: white;
+}
+
+.form-nav-links a:hover {
+    background-color: rgb(129, 125, 125);
+    border-radius: 5px;
+    color: black;
+}
+
+.form-nav-links {
+    position: relative;
+}
+
+.form-nav-links a {
+    padding-left: 10px;
+    padding-right: 10px;
+    text-decoration: none;
+    height: 10px;
+    cursor: pointer;
+}
+
+ 
