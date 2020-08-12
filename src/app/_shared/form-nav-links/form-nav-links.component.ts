@@ -15,11 +15,7 @@ export class FormNavLinksComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.currentRoute.snapshot.url[0].path === 'log-in') {
-      this.isLogInPage = true;
-    } else if (this.currentRoute.snapshot.url[0].path === 'sign-up') {
-      this.isLogInPage = false;
-    }
+    this.onSwitchMode();
   }
 
   onSwitchMode() {

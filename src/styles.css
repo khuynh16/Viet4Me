@@ -20,6 +20,12 @@
     width: 100%;
 }
 
+/* assumes angular nav to be 64 px height */
+.fit-full-screen-with-nav {
+  height: calc(100vh - 64px);
+  width: 100%;
+}
+
 .bg-blur {
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
@@ -40,6 +46,11 @@
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+}
+
+.mat-toolbar {
+  background: #4387c1;
+  color: white;
 }
 
 @media (min-width: 768px) {
