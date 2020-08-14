@@ -16,7 +16,7 @@
             id="logInPassword" 
             placeholder=" password...">
         <br><br>
-        <input type="submit" id="logInSubmit" value="Submit">
+        <input type="submit" id="logInSubmit" value="Submit" [disabled]="!logInForm.valid">
         <br>
         <app-form-nav-links></app-form-nav-links>
     </form>

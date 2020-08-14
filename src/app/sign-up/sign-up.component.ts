@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -7,19 +8,64 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
+  toBeRegistered = false;
+	submitted = false;
   signUpForm: FormGroup;
+  invalidPassDesc: string;
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder,
+              private router: Router) { }
 
   ngOnInit(): void {
-    this.signUpForm = new FormGroup({
-      'username': new FormControl(null, Validators.required),
-      'password': new FormControl(null, Validators.required)
+    this.signUpForm = this.formBuilder.group({
+      'signUpEmail': new FormControl(null, Validators.required),
+      'newUsername': new FormControl(null, Validators.required),
+      'newPassword': new FormControl(null, Validators.required),
+      'reenterPassword': new FormControl(null, Validators.required)
     })
   }
 
-  onSubmit() {
-    console.log(this.signUpForm.value);
+  invalidEmail()
+  {
+  	return (this.submitted && this.signUpForm.controls.signUpEmail.errors !== null);
+  }
+
+  invalidUsername()
+  {
+  	return (this.submitted && this.signUpForm.controls.newUsername.errors !== null);
+  }
+
+  invalidPassword()
+  {
+  	return (this.submitted && this.signUpForm.controls.newPassword.errors !== null);
+  }
+
+  invalidRePassword()
+  {
+  	return (this.submitted && this.signUpForm.controls.reenterPassword.errors !== null);
+  }
+
+  doPasswordsMatch(form) {
+    return (form.value.newPassword === form.value.reenterPassword);
+  }
+
+  onSubmit(form) {
+    this.submitted = true;
+    console.log(form.value.newUsername);
+    console.log('do passwords match? :'+ this.doPasswordsMatch(form));
+    console.log('invalid password? :' + this.invalidPassword());
+    
+
+  	if(this.signUpForm.invalid === true)
+  	{
+  		return;
+  	}
+  	else
+  	{
+      // this.submitted = false;
+      this.toBeRegistered = true;
+      this.router.navigate(['/home']);
+  	}
   }
 
 }

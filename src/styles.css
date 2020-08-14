@@ -53,6 +53,28 @@
   color: white;
 }
 
+.has-error input {
+  border-color: red;
+}
+
+.has-error p {
+  float: right;
+}
+
+.has-error p,
+.has-error label {
+  color: red;
+}
+
+/* .has-error p {
+  
+} */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
 @media (min-width: 768px) {
   .container {
     width: 750px;

@@ -12,11 +12,21 @@
 }
 
 .logo {
+    padding-left: 10px;
     padding-right: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 30px;
+    border: 2px solid lightgrey;
 }
 
 /* Style the active class, and buttons on mouse-over */
-.active, a:hover {
+.active, a:hover, .logo:hover {
     background-color: #21639c;
     color: white;
-  }
+}
+
+.spacer {
+    margin-left: 10px;
+    margin-right: 10px;
+}
