@@ -46,6 +46,9 @@
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .mat-toolbar {
@@ -67,8 +70,12 @@
 }
 
 /* .has-error p {
-  
+
 } */
+
+.eighty_percent_height {
+  height: 80%;
+}
 
 .form-group {
   display: flex;
@@ -90,3 +97,6 @@
     width: 1170px;
   }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

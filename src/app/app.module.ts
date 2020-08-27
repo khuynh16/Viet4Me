@@ -4,16 +4,19 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { LogInComponent } from './log-in/log-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { LogInComponent } from './auth/log-in/log-in.component';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { UseAsGuestComponent } from './use-as-guest/use-as-guest.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { FormNavLinksComponent } from './_shared/form-nav-links/form-nav-links.component';
-import { HeaderComponent } from './_shared/header/header.component';
+import { FormNavLinksComponent } from './auth/form-nav-links/form-nav-links.component';
+import { HeaderComponent } from './header/header.component';
+import { PostsCreateComponent } from './posts/posts-create/posts-create.component';
 
 
 
@@ -26,7 +29,8 @@ import { HeaderComponent } from './_shared/header/header.component';
     UseAsGuestComponent,
     HomePageComponent,
     FormNavLinksComponent,
-    HeaderComponent
+    HeaderComponent,
+    PostsCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,9 @@ import { HeaderComponent } from './_shared/header/header.component';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCardModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

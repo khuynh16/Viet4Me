@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { LogInComponent } from './log-in/log-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { LogInComponent } from './auth/log-in/log-in.component';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { UseAsGuestComponent } from './use-as-guest/use-as-guest.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { PostsCreateComponent } from './posts/posts-create/posts-create.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/landing-page', pathMatch: 'full' },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
   { path: 'home', component: HomePageComponent },
   { path: 'use-as-guest', component: UseAsGuestComponent },
-  
+  { path: 'add-content', component: PostsCreateComponent },
+
 ];
 
 @NgModule({

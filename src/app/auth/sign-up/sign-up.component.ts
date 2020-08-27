@@ -51,10 +51,9 @@ export class SignUpComponent implements OnInit {
 
   onSubmit(form) {
     this.submitted = true;
-    console.log(form.value.newUsername);
-    console.log('do passwords match? :'+ this.doPasswordsMatch(form));
-    console.log('invalid password? :' + this.invalidPassword());
     
+    // form values here
+    console.log(form.controls);
 
   	if(this.signUpForm.invalid === true)
   	{
@@ -62,10 +61,8 @@ export class SignUpComponent implements OnInit {
   	}
   	else
   	{
-      // this.submitted = false;
       this.toBeRegistered = true;
       this.router.navigate(['/home']);
   	}
   }
-
 }
