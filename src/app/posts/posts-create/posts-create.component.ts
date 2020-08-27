@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./posts-create.component.css']
 })
 export class PostsCreateComponent implements OnInit {
+  checked = false;
+  indeterminate = false;
+  labelPosition: 'before' | 'after' = 'after';
+  disabled = false;
 
   constructor() { }
 

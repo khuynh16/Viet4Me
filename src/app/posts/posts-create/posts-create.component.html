@@ -1,31 +1,115 @@
 <app-header></app-header>
 <div class="background">
-  <div class="container fit-full-screen-with-nav">
+  <div class="container">
     <div class="createPostContainer">
       <form class="example-form">
 
         <h2 class="postCreateTitle">Add a new word or phrase!</h2>
 
-        <div>
-          <mat-form-field class="">
-            <mat-label>English Word or Phrase</mat-label>
-            <input matInput>
-          </mat-form-field>
-        </div>
+        <mat-form-field class="">
+          <mat-label>Enter english word or phrase:</mat-label>
+          <input matInput>
+        </mat-form-field>
 
-        <div>
-          <mat-form-field class="">
-            <mat-label>Address 2</mat-label>
-            <textarea matInput></textarea>
-          </mat-form-field>
-        </div>
+        <section>
+          <button mat-stroked-button type="button">Pick Image</button>
+          <!-- <input type="file" #filePicker (change)="onImagePicked($event)"> -->
+        </section>
 
-        <div>
-          <mat-form-field class="">
-            <mat-label>Address 3</mat-label>
-            <textarea matInput></textarea>
-          </mat-form-field>
-        </div>
+        <section class="checkboxCategories">
+          <p class="checkboxTitle">Select or add categories to store input in:</p>
+          <mat-checkbox>
+            First checkbox
+          </mat-checkbox>
+          <mat-checkbox>
+            Second checkbox
+          </mat-checkbox>
+          <mat-checkbox>
+            Third checkbox
+          </mat-checkbox>
+
+          <div class="addCategoryDiv">
+            <mat-form-field class="addCategoryNameField">
+              <mat-label>Want a new category? Add one here (optional):</mat-label>
+              <input matInput class="categoryInput">
+            </mat-form-field>
+            <button mat-stroked-button type="button" id="addCategoryBtn">Add</button>
+          </div>
+        </section>
+
+        <section class="submitContentSection">
+          <button mat-stroked-button type="button" class="submitContentBtn">Submit Content</button>
+        </section>
+
+
+        <!--  -->
+
+
+        <!-- <section class="checkboxCategories">
+          <p>Select/Add Category</p>
+          <mat-checkbox>
+            First checkbox
+          </mat-checkbox>
+          <mat-checkbox>
+            Second checkbox
+          </mat-checkbox>
+        </section>
+
+
+
+        <mat-form-field class="">
+          <mat-label>Want a new Category? Add One!</mat-label>
+          <input matInput>
+        </mat-form-field>
+        <section class="checkboxCategories">
+          <p>Select/Add Category</p>
+          <mat-checkbox>
+            First checkbox
+          </mat-checkbox>
+          <mat-checkbox>
+            Second checkbox
+          </mat-checkbox>
+        </section>
+
+        <mat-form-field class="">
+          <mat-label>Want a new Category? Add One!</mat-label>
+          <input matInput>
+        </mat-form-field>
+        <section class="checkboxCategories">
+          <p>Select/Add Category</p>
+          <mat-checkbox>
+            First checkbox
+          </mat-checkbox>
+          <mat-checkbox>
+            Second checkbox
+          </mat-checkbox>
+        </section>
+
+        <mat-form-field class="">
+          <mat-label>Want a new Category? Add One!</mat-label>
+          <input matInput>
+        </mat-form-field>
+        <section class="checkboxCategories">
+          <p>Select/Add Category</p>
+          <mat-checkbox>
+            First checkbox
+          </mat-checkbox>
+          <mat-checkbox>
+            Second checkbox
+          </mat-checkbox>
+        </section>
+
+        <mat-form-field class="">
+          <mat-label>Want a new Category? Add One!</mat-label>
+          <input matInput>
+        </mat-form-field> -->
+
+
+
+
+
+
+
 
       </form>
     </div>

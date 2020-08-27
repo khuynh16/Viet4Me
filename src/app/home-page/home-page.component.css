@@ -12,3 +12,8 @@
 .welcomeName {
     font-size: 20px;
 }
+
+/* adjusts for fixed header in page */
+.background {
+  padding-top: 64px;
+}

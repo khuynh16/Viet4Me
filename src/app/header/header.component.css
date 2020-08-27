@@ -1,3 +1,18 @@
+/* mat-toolbar {
+  height: 64px;
+  position: fixed;
+  z-index: 100;
+  width: 100%  !important;
+} */
+
+.mat-toolbar {
+  background: #4387c1;
+  color: white;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
 .nav-button-group a {
     padding-left: 15px;
     padding-right: 15px;

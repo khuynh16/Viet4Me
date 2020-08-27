@@ -4,15 +4,30 @@
     margin: 0;
     box-sizing: border-box;
     font-family: 'Acme', sans-serif;
+    background-attachment: fixed;
+}
+
+html, body {
+  overflow: auto;
+  height: auto;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 /* img source: https://unsplash.com/s/photos/vietnam-sunset */
-.background {
-    background: linear-gradient(
+body {
+  background: linear-gradient(
         rgba(24, 21, 21, 0.5),
         rgba(0, 0, 0, 0.5)
-      ), url('../src/assets/images/vietnam.jpg') no-repeat;
+      ), url('../src/assets/images/vietnam.jpg'), no-repeat;
     background-size: cover;
+  background-attachment: fixed;
+}
+
+.compensatedFixedHeader {
+  margin-top: 64px;
 }
 
 .fit-full-screen {
@@ -44,16 +59,13 @@
 .container {
   padding-right: 15px;
   padding-left: 15px;
+  padding-top: 30px;
+  padding-bottom: 30px;
   margin-right: auto;
   margin-left: auto;
-  display: flex;
+  display: block;
   justify-content: center;
-  align-items: center;
-}
-
-.mat-toolbar {
-  background: #4387c1;
-  color: white;
+  /* align-items: center; */
 }
 
 .has-error input {
@@ -98,5 +110,9 @@
   }
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.belowHeaderSpacing {
+  margin-top: 64px;
+  width: 100%;
+}

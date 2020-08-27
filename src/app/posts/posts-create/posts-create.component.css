@@ -1,18 +1,28 @@
-mat-card {
-  height: 80%;
-}
-
 mat-label {
   color: white;
 }
 
-.createPostContainer {
-  height: 80%;
+.background {
+  padding-top: 64px;
+}
+
+form {
   width: 80%;
+}
+
+section {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.createPostContainer {
+  width: 85%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
   border: 1px solid white;
   display: flex;
   justify-content: center;
-  align-items: center;
   color: white;
   background: rgba(0,0,0,0.5);
 }
@@ -21,6 +31,55 @@ mat-label {
   background-color: white !important;
 }
 
+::ng-deep.mat-checkbox-frame {
+  border-color: white !important;
+}
+
 .postCreateTitle {
   padding-bottom: 20px;
+  padding-top: 20px;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.mat-stroked-button {
+  border-color: white;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.checkboxCategories {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkboxTitle {
+  padding-bottom: 10px;
+}
+
+.addCategoryDiv {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.addCategoryNameField {
+  width: 80%;
+}
+
+#addCategoryBtn {
+  background-color: rgb(76, 175, 80);
+  width: 15%;
+  height: 100%;
+}
+
+.submitContentSection {
+  text-align: center;
+}
+
+.submitContentBtn {
+  background-color: rgb(76, 175, 80);
 }
