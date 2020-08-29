@@ -8,6 +8,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,8 +21,6 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { FormNavLinksComponent } from './auth/form-nav-links/form-nav-links.component';
 import { HeaderComponent } from './header/header.component';
 import { PostsCreateComponent } from './posts/posts-create/posts-create.component';
-
-
 
 @NgModule({
   declarations: [
@@ -45,7 +45,9 @@ import { PostsCreateComponent } from './posts/posts-create/posts-create.componen
     MatCardModule,
     MatInputModule,
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatExpansionModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

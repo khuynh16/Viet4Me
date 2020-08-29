@@ -2,7 +2,7 @@ mat-label {
   color: white;
 }
 
-.background {
+.adjustBackgroundBecauseHeader {
   padding-top: 64px;
 }
 
@@ -15,7 +15,7 @@ section {
   padding-bottom: 20px;
 }
 
-.createPostContainer {
+.innerContainer {
   width: 85%;
   height: auto;
   margin-left: auto;
