@@ -1,0 +1,19 @@
+<mat-accordion multi="true">
+  <mat-expansion-panel
+    (opened)="filterPanelOpenState = true"
+    (closed)="filterPanelOpenState = false"
+    class="filterPanel">
+    <mat-expansion-panel-header class="filterExpHeader" collapsedHeight="*" expandedHeight="*">
+      <mat-panel-title class="filtersTitle">
+        {{filterPanelOpenState ? '↓  Adjust settings below to display specific criteria.  ↓' : 'Filters'}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="filtersContainer">
+      <app-categories></app-categories>
+      <app-eng-or-viet></app-eng-or-viet>
+      <app-search-bar></app-search-bar>
+    </div>
+
+  </mat-expansion-panel>
+</mat-accordion>

@@ -1,19 +1,7 @@
 <app-header></app-header>
 <div class="adjustBackgroundBecauseHeader">
 
-  <mat-accordion multi="true">
-    <mat-expansion-panel
-      (opened)="filterPanelOpenState = true"
-      (closed)="filterPanelOpenState = false"
-      class="filterPanel">
-      <mat-expansion-panel-header class="filterExpHeader" collapsedHeight="*" expandedHeight="*">
-        <mat-panel-title class="filtersTitle">
-          {{filterPanelOpenState ? '↓  Adjust settings below to display specific criteria  ↓' : 'Filters'}}
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <p>Filters:</p>
-    </mat-expansion-panel>
-  </mat-accordion>
+  <app-filters></app-filters>
 
   <div class="container">
     <div class="innerContainer">

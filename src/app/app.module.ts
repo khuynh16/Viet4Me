@@ -21,6 +21,10 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { FormNavLinksComponent } from './auth/form-nav-links/form-nav-links.component';
 import { HeaderComponent } from './header/header.component';
 import { PostsCreateComponent } from './posts/posts-create/posts-create.component';
+import { CategoriesComponent } from './home-page/filters/categories/categories.component';
+import { EngOrVietComponent } from './home-page/filters/eng-or-viet/eng-or-viet.component';
+import { SearchBarComponent } from './home-page/filters/search-bar/search-bar.component';
+import { FiltersComponent } from './home-page/filters/filters.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,11 @@ import { PostsCreateComponent } from './posts/posts-create/posts-create.componen
     HomePageComponent,
     FormNavLinksComponent,
     HeaderComponent,
-    PostsCreateComponent
+    PostsCreateComponent,
+    CategoriesComponent,
+    EngOrVietComponent,
+    SearchBarComponent,
+    FiltersComponent
   ],
   imports: [
     BrowserModule,

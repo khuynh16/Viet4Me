@@ -1,0 +1,54 @@
+.mat-accordion {
+  width: 100%;
+}
+
+mat-expansion-panel mat-expansion-panel-header {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  height: auto !important;
+}
+
+/* style defined to only the component instances which are defined inside an
+   element which has class=".filterPanel" */
+   :host::ng-deep .filterPanel  {
+    border-radius: 0 !important;
+    background: rgb(255,255,255);
+    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 0%, rgba(28,58,83,1) 5%, rgba(67,135,193,1) 88%);
+}
+
+:host::ng-deep .filterPanel .mat-expansion-indicator::after {
+  color: white;
+}
+
+:host::ng-deep .filterPanel .mat-expansion-panel-body {
+  background: white;
+  padding-top: 16px;
+}
+
+.filterExpHeader {
+  padding-top: 5px !important;
+  padding-bottom: 10px !important;
+}
+
+.filtersTitle {
+  display: flex;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: white;
+}
+
+.filtersTitle mat-expansion {
+  text-align: center;
+}
+
+.filtersContainer {
+  display: flex;
+  border: 1px solid black;
+}
+
+.filtersContainer > * {
+  flex: auto;
+  border: 1px solid blue;
+}
