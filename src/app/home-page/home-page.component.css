@@ -3,27 +3,5 @@
   padding-top: 64px;
 }
 
-.innerContainer {
-  width: 95%;
-  height: auto;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: white;
-}
 
-.mat-accordion {
-  width: 100%;
-}
 
-mat-expansion-panel mat-expansion-panel-header {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  height: auto !important;
-}
-
-.categoriesParagraph {
-  padding-top: 5px;
-}

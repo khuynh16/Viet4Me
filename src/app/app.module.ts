@@ -12,6 +12,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +28,7 @@ import { CategoriesComponent } from './home-page/filters/categories/categories.c
 import { EngOrVietComponent } from './home-page/filters/eng-or-viet/eng-or-viet.component';
 import { SearchBarComponent } from './home-page/filters/search-bar/search-bar.component';
 import { FiltersComponent } from './home-page/filters/filters.component';
+import { PostsListComponent } from './posts/posts-list/posts-list.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { FiltersComponent } from './home-page/filters/filters.component';
     CategoriesComponent,
     EngOrVietComponent,
     SearchBarComponent,
-    FiltersComponent
+    FiltersComponent,
+    PostsListComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ import { FiltersComponent } from './home-page/filters/filters.component';
     MatExpansionModule,
     MatSnackBarModule,
     MatRadioModule,
-    MatIconModule
+    MatIconModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

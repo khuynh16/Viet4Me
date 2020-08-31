@@ -8,6 +8,7 @@ section {
   font-family: 'Poppins', sans-serif;
   white-space: normal;
   line-height: 0.5cm;
+  padding-top: 5px;
 }
 
 .margin {
@@ -35,4 +36,19 @@ li {
   border-bottom: 20px solid transparent;
 }
 
+:host::ng-deep .mat-paginator-page-size {
+  display: none;
+}
+
+:host::ng-deep .mat-paginator-container {
+  background-color: lightgrey;
+}
+
+.categoryHr {
+  margin-top: 5px;
+}
+
+:host::ng-deep .mat-paginator-range-label {
+  color: black;
+}
 
