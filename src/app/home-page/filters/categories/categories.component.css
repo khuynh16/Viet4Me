@@ -1,8 +1,12 @@
-.example-section {
+section {
   margin: 12px 0;
 }
 
-.example-margin {
+:host::ng-deep .mat-checkbox-layout .mat-checkbox-label {
+  font-family: 'Poppins', sans-serif;
+}
+
+.margin {
   margin: 0 12px;
 }
 
@@ -14,3 +18,4 @@ ul {
 li {
   padding-left: 20px;
 }
+

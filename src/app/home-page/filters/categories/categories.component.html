@@ -1,13 +1,13 @@
-<section class="example-section">
-  <span class="example-list-section">
-    <mat-checkbox class="example-margin"
+<section>
+  <span class="">
+    <mat-checkbox class="margin"
                   [checked]="allComplete"
                   [indeterminate]="someComplete()"
                   (change)="setAll($event.checked)">
       {{categoryFilter.name}}
     </mat-checkbox>
   </span>
-  <span class="example-list-section">
+  <span class="">
     <ul>
       <li *ngFor="let subtask of categoryFilter.categories">
         <mat-checkbox [(ngModel)]="subtask.completed"
