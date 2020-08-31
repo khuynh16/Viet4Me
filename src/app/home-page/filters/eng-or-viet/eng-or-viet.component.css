@@ -8,7 +8,15 @@ section p {
 }
 
 section {
-  margin: 12px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: lightgray;
+  border-left: 12px solid rgb(56, 56, 56);
+  border-right: 12px solid rgb(56, 56, 56);
+  position: relative;
 }
 
 section p {
@@ -19,4 +27,15 @@ section p {
 .categoryRadioGroup {
   display: flex;
   justify-content: center;
+}
+
+.triangle-right-corner {
+  position: absolute;
+	width: 0;
+  height: 0;
+  top: 5px;
+  right: 5px;
+	border-left: 20px solid transparent;
+  border-right: 20px solid #4387c1;
+  border-bottom: 20px solid transparent;
 }

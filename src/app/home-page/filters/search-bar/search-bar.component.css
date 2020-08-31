@@ -1,0 +1,28 @@
+.example-form-field {
+  width: 200px;
+}
+
+section {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: lightgray;
+}
+
+mat-label,
+.cdk-text-field-autofill-monitored:not(:-webkit-autofill) {
+  font-family: 'Poppins', sans-serif;
+}
+
+.triangle-right-corner {
+  position: absolute;
+	width: 0;
+  height: 0;
+  top: 5px;
+  right: 5px;
+	border-left: 20px solid transparent;
+  border-right: 20px solid #4387c1;
+  border-bottom: 20px solid transparent;
+}

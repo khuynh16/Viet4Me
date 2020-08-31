@@ -1,9 +1,13 @@
 section {
-  margin: 12px 0;
+  background-color: lightgray;
+  height: 100%;
+  position: relative;
 }
 
 :host::ng-deep .mat-checkbox-layout .mat-checkbox-label {
   font-family: 'Poppins', sans-serif;
+  white-space: normal;
+  line-height: 0.5cm;
 }
 
 .margin {
@@ -18,4 +22,16 @@ ul {
 li {
   padding-left: 20px;
 }
+
+.triangle-right-corner {
+  position: absolute;
+	width: 0;
+  height: 0;
+  top: 5px;
+  right: 5px;
+	border-left: 20px solid transparent;
+  border-right: 20px solid #4387c1;
+  border-bottom: 20px solid transparent;
+}
+
 
