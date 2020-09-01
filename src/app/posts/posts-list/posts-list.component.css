@@ -1,5 +1,8 @@
-:host {
-  font-family: 'Poppins', 'Acme';
+.content,
+.languageStatus,
+.categoriesParagraph,
+:host::ng-deep .mat-button-wrapper {
+  font-family: 'Be Vietnam', sans-serif !important;
 }
 
 .innerContainer {
@@ -27,6 +30,7 @@ mat-expansion-panel {
   background: rgba(0,0,0,0.7);
   color: white;
   border: 1px solid #4387C1;
+  font-family: 'Be Vietnam', sans-serif !important;
 }
 
 :host::ng-deep .mat-expansion-panel-body {
@@ -42,6 +46,8 @@ mat-expansion-panel {
 }
 
 .languageStatus {
+  display: flex;
+  align-items: center;
   float: left !important;
   color: white;
 }
@@ -50,8 +56,9 @@ mat-expansion-panel {
   display: flex;
   justify-content: center;
   flex: 1;
-  font-size: 20px;
+  font-size: 18px;
   color: white;
+  margin: 5px 0;
 }
 
 .post-image {
@@ -68,4 +75,8 @@ mat-expansion-panel {
 
 .mat-action-row {
   border-top-color: #4387C1;
+}
+
+.mat-button.mat-primary {
+  color: rgb(17, 201, 17);
 }

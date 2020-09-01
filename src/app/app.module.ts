@@ -25,7 +25,7 @@ import { FormNavLinksComponent } from './auth/form-nav-links/form-nav-links.comp
 import { HeaderComponent } from './header/header.component';
 import { PostsCreateComponent } from './posts/posts-create/posts-create.component';
 import { CategoriesComponent } from './home-page/filters/categories/categories.component';
-import { EngOrVietComponent } from './home-page/filters/eng-or-viet/eng-or-viet.component';
+import { RadioFilterBtnsComponent } from './home-page/filters/radio-display-btns/radio-display-btns.component';
 import { SearchBarComponent } from './home-page/filters/search-bar/search-bar.component';
 import { FiltersComponent } from './home-page/filters/filters.component';
 import { PostsListComponent } from './posts/posts-list/posts-list.component';
@@ -42,7 +42,7 @@ import { PostsListComponent } from './posts/posts-list/posts-list.component';
     HeaderComponent,
     PostsCreateComponent,
     CategoriesComponent,
-    EngOrVietComponent,
+    RadioFilterBtnsComponent,
     SearchBarComponent,
     FiltersComponent,
     PostsListComponent

@@ -11,7 +11,7 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   height: 100%;
   background-color: lightgray;
   border-left: 12px solid rgb(56, 56, 56);
@@ -21,7 +21,7 @@ section {
 
 section p {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   text-decoration: underline;
 }
 
@@ -39,4 +39,14 @@ section p {
 	border-left: 20px solid transparent;
   border-right: 20px solid #4387c1;
   border-bottom: 20px solid transparent;
+}
+
+.displayOptionsHr {
+  display: flex;
+  width: 80%;
+  margin: 10px auto;
+}
+
+.mat-radio-button .closedRadioButton {
+  margin-left: 10px;
 }

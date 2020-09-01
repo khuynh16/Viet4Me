@@ -21,20 +21,24 @@
         </mat-expansion-panel>
 
         <mat-expansion-panel>
-          <mat-expansion-panel-header>
+          <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
             <mat-panel-title>
-              This is the expansion title 2
+              <span class="languageStatus">[ENG]</span><span class="content">Hello, nice to meet you!</span>
             </mat-panel-title>
-            <mat-panel-description>
-              This is a summary of the content 2
-            </mat-panel-description>
           </mat-expansion-panel-header>
-          <p>This is the primary content of the panel 2.</p>
+          <mat-panel-title>
+            <span class="languageStatus">[VIET]</span><span class="content">Xin chào, rất vui được gặp bạn!</span>
+          </mat-panel-title>
+          <div class="post-image">
+            <img src="/assets/images/viet_us_flags.jpg" alt="flag">
+          </div>
+          <p class="categoriesParagraph">Categories: Casual talk</p>
           <mat-action-row>
             <button mat-button color="primary">EDIT</button>
             <button mat-button color="warn">DELETE</button>
           </mat-action-row>
         </mat-expansion-panel>
+
       </mat-accordion>
   </div>
 </div>

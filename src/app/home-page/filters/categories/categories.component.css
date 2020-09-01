@@ -50,5 +50,6 @@ li {
 
 :host::ng-deep .mat-paginator-range-label {
   color: black;
+  font-family: 'Poppins', sans-serif;
 }
 
