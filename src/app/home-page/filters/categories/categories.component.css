@@ -53,3 +53,9 @@ li {
   font-family: 'Poppins', sans-serif;
 }
 
+.info-text {
+  text-align: center;
+  font-family: 'poppins', 'acme';
+  padding: 5px 0;
+}
+

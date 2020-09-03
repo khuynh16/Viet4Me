@@ -8,8 +8,8 @@
     </mat-checkbox>
   </span>
   <span class="">
-    <ul>
-      <li *ngFor="let subtask of categoryFilter.categories">
+    <ul *ngIf="categoryFilter.categories.length > 0">
+      <li *ngFor="let subtask of categoryFilter.categories" >
         <mat-checkbox [(ngModel)]="subtask.completed"
                       [color]="subtask.color"
                       (ngModelChange)="updateAllComplete()">
@@ -17,6 +17,7 @@
         </mat-checkbox>
       </li>
     </ul>
+    <p class="info-text" *ngIf="categoryFilter.categories.length <= 0">No categories added yet!</p>
   </span>
   <div class="triangle-right-corner"></div>
   <hr class="categoryHr">

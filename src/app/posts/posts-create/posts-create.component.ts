@@ -16,8 +16,7 @@ export class PostsCreateComponent implements OnInit {
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
 
-  translatedInEng: string;
-  translatedInViet: string;
+  categories: string[] = [];
 
   constructor(public postsService: PostsService, private google: GoogleTranslateService) { }
 
@@ -25,34 +24,23 @@ export class PostsCreateComponent implements OnInit {
 
   }
 
+  // probably need a categoryupdatelistener (subscription) to keep track of category array
+  onAddCategory(categoryName: string) {
+    if (categoryName === '') {
+      return;
+    }
+      this.categories.push(categoryName);
+  }
+
   onAddPost(form: NgForm) {
     if (form.invalid) {
       return;
     }
 
-    this.translatedInEng = form.value.engTranslation;
-
-    // object that stores current english word/phrase to translate to vietnamese,
-    // and a 'target' variable that sends to Google API to translate into vietnamese
-    const googleObj: GoogleObj = {
-      q: form.value.engTranslation,
-      target: 'vi'
-    };
-
-    // api translates and calls addPost method in service
-    this.google.translate(googleObj)
-      .subscribe(
-        (res: any) => {
-          this.translatedInViet = res.data.translations[0].translatedText;
-          this.postsService.addPost(
-            this.translatedInEng,
-            this.translatedInViet,
-            ['good talk', 'animals']);
-        },
-        err => {
-          console.log(err);
-        }
-      );
+    this.postsService.addPost(
+              form.value.engTranslation,
+              'viet translation here!',
+              ['good talk', 'animals']);
 
     // console.log(this.translatedInViet);
     form.resetForm();

@@ -64,6 +64,7 @@ section {
   justify-content: space-between;
   width: 100%;
   align-items: center;
+  padding-top: 10px;
 }
 
 .addCategoryNameField {
@@ -82,4 +83,9 @@ section {
 
 .submitContentBtn {
   background-color: rgb(76, 175, 80);
+}
+
+.info-text {
+  text-align: center;
+  padding-top: 10px;
 }

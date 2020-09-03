@@ -18,13 +18,13 @@ export class CategoriesComponent implements OnInit {
     name: 'Categories',
     completed: false,
     color: 'primary',
-    categories: [
-      {name: 'Questions', completed: false, color: 'primary'},
-      {name: 'Casual talk', completed: false, color: 'primary'},
-      {name: 'Funny remarks about life and it is cool', completed: false, color: 'primary'},
-      {name: 'Animals', completed: false, color: 'primary'}
-    ]
+    categories: []
   };
+
+  //     {name: 'Questions', completed: false, color: 'primary'},
+  //     {name: 'Casual talk', completed: false, color: 'primary'},
+  //     {name: 'Funny remarks about life and it is cool', completed: false, color: 'primary'},
+  //     {name: 'Animals', completed: false, color: 'primary'}
 
   constructor() { }
 

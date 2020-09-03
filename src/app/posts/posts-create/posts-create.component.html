@@ -22,23 +22,23 @@
         </section>
 
         <section class="checkboxCategories">
-          <p class="checkboxTitle">Select or add categories to store input in:</p>
-          <mat-checkbox>
-            First checkbox
+          <p class="checkboxTitle">Select or add categories to store input in (optional):</p>
+          <mat-checkbox *ngFor="let category of categories">
+            {{ category }}
           </mat-checkbox>
-          <mat-checkbox>
-            Second checkbox
-          </mat-checkbox>
-          <mat-checkbox>
-            Third checkbox
-          </mat-checkbox>
+          <p class="info-text" *ngIf="categories.length <= 0">[No categories added yet, add one below!]</p>
 
           <div class="addCategoryDiv">
             <mat-form-field class="addCategoryNameField">
               <mat-label>Want a new category? Add one here (optional):</mat-label>
-              <input matInput class="categoryInput">
+              <input
+                matInput
+                class="categoryInput"
+                name="newCategory"
+                ngModel
+                #newCategory="ngModel">
             </mat-form-field>
-            <button mat-stroked-button type="button" id="addCategoryBtn">Add</button>
+            <button mat-stroked-button type="button" id="addCategoryBtn" (click)="onAddCategory(newCategory.value)">Add</button>
           </div>
         </section>
 
