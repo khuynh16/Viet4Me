@@ -32,17 +32,17 @@ export class PostsCreateComponent implements OnInit {
 
     this.translatedInEng = form.value.engTranslation;
 
-    // translation stuff here
+    // object that stores current english word/phrase to translate to vietnamese,
+    // and a 'target' variable that sends to Google API to translate into vietnamese
     const googleObj: GoogleObj = {
       q: form.value.engTranslation,
       target: 'vi'
     };
 
+    // api translates and calls addPost method in service
     this.google.translate(googleObj)
       .subscribe(
         (res: any) => {
-          console.log(res.data.translations[0].translatedText)
-          console.log('this is current eng context: ' + this.translatedInEng);
           this.translatedInViet = res.data.translations[0].translatedText;
           this.postsService.addPost(
             this.translatedInEng,
