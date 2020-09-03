@@ -80,3 +80,7 @@ mat-expansion-panel {
 .mat-button.mat-primary {
   color: rgb(17, 201, 17);
 }
+
+.info-text {
+  text-align: center;
+}

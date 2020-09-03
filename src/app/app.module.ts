@@ -13,6 +13,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -63,7 +64,8 @@ import { PostsListComponent } from './posts/posts-list/posts-list.component';
     MatSnackBarModule,
     MatRadioModule,
     MatIconModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

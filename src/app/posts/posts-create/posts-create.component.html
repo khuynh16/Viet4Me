@@ -2,13 +2,18 @@
 <div class="adjustBackgroundBecauseHeader">
   <div class="container">
     <div class="innerContainer">
-      <form class="postCreateForm">
-
+      <form class="postCreateForm" (submit)="onAddPost(postForm)" #postForm="ngForm">
         <h2 class="postCreateTitle">Add a new word or phrase to be translated!</h2>
 
         <mat-form-field class="">
           <mat-label>Enter english word or phrase:</mat-label>
-          <input matInput>
+          <input
+            matInput
+            type="text"
+            name="engTranslation"
+            ngModel
+            required
+            #engTranslation="ngModel">
         </mat-form-field>
 
         <section>
@@ -38,7 +43,7 @@
         </section>
 
         <section class="submitContentSection">
-          <button mat-stroked-button type="button" class="submitContentBtn">Submit Content</button>
+          <button mat-stroked-button type="submit" class="submitContentBtn">Submit Content</button>
         </section>
 
         <!--  -->

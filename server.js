@@ -60,4 +60,6 @@ const server = http.createServer(app);
 // and one for listening via onListening
 server.on("error", onError);
 server.on("listening", onListening);
+
+// creates listener on specified port/path
 server.listen(port);
