@@ -1,5 +1,6 @@
 export interface Post {
-  engTranslation: String;
-  vietTranslation: String;
-  categories: String[];
+  id: string;
+  engTranslation: string;
+  vietTranslation: string;
+  categories: string[];
 }

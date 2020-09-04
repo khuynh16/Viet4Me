@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm} from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { PostsService } from '../posts.service';
 import { GoogleObj } from '../../google-translate/translate.model';
@@ -10,26 +11,32 @@ import { GoogleTranslateService } from '../../google-translate/google-translate.
   templateUrl: './posts-create.component.html',
   styleUrls: ['./posts-create.component.css']
 })
-export class PostsCreateComponent implements OnInit {
+export class PostsCreateComponent implements OnInit, OnDestroy {
   checked = false;
   indeterminate = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
 
   categories: string[] = [];
+  private categoriesSub: Subscription;
 
   constructor(public postsService: PostsService, private google: GoogleTranslateService) { }
 
   ngOnInit(): void {
+    this.categories = this.postsService.getCategories();
+    this.categoriesSub = this.postsService.getCategoryUpdateListener()
+      .subscribe((categories: string[]) => {
+        this.categories = categories;
+      });
+    console.log('categories: ' + this.categories);
 
   }
 
-  // probably need a categoryupdatelistener (subscription) to keep track of category array
   onAddCategory(categoryName: string) {
     if (categoryName === '') {
       return;
     }
-      this.categories.push(categoryName);
+    this.postsService.addCategory(categoryName, this.categories);
   }
 
   onAddPost(form: NgForm) {
@@ -40,9 +47,13 @@ export class PostsCreateComponent implements OnInit {
     this.postsService.addPost(
               form.value.engTranslation,
               'viet translation here!',
-              ['good talk', 'animals']);
+              this.categories);
 
-    // console.log(this.translatedInViet);
     form.resetForm();
   }
+
+  ngOnDestroy() {
+    this.categoriesSub.unsubscribe();
+  }
 }
+
