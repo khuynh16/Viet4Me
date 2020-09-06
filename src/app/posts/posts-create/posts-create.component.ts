@@ -26,6 +26,7 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
   private mode = 'create';
   private postId: string;
   post: Post;
+  isChecked = true;
   isLoading = false;
 
   constructor(public postsService: PostsService,
@@ -55,14 +56,14 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
       }
     });
 
-
     // below is category stuff; to deal with later
-    this.categories = this.postsService.getCategories();
+    this.postsService.getCategories();
     this.categoriesSub = this.postsService.getCategoryUpdateListener()
       .subscribe((categories: string[]) => {
         this.categories = categories;
+        console.log(this.categories);
       });
-    console.log('categories: ' + this.categories);
+
   }
 
   onAddCategory(categoryName: string) {

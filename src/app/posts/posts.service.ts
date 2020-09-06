@@ -35,8 +35,24 @@ export class PostsService {
       });
   }
 
+  /*
+  * returns all categories that have been included in user posts
+  * calls http request to retrieve post data
+  * looping through each post's categories array and adding to categories array
+  * updating global subscription so categories array can be seen everywhere in application
+  */
   getCategories() {
-    return [...this.categories];
+    this.http.get<{message: string, posts: any}>('http://localhost:3000/api/posts')
+      .subscribe(postData => {
+        for (let i = 0; i < postData.posts.length; i++) {
+          for (let j = 0; j < postData.posts[i].categories.length; j++) {
+            if (!this.categories.includes(postData.posts[i].categories[j])) {
+              this.categories.push(postData.posts[i].categories[j]);
+            }
+          }
+        }
+        this.categoriesUpdated.next([...this.categories]);
+      });
   }
 
   addPost(engTranslation: string, vietTranslation: string, categories: string[]) {
@@ -109,6 +125,7 @@ export class PostsService {
   addCategory(categoryName: string, categories: string[]) {
     this.categories.push(categoryName);
     this.categoriesUpdated.next([...this.categories]);
+    console.log('categories after adding category: ' + categories);
   }
 
   getPostUpdateListener() {

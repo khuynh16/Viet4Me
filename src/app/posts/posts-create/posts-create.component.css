@@ -13,6 +13,10 @@ mat-spinner {
   margin: auto;
 }
 
+::ng-deep.mat-checkbox-layout .mat-checkbox-label {
+  display: flex;
+}
+
 .adjustBackgroundBecauseHeader {
   padding-top: 64px;
 }
@@ -95,7 +99,25 @@ section {
   background-color: rgb(40 173 46);
 }
 
+.removeCategoryBtn {
+  margin-left: 10px;
+  width: 20px;
+  height: 25px;
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+}
+
 .info-text {
   text-align: center;
   padding: 10px 0;
+}
+
+.mat-checkbox {
+  cursor: default;
+  margin: 3px 0;
+}
+
+::ng-deep.mat-checkbox-inner-container {
+  cursor: pointer;
 }
