@@ -8,8 +8,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-// implements backend post schema to use in adding new posts to database
-const Post = require('./models/post');
+const postRoutes = require('./routes/posts');
 
 // express application to implement routing procedures
 const app = express();
@@ -44,58 +43,12 @@ app.use((req, res, next) => {
     'Origin, X-Requested-With, Content-Type, Accept'
   );
   res.setHeader('Access-Control-Allow-Methods',
-    'GET, POST, PATCH, DELETE, OPTIONS'
+    'GET, POST, PATCH, PUT, DELETE, OPTIONS'
   );
   next();
 });
 
-/*
-* adding posts to database
-* -creates a post with request values
-* -saves document into database via .save() (mongoose function)
-* -displays a message to console after successful (201 code) creation
-*/
-app.post('/api/posts', (req, res, next) => {
-  const post = new Post({
-    engTranslation: req.body.engTranslation,
-    vietTranslation: req.body.vietTranslation,
-    categories: req.body.categories
-  });
-  post.save().then(createdPost => {
-    res.status(201).json({
-      message: 'Post added successfully',
-      postId: createdPost._id
-    });
-  });
-
-});
-
-/*
-* retrieving all posts from database
-* - mongoose .find() function to retrieve posts and send back a message and posts itself
-*/
-app.get('/api/posts', (req, res, next) => {
-  Post.find()
-    .then(documents => {
-      res.status(200).json({
-        message: 'Posts fetched successfully!',
-        posts: documents
-      });
-    });
-});
-
-/*
-// dynamic passed segment (:id)
-req.params: express function that gives access to encoded
-parameters
-*/
-
-app.delete('/api/posts/:id', (req, res, next) => {
-  Post.deleteOne({ _id: req.params.id }).then(result => {
-    console.log(result);
-    res.status(200).json({ message: 'Post deleted!' });
-  })
-});
+app.use('/api/posts', postRoutes);
 
 // exporting entire express app (which includes the middlewares)
 module.exports = app;

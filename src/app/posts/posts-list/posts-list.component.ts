@@ -12,15 +12,19 @@ import { PostsService } from '../posts.service';
 export class PostsListComponent implements OnInit, OnDestroy {
 
   posts: Post[] = [];
+  isLoading = false;
   private postsSub: Subscription;
 
   constructor(public postsService: PostsService) {}
 
   ngOnInit() {
+    this.isLoading = true;
     // trigger http request when post list is loaded
     this.postsService.getPosts();
     this.postsSub = this.postsService.getPostUpdateListener()
       .subscribe((posts: Post[]) => {
+        // once we get updated posts, set spinner to false
+        this.isLoading = false;
         this.posts = posts;
         console.log('this is this.posts:');
         console.log(this.posts);

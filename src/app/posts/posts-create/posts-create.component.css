@@ -1,5 +1,16 @@
+*,
+::ng-deep.mat-button-wrapper,
+input
+ {
+  font-family: 'Be Vietnam', 'poppins';
+}
+
 mat-label {
   color: white;
+}
+
+mat-spinner {
+  margin: auto;
 }
 
 .adjustBackgroundBecauseHeader {
@@ -72,7 +83,6 @@ section {
 }
 
 #addCategoryBtn {
-  background-color: rgb(76, 175, 80);
   width: 15%;
   height: 100%;
 }
@@ -82,10 +92,10 @@ section {
 }
 
 .submitContentBtn {
-  background-color: rgb(76, 175, 80);
+  background-color: rgb(40 173 46);
 }
 
 .info-text {
   text-align: center;
-  padding-top: 10px;
+  padding: 10px 0;
 }

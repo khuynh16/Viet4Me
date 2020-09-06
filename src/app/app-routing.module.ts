@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'home', component: HomePageComponent },
   { path: 'use-as-guest', component: UseAsGuestComponent },
   { path: 'add-content', component: PostsCreateComponent },
-
+  { path: 'edit-content/:postId', component: PostsCreateComponent }
 ];
 
 @NgModule({

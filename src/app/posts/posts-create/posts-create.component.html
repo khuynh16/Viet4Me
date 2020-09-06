@@ -1,8 +1,9 @@
 <app-header></app-header>
 <div class="adjustBackgroundBecauseHeader">
   <div class="container">
-    <div class="innerContainer">
-      <form class="postCreateForm" (submit)="onAddPost(postForm)" #postForm="ngForm">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <div class="innerContainer" *ngIf="!isLoading">
+      <form class="postCreateForm" (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading">
         <h2 class="postCreateTitle">Add a new word or phrase to be translated!</h2>
 
         <mat-form-field class="">
@@ -11,7 +12,7 @@
             matInput
             type="text"
             name="engTranslation"
-            ngModel
+            [ngModel]="post?.engTranslation"
             required
             #engTranslation="ngModel">
         </mat-form-field>
@@ -26,7 +27,7 @@
           <mat-checkbox *ngFor="let category of categories">
             {{ category }}
           </mat-checkbox>
-          <p class="info-text" *ngIf="categories.length <= 0">[No categories added yet, add one below!]</p>
+          <p class="info-text" *ngIf="categories.length <= 0">[You have no categories, add one below!]</p>
 
           <div class="addCategoryDiv">
             <mat-form-field class="addCategoryNameField">

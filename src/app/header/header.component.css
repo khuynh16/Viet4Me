@@ -1,10 +1,3 @@
-/* mat-toolbar {
-  height: 64px;
-  position: fixed;
-  z-index: 100;
-  width: 100%  !important;
-} */
-
 .mat-toolbar {
   background: #4387c1;
   color: white;
@@ -24,6 +17,7 @@
 .nav-button-group {
     display: flex;
     height: 100%;
+    width: 100%;
 }
 
 .logo {
@@ -44,4 +38,8 @@
 .spacer {
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.logOutHeader {
+  margin-left: auto;
 }
