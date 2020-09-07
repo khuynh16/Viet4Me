@@ -22,14 +22,17 @@
           <!-- <input type="file" #filePicker (change)="onImagePicked($event)"> -->
         </section>
 
+        <p class="checkboxTitle">Select or add categories to store input in (optional):</p>
         <section class="checkboxCategories">
-          <p class="checkboxTitle">Select or add categories to store input in (optional):</p>
-          <mat-checkbox [checked]="isChecked" *ngFor="let category of categories">
-            <div>
-              {{ category }}
-            </div>
-            <button type="button" class="removeCategoryBtn">X</button>
-          </mat-checkbox>
+
+          <div *ngFor="let category of categories">
+            <mat-checkbox #catCheckbox [checked]="determineCheckStatus()">
+              <div>
+                {{ category }}
+              </div>
+              <!-- <button type="button" class="removeCategoryBtn">X</button> -->
+            </mat-checkbox>
+          </div>
 
           <p class="info-text" *ngIf="categories.length <= 0">[You have no categories, add one below!]</p>
 

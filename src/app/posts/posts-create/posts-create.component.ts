@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { NgForm} from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { PostsService } from '../posts.service';
 import { GoogleObj } from '../../google-translate/translate.model';
 import { GoogleTranslateService } from '../../google-translate/google-translate.service';
 import { Post } from '../post.model';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-posts-create',
@@ -26,7 +27,7 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
   private mode = 'create';
   private postId: string;
   post: Post;
-  isChecked = true;
+  isChecked: boolean;
   isLoading = false;
 
   constructor(public postsService: PostsService,
@@ -49,6 +50,8 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
             vietTranslation: postData.vietTranslation,
             categories: postData.categories
           }
+          // here, postData.categories
+          console.log('current categories are: ' + postData.categories);
         });
       } else {
         this.mode = 'create';
@@ -60,10 +63,31 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
     this.postsService.getCategories();
     this.categoriesSub = this.postsService.getCategoryUpdateListener()
       .subscribe((categories: string[]) => {
+        // need to filter and display based on if edit or creating new one
+        if (this.mode === 'create') {
+          console.log('this is create!');
+        } else {
+          console.log('this is the edit section!');
+          // need to check current categories of the selected post
+        }
+
+
         this.categories = categories;
         console.log(this.categories);
       });
 
+  }
+
+  determineCheckStatus(categoryName) {
+    if (this.mode === 'edit') {
+      // check if current category for mat checkbox
+      console.log('category name: ' + categoryName);
+      //console.log('this is edit mode in determineCheckStatus (unchecked)!');
+      return true;
+    } else {
+      //console.log('this is create mode in determineCheckStatus (checked)!');
+      return false;
+    }
   }
 
   onAddCategory(categoryName: string) {
