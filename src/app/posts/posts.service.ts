@@ -15,11 +15,15 @@ export class PostsService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  // the element in brackets to match the content
-  // in the app.js file
+  /*
+  * Retrieve posts from database.
+  * @return subject.next method call
+  */
   getPosts() {
+    // call to get method from backend
     this.http.get<{message: string, posts: any}>('http://localhost:3000/api/posts')
       .pipe(map((postData) => {
+        // changing ._id to id in posts object array
         return postData.posts.map(post => {
           return {
             id: post._id,
@@ -36,10 +40,8 @@ export class PostsService {
   }
 
   /*
-  * returns all categories that have been included in user posts
-  * calls http request to retrieve post data
-  * looping through each post's categories array and adding to categories array
-  * updating global subscription so categories array can be seen everywhere in application
+  * Returns all categories that have been included in user posts.
+  * @return subject.next method call of categories
   */
   getCategories() {
     this.http.get<{message: string, posts: any}>('http://localhost:3000/api/posts')
@@ -55,6 +57,13 @@ export class PostsService {
       });
   }
 
+  /*
+  * Adds post to database.
+  * @param engTranslation english content user wants to translate
+  * @param vietTranslation the viet translation of engTranslation (to be done via Google Translate API)
+  * @param categories array of categories that the post will be entered in
+  * @return subject.next call of posts array (with newly added post)
+  */
   addPost(engTranslation: string, vietTranslation: string, categories: string[]) {
     const post: Post = {
       id: null,
@@ -62,7 +71,6 @@ export class PostsService {
       vietTranslation: vietTranslation,
       categories: categories
     };
-
     this.http.post<{ message: string, postId: string }>("http://localhost:3000/api/posts", post)
       .subscribe(responseData => {
       const id = responseData.postId;
@@ -74,13 +82,9 @@ export class PostsService {
   }
 
   /*
-  * deletes post from database
+  * Deletes post from database.
   * @param postId the individual id belonging to a post
-  * - HTTP delete API and subscribing
-  * - creates updatedPosts and filters out post element with postId
-  *   to be deleted, and stores resulting array in variable
-  * - assign current posts variable with new variable
-  * - update subscription with newly created posts
+  * @return subject.next call of posts array (with deleted post)
   */
   deletePost(postId: string) {
     this.http.delete('http://localhost:3000/api/posts/' + postId)
@@ -92,12 +96,12 @@ export class PostsService {
   }
 
   /*
-  * updates/edits a post already in database
-  * creates post with new variable
-  * store current posts array in temp variable
-  * get index of post in posts array that will be edited
-  * replace old post with new (edited) post
-  * initialize posts array with updated posts
+  * Updates/edits a post already in database.
+  * @param id post id
+  * @param engTranslation string of the english input to be translated
+  * @param vietTranslation translation of engTranslation in vietnamese
+  * @param categories array of categories that the post is in
+  * @return a subject.next method call to update posts array
   */
   updatePost(id: string, engTranslation: string, vietTranslation: string, categories: string[]) {
     const post: Post = {
@@ -106,32 +110,63 @@ export class PostsService {
       vietTranslation: vietTranslation,
       categories: categories
     };
+    // call to backend method
     this.http.put('http://localhost:3000/api/posts/' + id, post)
       .subscribe(response => {
+        //store current posts array in temp variable
         const updatedPosts = [...this.posts];
+        //get index of post in posts array that will be edited
         const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
+        //replace old post with new (edited) post
         updatedPosts[oldPostIndex] = post;
+        //initialize posts array with updated posts
         this.posts = updatedPosts;
+        // update observable
         this.postsUpdated.next([...this.posts]);
         this.router.navigate(['/home']);
       });
-
   }
 
+  /*
+  * Get one individual post.
+  * @param id id of the post
+  * @return the one post (of type Post)
+  */
   getPost(id: string) {
-    return this.http.get<{_id: string, engTranslation: string, vietTranslation: string, categories: string[]}>('http://localhost:3000/api/posts/' + id);
+    return this.http.get<{
+      _id: string,
+      engTranslation: string,
+      vietTranslation: string,
+      categories: string[]
+    }>('http://localhost:3000/api/posts/' + id);
   }
 
+  /*
+  * Adds new inputted category to array.
+  * @param categoryName the name of category to be inserted in array
+  * @param categories array of categories
+  * @return a subject.next method call (to update observable)
+  */
   addCategory(categoryName: string, categories: string[]) {
     this.categories.push(categoryName);
+    this.categories = this.categories.sort();
     this.categoriesUpdated.next([...this.categories]);
     console.log('categories after adding category: ' + this.categories);
   }
 
+  /*
+  * Returns observable for posts to update posts to any changes/updates
+  @return observable for posts
+  */
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
   }
 
+  /*
+  * Returns observable for categories (for all posts, not individual post) to update to any
+  * changes or updates
+  * @return observable for categories
+  */
   getCategoryUpdateListener() {
     return this.categoriesUpdated.asObservable();
   }

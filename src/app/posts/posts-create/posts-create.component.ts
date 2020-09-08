@@ -7,7 +7,6 @@ import { PostsService } from '../posts.service';
 import { GoogleObj } from '../../google-translate/translate.model';
 import { GoogleTranslateService } from '../../google-translate/google-translate.service';
 import { Post } from '../post.model';
-import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-posts-create',
@@ -15,12 +14,12 @@ import { MatCheckbox } from '@angular/material/checkbox';
   styleUrls: ['./posts-create.component.css']
 })
 export class PostsCreateComponent implements OnInit, OnDestroy {
-
-  // checkbox variables
+  // mat-checkbox variables
   checked = false;
   indeterminate = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
+
   // caetgory variables
   categories: string[] = [];
   selectedCategories: string[] = [];
@@ -38,12 +37,11 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
     private google: GoogleTranslateService) { }
 
   ngOnInit(): void {
-
+    // initialize current post categories array to empty (and to re-initialize during
+    // the edit post section)
     this.currentPostCategories = [];
-
+    // subscribing to paramMap observable to see if there is a postId (denoting we are in edit mode)
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      // if postid exists, we are in edit mode; otherwise
-      // we are in create mode
       if (paramMap.has('postId')) {
         this.mode = 'edit';
         this.postId = paramMap.get('postId');
@@ -62,76 +60,62 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
           // assign current post's categories (needed in template to mark categories as
           // checked when a user clicks edit post
           this.currentPostCategories = postData.categories;
-
-
-
         });
       } else {
         this.mode = 'create';
         this.postId = null;
       }
     });
-
-    // below is category stuff; to deal with later
+    // retrieve categories (to display when adding/editing a post)
     this.postsService.getCategories();
     this.categoriesSub = this.postsService.getCategoryUpdateListener()
       .subscribe((categories: string[]) => {
-        // need to filter and display based on if edit or creating new one
-        if (this.mode === 'create') {
-          console.log('this is create!');
-        } else {
-          console.log('this is the edit section!');
-          // need to check current categories of the selected post
-        }
-
-
         this.categories = categories;
         console.log(this.categories);
       });
-
   }
 
-  // determineCheckStatus(categoryName) {
-  //   if (this.mode === 'edit') {
-  //     // check if current category for mat checkbox
-  //     console.log('category name: ' + categoryName);
-  //     //console.log('this is edit mode in determineCheckStatus (unchecked)!');
-  //     return true;
-  //   } else {
-  //     //console.log('this is create mode in determineCheckStatus (checked)!');
-  //     return false;
-  //   }
-  // }
-
-  isInCategory(categoryName) {
-    if (categoryName)
-    return true;
-  }
-
+  /*
+  * Adding new category (to store post in).
+  * @param categoryName name of category to add
+  * @return call to postService.addCategory (which returns a subject.next call on categories array)
+  */
   onAddCategory(categoryName: string) {
-    if (categoryName === '') {
+    if (categoryName === '' || this.categories.includes(categoryName)) {
       return;
     }
     this.postsService.addCategory(categoryName, this.categories);
   }
 
+  /*
+  * Action event for when a user checks or unchecks a category checkbox when editing/adding post.
+  * @param e the event itself (e.g. the mat-checkbox associated with category user checks/unchecks)
+  * @return change to selectedCategories array (the current categories for a post)
+  */
   onChange(e:any) {
-
     // set variable to current post categories to start
     this.selectedCategories = this.currentPostCategories;
-
     if (e.checked) {
       console.log(e.source.value + ' is checked!');
-      this.selectedCategories.push(e.source.value);
+      // only add to array if value isn't already in array
+      if (!this.selectedCategories.includes(e.source.value)) {
+        this.selectedCategories.push(e.source.value);
+        // sort categories array alphabetically
+        this.selectedCategories = this.selectedCategories.sort();
+      }
     } else {
       console.log(e.source.value + ' is now unchecked!');
       this.selectedCategories = this.selectedCategories.filter(category => category != e.source.value);
     }
-
     console.log('current selected categories are below:');
     console.log(this.selectedCategories);
   }
 
+  /*
+  * Save new post or save edited post.
+  * @param form the form containing post details (content to translate, categories)
+  * @return nothing if invalid form; a call to postService addPost or updatePost function
+  */
   onSavePost(form: NgForm) {
     if (form.invalid) {
       return;
@@ -139,9 +123,6 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
     // load spinner when post is saved/edited
     this.isLoading = true;
     if (this.mode === 'create') {
-
-      // somehow access which mat checkboxes are selected and store in this.categories
-
       this.postsService.addPost(
         form.value.engTranslation,
         'viet translation here!',
@@ -155,12 +136,13 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
         this.selectedCategories
       );
     }
-
-
-
     form.resetForm();
   }
 
+  /*
+  * Destroy categories subscription when component isn't loaded.
+  * @return unsubscribing from subscription
+  */
   ngOnDestroy() {
     this.categoriesSub.unsubscribe();
   }
