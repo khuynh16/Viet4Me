@@ -125,7 +125,7 @@ export class PostsService {
   addCategory(categoryName: string, categories: string[]) {
     this.categories.push(categoryName);
     this.categoriesUpdated.next([...this.categories]);
-    console.log('categories after adding category: ' + categories);
+    console.log('categories after adding category: ' + this.categories);
   }
 
   getPostUpdateListener() {

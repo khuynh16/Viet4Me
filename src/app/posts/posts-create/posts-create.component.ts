@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm} from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -15,6 +15,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
   styleUrls: ['./posts-create.component.css']
 })
 export class PostsCreateComponent implements OnInit, OnDestroy {
+
   // checkbox variables
   checked = false;
   indeterminate = false;
@@ -22,12 +23,13 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
   disabled = false;
   // caetgory variables
   categories: string[] = [];
+  selectedCategories: string[] = [];
   private categoriesSub: Subscription;
 
   private mode = 'create';
   private postId: string;
   post: Post;
-  isChecked: boolean;
+  isChecked = false;
   isLoading = false;
 
   constructor(public postsService: PostsService,
@@ -35,6 +37,7 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
     private google: GoogleTranslateService) { }
 
   ngOnInit(): void {
+
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       // if postid exists, we are in edit mode; otherwise
       // we are in create mode
@@ -52,6 +55,7 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
           }
           // here, postData.categories
           console.log('current categories are: ' + postData.categories);
+          // console.log('catCheckbox: ' + this.checkboxes);
         });
       } else {
         this.mode = 'create';
@@ -78,23 +82,37 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
 
   }
 
-  determineCheckStatus(categoryName) {
-    if (this.mode === 'edit') {
-      // check if current category for mat checkbox
-      console.log('category name: ' + categoryName);
-      //console.log('this is edit mode in determineCheckStatus (unchecked)!');
-      return true;
-    } else {
-      //console.log('this is create mode in determineCheckStatus (checked)!');
-      return false;
-    }
-  }
+  // determineCheckStatus(categoryName) {
+  //   if (this.mode === 'edit') {
+  //     // check if current category for mat checkbox
+  //     console.log('category name: ' + categoryName);
+  //     //console.log('this is edit mode in determineCheckStatus (unchecked)!');
+  //     return true;
+  //   } else {
+  //     //console.log('this is create mode in determineCheckStatus (checked)!');
+  //     return false;
+  //   }
+  // }
 
   onAddCategory(categoryName: string) {
     if (categoryName === '') {
       return;
     }
     this.postsService.addCategory(categoryName, this.categories);
+  }
+
+  onChange(e:any) {
+
+    if (e.checked) {
+      console.log(e.source.value + ' is checked!');
+      this.selectedCategories.push(e.source.value);
+    } else {
+      console.log(e.source.value + ' is now unchecked!');
+      this.selectedCategories = this.selectedCategories.filter(category => category != e.source.value);
+    }
+
+    console.log('current selected categories are below:');
+    console.log(this.selectedCategories);
   }
 
   onSavePost(form: NgForm) {
@@ -104,17 +122,20 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
     // load spinner when post is saved/edited
     this.isLoading = true;
     if (this.mode === 'create') {
+
+      // somehow access which mat checkboxes are selected and store in this.categories
+
       this.postsService.addPost(
         form.value.engTranslation,
         'viet translation here!',
-        this.categories
+        this.selectedCategories
       );
     } else  {
       this.postsService.updatePost(
         this.postId,
         form.value.engTranslation,
         'viet translation update!',
-        this.categories
+        this.selectedCategories
       );
     }
 

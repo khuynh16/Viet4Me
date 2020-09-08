@@ -23,16 +23,15 @@
         </section>
 
         <p class="checkboxTitle">Select or add categories to store input in (optional):</p>
-        <section class="checkboxCategories">
 
-          <div *ngFor="let category of categories">
-            <mat-checkbox #catCheckbox [checked]="determineCheckStatus()">
-              <div>
+        <section>
+          <div class="checkboxCategories" *ngFor="let category of categories">
+            <mat-checkbox name="{{category}}" [value]="category" (change)="onChange($event)">
                 {{ category }}
-              </div>
               <!-- <button type="button" class="removeCategoryBtn">X</button> -->
             </mat-checkbox>
           </div>
+
 
           <p class="info-text" *ngIf="categories.length <= 0">[You have no categories, add one below!]</p>
 
@@ -48,7 +47,7 @@
             </mat-form-field>
             <button mat-stroked-button type="button" id="addCategoryBtn" (click)="onAddCategory(newCategory.value)">Add</button>
           </div>
-        </section>
+      </section>
 
         <section class="submitContentSection">
           <button mat-stroked-button type="submit" class="submitContentBtn">Submit Content</button>
