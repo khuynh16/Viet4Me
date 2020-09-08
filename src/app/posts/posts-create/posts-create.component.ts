@@ -24,6 +24,7 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
   // caetgory variables
   categories: string[] = [];
   selectedCategories: string[] = [];
+  currentPostCategories: string[];
   private categoriesSub: Subscription;
 
   private mode = 'create';
@@ -37,6 +38,8 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
     private google: GoogleTranslateService) { }
 
   ngOnInit(): void {
+
+    this.currentPostCategories = [];
 
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       // if postid exists, we are in edit mode; otherwise
@@ -55,7 +58,13 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
           }
           // here, postData.categories
           console.log('current categories are: ' + postData.categories);
-          // console.log('catCheckbox: ' + this.checkboxes);
+
+          // assign current post's categories (needed in template to mark categories as
+          // checked when a user clicks edit post
+          this.currentPostCategories = postData.categories;
+
+
+
         });
       } else {
         this.mode = 'create';
@@ -94,6 +103,11 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
   //   }
   // }
 
+  isInCategory(categoryName) {
+    if (categoryName)
+    return true;
+  }
+
   onAddCategory(categoryName: string) {
     if (categoryName === '') {
       return;
@@ -102,6 +116,9 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
   }
 
   onChange(e:any) {
+
+    // set variable to current post categories to start
+    this.selectedCategories = this.currentPostCategories;
 
     if (e.checked) {
       console.log(e.source.value + ' is checked!');

@@ -25,8 +25,8 @@
         <p class="checkboxTitle">Select or add categories to store input in (optional):</p>
 
         <section>
-          <div class="checkboxCategories" *ngFor="let category of categories">
-            <mat-checkbox name="{{category}}" [value]="category" (change)="onChange($event)">
+          <div class="checkboxCategories" *ngFor="let category of categories; let i = index;">
+            <mat-checkbox id="category-{{ i }}" [checked]="currentPostCategories.includes(category)" name="{{category}}" [value]="category" (change)="onChange($event)">
                 {{ category }}
               <!-- <button type="button" class="removeCategoryBtn">X</button> -->
             </mat-checkbox>
