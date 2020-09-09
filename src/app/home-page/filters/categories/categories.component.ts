@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
+import { PageEvent } from '@angular/material/paginator';
+import { Subscription } from 'rxjs';
+
+import { PostsService } from 'src/app/posts/posts.service';
 
 export interface CategoryFilter {
   name: string;
   completed: boolean;
   color: ThemePalette;
-  categories?: CategoryFilter[];
+  categories?: string[];
 }
 
 @Component({
@@ -13,7 +17,18 @@ export interface CategoryFilter {
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.css']
 })
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent implements OnInit, OnDestroy {
+
+  constructor(public postsService: PostsService) { }
+
+  private categoriesSub: Subscription;
+  categories: string[] = [];
+
+  totalCategories = 0;
+  categoriesPerPage = 5;
+  currentPage = 1;
+
+
   categoryFilter: CategoryFilter = {
     name: 'Categories',
     completed: false,
@@ -21,35 +36,30 @@ export class CategoriesComponent implements OnInit {
     categories: []
   };
 
-  //     {name: 'Questions', completed: false, color: 'primary'},
-  //     {name: 'Casual talk', completed: false, color: 'primary'},
-  //     {name: 'Funny remarks about life and it is cool', completed: false, color: 'primary'},
-  //     {name: 'Animals', completed: false, color: 'primary'}
-
-  constructor() { }
-
   ngOnInit(): void {
+
+    this.postsService.getCategories();
+    this.categoriesSub = this.postsService.getCategoryUpdateListener()
+      .subscribe((categories: string[]) => {
+        this.categories = categories;
+        console.log('in filter categories!: ' + this.categories);
+
+        this.categoryFilter.categories = this.categories;
+        this.totalCategories = categories.length;
+      });
   }
 
-  allComplete: boolean = false;
-
-  updateAllComplete() {
-    this.allComplete = this.categoryFilter.categories != null && this.categoryFilter.categories.every(t => t.completed);
+  onChangedPage(pageData: PageEvent) {
+    // this.currentPage = pageData.pageIndex + 1;
+    // this.categoriesPerPage = pageData.pageSize;
+    // this.postsService.getPosts(this.categoriesPerPage, this.currentPage);
   }
 
-  someComplete(): boolean {
-    if (this.categoryFilter.categories == null) {
-      return false;
-    }
-    return this.categoryFilter.categories.filter(t => t.completed).length > 0 && !this.allComplete;
+  /*
+  * Destroy categories subscription when component isn't loaded.
+  * @return unsubscribing from subscription
+  */
+  ngOnDestroy() {
+    this.categoriesSub.unsubscribe();
   }
-
-  setAll(completed: boolean) {
-    this.allComplete = completed;
-    if (this.categoryFilter.categories == null) {
-      return;
-    }
-    this.categoryFilter.categories.forEach(t => t.completed = completed);
-  }
-
 }

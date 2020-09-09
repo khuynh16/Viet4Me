@@ -37,6 +37,23 @@ mat-expansion-panel {
   font-family: 'Be Vietnam', sans-serif !important;
 }
 
+mat-paginator {
+  margin-top: 16px;
+  background-color: lightgray;
+  color: black;
+  border: 3px solid rgb(56, 56, 56);
+}
+
+::ng-deep.mat-paginator-range-label,
+::ng-deep.mat-paginator-page-size-label {
+  font-family: 'poppins', 'Be Vietnam' !important;
+  color: black;
+}
+
+::ng-deep.mat-select-value-text {
+  font-size: 14px;
+}
+
 :host::ng-deep .mat-expansion-panel-body {
   padding-top: 10px;
 }

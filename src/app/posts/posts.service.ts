@@ -6,36 +6,42 @@ import { map } from 'rxjs/operators';
 
 import { Post } from './post.model';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class PostsService {
   private posts: Post[] = [];
   private categories: string[] = [];
-  private postsUpdated = new Subject<Post[]>();
+  private postsUpdated = new Subject<{posts: Post[], postCount: number}>();
   private categoriesUpdated = new Subject<string[]>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   /*
   * Retrieve posts from database.
   * @return subject.next method call
   */
-  getPosts() {
+  getPosts(postsPerPage: number, currentPage: number) {
+    const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
     // call to get method from backend
-    this.http.get<{message: string, posts: any}>('http://localhost:3000/api/posts')
+    this.http.get<{ message: string, posts: any, maxPosts: number }>('http://localhost:3000/api/posts' + queryParams)
       .pipe(map((postData) => {
         // changing ._id to id in posts object array
-        return postData.posts.map(post => {
-          return {
-            id: post._id,
-            engTranslation: post.engTranslation,
-            vietTranslation: post.vietTranslation,
-            categories: post.categories
-          };
-        });
+        return {
+          posts: postData.posts.map(post => {
+            return {
+              id: post._id,
+              engTranslation: post.engTranslation,
+              vietTranslation: post.vietTranslation,
+              categories: post.categories
+            };
+          }), maxPosts: postData.maxPosts
+        };
       }))
-      .subscribe(transformedPosts => {
-        this.posts = transformedPosts;
-        this.postsUpdated.next([...this.posts]);
+      .subscribe(transformedPostData => {
+        this.posts = transformedPostData.posts;
+        this.postsUpdated.next({
+          posts: [...this.posts],
+          postCount: transformedPostData.maxPosts
+        });
       });
   }
 
@@ -44,7 +50,7 @@ export class PostsService {
   * @return subject.next method call of categories
   */
   getCategories() {
-    this.http.get<{message: string, posts: any}>('http://localhost:3000/api/posts')
+    this.http.get<{ message: string, posts: any }>('http://localhost:3000/api/posts')
       .subscribe(postData => {
         for (let i = 0; i < postData.posts.length; i++) {
           for (let j = 0; j < postData.posts[i].categories.length; j++) {
@@ -73,12 +79,8 @@ export class PostsService {
     };
     this.http.post<{ message: string, postId: string }>("http://localhost:3000/api/posts", post)
       .subscribe(responseData => {
-      const id = responseData.postId;
-      post.id = id;
-      this.posts.push(post);
-      this.postsUpdated.next([...this.posts]);
-      this.router.navigate(['/home']);
-    });
+        this.router.navigate(['/home']);
+      });
   }
 
   /*
@@ -87,12 +89,7 @@ export class PostsService {
   * @return subject.next call of posts array (with deleted post)
   */
   deletePost(postId: string) {
-    this.http.delete('http://localhost:3000/api/posts/' + postId)
-      .subscribe(() => {
-        const updatedPosts = this.posts.filter(post => post.id !== postId);
-        this.posts = updatedPosts;
-        this.postsUpdated.next([...this.posts]);
-      });
+    return this.http.delete('http://localhost:3000/api/posts/' + postId);
   }
 
   /*
@@ -113,16 +110,6 @@ export class PostsService {
     // call to backend method
     this.http.put('http://localhost:3000/api/posts/' + id, post)
       .subscribe(response => {
-        //store current posts array in temp variable
-        const updatedPosts = [...this.posts];
-        //get index of post in posts array that will be edited
-        const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
-        //replace old post with new (edited) post
-        updatedPosts[oldPostIndex] = post;
-        //initialize posts array with updated posts
-        this.posts = updatedPosts;
-        // update observable
-        this.postsUpdated.next([...this.posts]);
         this.router.navigate(['/home']);
       });
   }
