@@ -1,24 +1,25 @@
 <section>
   <span class="">
-    <mat-checkbox class="margin">
+    <mat-checkbox
+      class="margin"
+      [checked]="allComplete"
+      [indeterminate]="someComplete()"
+      (change)="setAll($event.checked)">
       {{categoryFilter.name}}
     </mat-checkbox>
   </span>
   <span class="">
-    <ul *ngIf="categoryFilter.categories.length > 0">
+    <ul class="availableCategoriesList" *ngIf="categoryFilter.categories.length > 0">
       <li *ngFor="let category of categoryFilter.categories" >
-        <mat-checkbox>
-          {{ category }}
+        <mat-checkbox
+          [(ngModel)]="category.completed"
+          [color]="category.color"
+          (ngModelChange)="updateAllComplete(category)">
+          {{ category.name }}
         </mat-checkbox>
       </li>
     </ul>
     <p class="info-text" *ngIf="categoryFilter.categories.length <= 0">No categories added yet!</p>
   </span>
   <div class="triangle-right-corner"></div>
-  <hr class="categoryHr">
-  <mat-paginator
-    [length]="totalCategories"
-    [pageSize]="categoriesPerPage"
-    (page)="onChangedPage($event)">
-</mat-paginator>
 </section>

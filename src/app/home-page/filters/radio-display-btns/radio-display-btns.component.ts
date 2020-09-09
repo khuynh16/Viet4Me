@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { FiltersService } from '../filters.service';
+
 @Component({
   selector: 'app-radio-display-btns',
   templateUrl: './radio-display-btns.component.html',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RadioFilterBtnsComponent implements OnInit {
 
-  constructor() { }
+  constructor(public filterService: FiltersService) { }
 
   ngOnInit(): void {
-  }
 
+  }
+  clickMe(){
+    this.filterService.sendClickEvent();
+  }
 }

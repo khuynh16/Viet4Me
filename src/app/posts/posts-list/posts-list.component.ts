@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { Post } from '../post.model';
 import { PostsService } from '../posts.service';
+import { FiltersService } from 'src/app/home-page/filters/filters.service';
 
 @Component({
   selector: 'app-posts-list',
@@ -19,10 +20,19 @@ export class PostsListComponent implements OnInit, OnDestroy {
   postsPerPage = 20;
   currentPage = 1;
   pageSizeOptions = [1,2,5,10,20];
+  isExpanded: boolean = false;
 
-  constructor(public postsService: PostsService) {}
+  determineExpandOption: Subscription;
+
+  constructor(public postsService: PostsService, public filtersService: FiltersService) {
+    this.determineExpandOption = this.filtersService.getExpandStatus()
+      .subscribe(()=>{
+        this.toggleExpand();
+      });
+  }
 
   ngOnInit() {
+
     this.isLoading = true;
     // trigger http request when post list is loaded
     this.postsService.getPosts(this.postsPerPage, this.currentPage);
@@ -53,6 +63,14 @@ export class PostsListComponent implements OnInit, OnDestroy {
     this.postsService.deletePost(postId).subscribe(() => {
       this.postsService.getPosts(this.postsPerPage, this.currentPage);
     });
+  }
+
+  /*
+  * Expands or collapse posts based on filter option (closed or open) from filters service.
+  * @return opposite value of isExpanded (true or false)
+  */
+  toggleExpand() {
+    this.isExpanded = !this.isExpanded;
   }
 
   ngOnDestroy() {

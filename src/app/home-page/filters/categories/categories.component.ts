@@ -1,16 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {ThemePalette} from '@angular/material/core';
-import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 
 import { PostsService } from 'src/app/posts/posts.service';
-
-export interface CategoryFilter {
-  name: string;
-  completed: boolean;
-  color: ThemePalette;
-  categories?: string[];
-}
+import { CategoryFilter } from './category-filter.model';
 
 @Component({
   selector: 'app-categories',
@@ -22,37 +14,52 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   constructor(public postsService: PostsService) { }
 
   private categoriesSub: Subscription;
-  categories: string[] = [];
-
-  totalCategories = 0;
-  categoriesPerPage = 5;
-  currentPage = 1;
-
-
+  allComplete: boolean = true;
+  currentCategories: CategoryFilter[] = [];
   categoryFilter: CategoryFilter = {
     name: 'Categories',
-    completed: false,
+    completed: true,
     color: 'primary',
-    categories: []
-  };
+    categories: this.currentCategories
+  }
 
   ngOnInit(): void {
 
     this.postsService.getCategories();
     this.categoriesSub = this.postsService.getCategoryUpdateListener()
       .subscribe((categories: string[]) => {
-        this.categories = categories;
-        console.log('in filter categories!: ' + this.categories);
-
-        this.categoryFilter.categories = this.categories;
-        this.totalCategories = categories.length;
+        categories.forEach(category => {{
+          this.currentCategories.push({
+            name: category,
+            completed: true,
+            color: 'primary'
+          })
+        }})
       });
   }
 
-  onChangedPage(pageData: PageEvent) {
-    // this.currentPage = pageData.pageIndex + 1;
-    // this.categoriesPerPage = pageData.pageSize;
-    // this.postsService.getPosts(this.categoriesPerPage, this.currentPage);
+  updateAllComplete(categoryData: CategoryFilter) {
+    this.allComplete = this.categoryFilter.categories != null && this.categoryFilter.categories.every(t => t.completed);
+    console.log('clicked!');
+    console.log(categoryData);
+    console.log(categoryData.name + ' checked is now ' + categoryData.completed);
+
+
+  }
+
+  someComplete(): boolean {
+    if (this.categoryFilter.categories == null) {
+      return false;
+    }
+    return this.categoryFilter.categories.filter(t => t.completed).length > 0 && !this.allComplete;
+  }
+
+  setAll(completed: boolean) {
+    this.allComplete = completed;
+    if (this.categoryFilter.categories == null) {
+      return;
+    }
+    this.categoryFilter.categories.forEach(t => t.completed = completed);
   }
 
   /*

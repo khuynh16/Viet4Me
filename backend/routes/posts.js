@@ -51,6 +51,9 @@ router.get('', (req, res, next) => {
     postQuery.skip(pageSize * (currentPage - 1))
     .limit(pageSize);
   }
+  // else if here where category to not display??
+
+
   postQuery
     .then(documents => {
       fetchedPosts = documents;

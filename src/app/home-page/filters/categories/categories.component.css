@@ -59,3 +59,13 @@ li {
   padding: 5px 0;
 }
 
+.availableCategoriesList {
+  max-height: 140px;
+  height: 125px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.mat-checkbox-frame {
+  background-color: transparent !important;
+}
