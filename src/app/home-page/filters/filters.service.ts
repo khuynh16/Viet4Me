@@ -10,13 +10,22 @@ export class FiltersService {
 
   constructor() { }
 
-  private subject = new Subject<any>();
+  private expandSubject = new Subject<any>();
+  private langSubject = new Subject<any>();
 
-  sendClickEvent() {
-    this.subject.next();
+  changeExpandEvent() {
+    this.expandSubject.next();
   }
 
   getExpandStatus(): Observable<any>{
-    return this.subject.asObservable();
+    return this.expandSubject.asObservable();
+  }
+
+  changeLangEvent() {
+    this.langSubject.next();
+  }
+
+  getLangStatus(): Observable<any>{
+    return this.langSubject.asObservable();
   }
 }

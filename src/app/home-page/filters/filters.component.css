@@ -10,6 +10,8 @@ mat-expansion-panel mat-expansion-panel-header {
   padding-top: 15px;
   padding-bottom: 15px;
   height: auto !important;
+  background: rgb(255,255,255);
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 0%, rgba(28,58,83,1) 5%, rgba(67,135,193,1) 88%);
 }
 
 /* style defined to only the component instances which are defined inside an

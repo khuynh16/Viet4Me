@@ -21,18 +21,35 @@ export class PostsListComponent implements OnInit, OnDestroy {
   currentPage = 1;
   pageSizeOptions = [1,2,5,10,20];
   isExpanded: boolean = false;
-
   determineExpandOption: Subscription;
+
+  determineLanguageOption: Subscription;
+
+  initialPosts: Post[];
+  engTag: string;
+  vietTag: string;
 
   constructor(public postsService: PostsService, public filtersService: FiltersService) {
     this.determineExpandOption = this.filtersService.getExpandStatus()
-      .subscribe(()=>{
+      .subscribe((e)=>{
         this.toggleExpand();
       });
+
+    this.postsSub = this.postsService.getPostUpdateListener().subscribe(postData => {
+      this.initialPosts = postData.posts;
+    })
+
+    this.determineLanguageOption = this.filtersService.getLangStatus()
+      .subscribe(() => {
+        this.switchLanguage(this.initialPosts);
+      })
+
+
   }
 
   ngOnInit() {
-
+    this.engTag = 'ENG';
+    this.vietTag = 'VIET';
     this.isLoading = true;
     // trigger http request when post list is loaded
     this.postsService.getPosts(this.postsPerPage, this.currentPage);
@@ -44,6 +61,9 @@ export class PostsListComponent implements OnInit, OnDestroy {
         this.posts = postData.posts;
         console.log('this is this.posts:');
         console.log(this.posts);
+
+        // loop through posts and
+        console.log(this.posts[0].engTranslation);
       });
   }
 
@@ -73,8 +93,23 @@ export class PostsListComponent implements OnInit, OnDestroy {
     this.isExpanded = !this.isExpanded;
   }
 
+  switchLanguage(posts: Post[]) {
+    let tempString;
+    posts.forEach(post => {
+      tempString = post.engTranslation;
+      post.engTranslation = post.vietTranslation;
+      post.vietTranslation = tempString;
+
+      tempString = this.engTag;
+      this.engTag = this.vietTag;
+      this.vietTag = tempString;
+    })
+
+  }
+
   ngOnDestroy() {
     this.postsSub.unsubscribe();
+    this.determineExpandOption.unsubscribe();
   }
 }
 

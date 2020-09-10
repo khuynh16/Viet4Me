@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FiltersService } from '../filters.service';
+import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
   selector: 'app-radio-display-btns',
@@ -15,6 +16,10 @@ export class RadioFilterBtnsComponent implements OnInit {
 
   }
   clickMe(){
-    this.filterService.sendClickEvent();
+    this.filterService.changeExpandEvent();
+  }
+
+  changeLang() {
+    this.filterService.changeLangEvent();
   }
 }
