@@ -12,6 +12,7 @@ export class FiltersService {
 
   private expandSubject = new Subject<any>();
   private langSubject = new Subject<any>();
+  private filterCategoriesSubject = new Subject<any>();
 
   changeExpandEvent() {
     this.expandSubject.next();
@@ -27,5 +28,13 @@ export class FiltersService {
 
   getLangStatus(): Observable<any>{
     return this.langSubject.asObservable();
+  }
+
+  changeFilterCategoriesEvent() {
+    this.filterCategoriesSubject.next();
+  }
+
+  getFilterCategoriesStatus(): Observable<any> {
+    return this.filterCategoriesSubject.asObservable();
   }
 }

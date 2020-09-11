@@ -12,6 +12,9 @@ export class PostsService {
   private categories: string[] = [];
   private postsUpdated = new Subject<{posts: Post[], postCount: number}>();
   private categoriesUpdated = new Subject<string[]>();
+  public filterCategoriesUpdated = new Subject<string[]>();
+
+  filteredCategories: string[];
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -20,7 +23,16 @@ export class PostsService {
   * @return subject.next method call
   */
   getPosts(postsPerPage: number, currentPage: number) {
-    const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
+
+    console.log('inside');
+    this.getFilterCategoryUpdateListener().subscribe((t: string[]) => {
+      console.log('HELLO!');
+      console.log(t);
+      this.filteredCategories = t;
+    })
+
+    // let str = ['test', 'here', 'come up'];
+    const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}&categories=${this.filteredCategories}`;
     // call to get method from backend
     this.http.get<{ message: string, posts: any, maxPosts: number }>('http://localhost:3000/api/posts' + queryParams)
       .pipe(map((postData) => {
@@ -60,6 +72,8 @@ export class PostsService {
           }
         }
         this.categoriesUpdated.next([...this.categories]);
+        // update filter categories subscription
+        this.filterCategoriesUpdated.next([...this.categories]);
       });
   }
 
@@ -139,6 +153,9 @@ export class PostsService {
     this.categories = this.categories.sort();
     this.categoriesUpdated.next([...this.categories]);
     console.log('categories after adding category: ' + this.categories);
+
+    this.filterCategoriesUpdated.next([...this.categories]);
+
   }
 
   /*
@@ -156,5 +173,9 @@ export class PostsService {
   */
   getCategoryUpdateListener() {
     return this.categoriesUpdated.asObservable();
+  }
+
+  getFilterCategoryUpdateListener() {
+    return this.filterCategoriesUpdated.asObservable();
   }
 }

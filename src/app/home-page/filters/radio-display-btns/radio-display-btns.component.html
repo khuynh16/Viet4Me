@@ -7,8 +7,8 @@
   </mat-radio-group>
   <hr class="displayOptionsHr">
   <mat-radio-group aria-label="Select an option" class="categoryRadioGroup">
-    <mat-radio-button value="closed" class="closedRadioButton" [checked]="true" (change)="clickMe()">Close All</mat-radio-button>
-    <mat-radio-button value="open" class="openRadioButton" (change)="clickMe()">Open All</mat-radio-button>
+    <mat-radio-button value="closed" class="closedRadioButton" [checked]="true" (change)="changeExpand()">Close All</mat-radio-button>
+    <mat-radio-button value="open" class="openRadioButton" (change)="changeExpand()">Open All</mat-radio-button>
     <div class="triangle-right-corner"></div>
   </mat-radio-group>
 </section>

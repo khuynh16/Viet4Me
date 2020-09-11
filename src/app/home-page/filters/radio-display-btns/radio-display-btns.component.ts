@@ -15,7 +15,7 @@ export class RadioFilterBtnsComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  clickMe(){
+  changeExpand(){
     this.filterService.changeExpandEvent();
   }
 

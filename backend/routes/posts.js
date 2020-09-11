@@ -1,4 +1,5 @@
 const express = require('express');
+// const queryString = require('query-string');
 
 // implements backend post schema to use in adding new posts to database
 const Post = require('../models/post');
@@ -47,17 +48,44 @@ router.get('', (req, res, next) => {
   const currentPage = req.query.page;
   const postQuery = Post.find();
   let fetchedPosts;
+  let filteredPosts = [];
   if (pageSize && currentPage) {
     postQuery.skip(pageSize * (currentPage - 1))
     .limit(pageSize);
   }
-  // else if here where category to not display??
 
+  // else if here where category to not display??
 
   postQuery
     .then(documents => {
-      fetchedPosts = documents;
-      return Post.count();
+      console.log('documents here!' + documents);
+      let currentCheckedCategories = req.query.categories;
+
+
+
+      console.log('Below here!');
+      console.log(currentCheckedCategories);
+
+      if (currentCheckedCategories !== undefined) {
+        filteredPosts = [];
+        documents.forEach(post => {
+          for (let i = 0; i < post.categories.length - 1; i++) {
+            // console.log(post.categories[i]);
+            if (currentCheckedCategories.includes(post.categories[i]) && !filteredPosts.includes(post.categories[i])) {
+              filteredPosts.push(post);
+            }
+          }
+        });
+        fetchedPosts = filteredPosts;
+        console.log('Fetched POSTS HERE!!!!!!');
+        // console.log(fetchedPosts);
+      } else {
+        console.log('starting here! and current count is ' + Post.count());
+        fetchedPosts = documents;
+      }
+      // fetchedPosts = documents;
+      // console.log('fetched posts herehererererer: ' + fetchedPosts);
+      return Post.countDocuments();
     })
     .then(count => {
       res.status(200).json({

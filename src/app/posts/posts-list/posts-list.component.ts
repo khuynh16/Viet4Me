@@ -24,6 +24,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
   determineExpandOption: Subscription;
 
   determineLanguageOption: Subscription;
+  determineFilterCategoriesOption: Subscription;
 
   initialPosts: Post[];
   engTag: string;
@@ -44,6 +45,12 @@ export class PostsListComponent implements OnInit, OnDestroy {
         this.switchLanguage(this.initialPosts);
       })
 
+    this.determineFilterCategoriesOption = this.filtersService.getFilterCategoriesStatus()
+      .subscribe(() => {
+        console.log("SUPERDUPER");
+        this.onClickCategoryFilters();
+      })
+
 
   }
 
@@ -61,10 +68,12 @@ export class PostsListComponent implements OnInit, OnDestroy {
         this.posts = postData.posts;
         console.log('this is this.posts:');
         console.log(this.posts);
-
-        // loop through posts and
-        console.log(this.posts[0].engTranslation);
       });
+
+  }
+
+  onClickCategoryFilters() {
+    this.postsService.getPosts(this.postsPerPage, this.currentPage);
   }
 
   /*
@@ -110,6 +119,8 @@ export class PostsListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.postsSub.unsubscribe();
     this.determineExpandOption.unsubscribe();
+    this.determineLanguageOption.unsubscribe();
+    this.determineFilterCategoriesOption.unsubscribe();
   }
 }
 
