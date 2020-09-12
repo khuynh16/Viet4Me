@@ -30,8 +30,41 @@ export class PostsListComponent implements OnInit, OnDestroy {
   engTag: string;
   vietTag: string;
 
+  superPosts: string[];
+
   constructor(public postsService: PostsService, public filtersService: FiltersService) {
-    this.determineExpandOption = this.filtersService.getExpandStatus()
+
+  }
+
+  ngOnInit() {
+    this.superPosts = [];
+    this.engTag = 'ENG';
+    this.vietTag = 'VIET';
+    this.isLoading = true;
+    // trigger http request when post list is loaded
+    this.postsService.getPosts(this.postsPerPage, this.currentPage);
+    this.postsSub = this.postsService.getPostUpdateListener()
+      .subscribe((postData: {posts: Post[], postCount: number}) => {
+        // once we get updated posts, set spinner to false
+        this.isLoading = false;
+        this.totalPosts = postData.postCount;
+        this.posts = postData.posts;
+        console.log('this is this.posts:');
+        console.log(this.posts);
+
+        this.posts.forEach(post => {
+          post.categories.forEach(category => {
+            if (!this.superPosts.includes(category)) {
+              this.superPosts.push(category);
+            }
+          })
+        })
+
+        console.log('this is superposts: ' + this.superPosts);
+        this.postsService.filterCategoriesUpdated.next([...this.superPosts]);
+      });
+
+      this.determineExpandOption = this.filtersService.getExpandStatus()
       .subscribe((e)=>{
         this.toggleExpand();
       });
@@ -50,26 +83,6 @@ export class PostsListComponent implements OnInit, OnDestroy {
         console.log("SUPERDUPER");
         this.onClickCategoryFilters();
       })
-
-
-  }
-
-  ngOnInit() {
-    this.engTag = 'ENG';
-    this.vietTag = 'VIET';
-    this.isLoading = true;
-    // trigger http request when post list is loaded
-    this.postsService.getPosts(this.postsPerPage, this.currentPage);
-    this.postsSub = this.postsService.getPostUpdateListener()
-      .subscribe((postData: {posts: Post[], postCount: number}) => {
-        // once we get updated posts, set spinner to false
-        this.isLoading = false;
-        this.totalPosts = postData.postCount;
-        this.posts = postData.posts;
-        console.log('this is this.posts:');
-        console.log(this.posts);
-      });
-
   }
 
   onClickCategoryFilters() {
@@ -108,12 +121,16 @@ export class PostsListComponent implements OnInit, OnDestroy {
       tempString = post.engTranslation;
       post.engTranslation = post.vietTranslation;
       post.vietTranslation = tempString;
+    });
 
-      tempString = this.engTag;
-      this.engTag = this.vietTag;
-      this.vietTag = tempString;
-    })
-
+    // switch language symbols to ENG or VIET based on selected language filter option
+    if (this.engTag === 'ENG') {
+      this.engTag = 'VIET';
+      this.vietTag = 'ENG';
+    } else {
+      this.engTag = 'ENG';
+      this.vietTag = 'VIET';
+    }
   }
 
   ngOnDestroy() {

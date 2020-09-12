@@ -46,46 +46,69 @@ router.get('', (req, res, next) => {
   // extract query parameters (if any)
   const pageSize = +req.query.pagesize;
   const currentPage = req.query.page;
+  let currentCheckedCategories = req.query.categories;
   const postQuery = Post.find();
   let fetchedPosts;
-  let filteredPosts = [];
+  let resultDocuments;
+
   if (pageSize && currentPage) {
     postQuery.skip(pageSize * (currentPage - 1))
     .limit(pageSize);
   }
 
-  // else if here where category to not display??
-
   postQuery
     .then(documents => {
-      console.log('documents here!' + documents);
-      let currentCheckedCategories = req.query.categories;
+      console.log('hello');
+      console.log('this is currentCheckedCats: ' + currentCheckedCategories);
+      console.log('====');
 
-
-
-      console.log('Below here!');
-      console.log(currentCheckedCategories);
-
-      if (currentCheckedCategories !== undefined) {
-        filteredPosts = [];
-        documents.forEach(post => {
-          for (let i = 0; i < post.categories.length - 1; i++) {
-            // console.log(post.categories[i]);
-            if (currentCheckedCategories.includes(post.categories[i]) && !filteredPosts.includes(post.categories[i])) {
-              filteredPosts.push(post);
-            }
-          }
-        });
-        fetchedPosts = filteredPosts;
-        console.log('Fetched POSTS HERE!!!!!!');
-        // console.log(fetchedPosts);
-      } else {
-        console.log('starting here! and current count is ' + Post.count());
-        fetchedPosts = documents;
-      }
-      // fetchedPosts = documents;
-      // console.log('fetched posts herehererererer: ' + fetchedPosts);
+      fetchedPosts = documents;
       return Post.countDocuments();
+
+      // if (currentCheckedCategories) {
+      //   resultDocuments.forEach(post => {
+      //     post.categories.forEach(category => {
+      //       if (!currentCheckedCategories.includes(category)) {
+      //         //filter out post
+      //       }
+      //     })
+      //   })
+
+        // console.log('RESULT DOCUMENTS AFTER: ');
+        // console.log(resultDocuments);
+      // }
+
+      //   }
+      // })
+
+      // if (currentCheckedCategories) {
+      //   console.log('THERE IS CURRENT CHECKED CATEGORIES');
+      //   filteredPosts = [];
+      //   documents.forEach(post => {
+      //     for (let i = 0; i < post.categories.length - 1; i++) {
+      //       // console.log(post.categories[i]);
+      //       if (currentCheckedCategories.includes(post.categories[i]) && !filteredPosts.includes(post.categories[i])) {
+      //         filteredPosts.push(post);
+      //       }
+      //     }
+      //   });
+      //   fetchedPosts = filteredPosts;
+      //   return fetchedPosts.length;
+      //   // console.log(fetchedPosts);
+      // } else {
+      //   console.log("THERE IS NONE CUR CHECK CATS");
+      //   fetchedPosts = documents;
+      //   return Post.countDocuments();
+      // }
+      //console.log('documents here!' + documents);
+
+      //console.log('test here!' + test);
+
+      //console.log('Below here!');
+      //console.log(currentCheckedCategories);
+
+      // console.log('===================================================================');
+
     })
     .then(count => {
       res.status(200).json({

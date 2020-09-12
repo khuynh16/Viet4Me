@@ -4,6 +4,7 @@ import { Subscription, Subject } from 'rxjs';
 import { PostsService } from 'src/app/posts/posts.service';
 import { CategoryFilter } from './category-filter.model';
 import { FiltersService } from '../filters.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-categories',
@@ -23,17 +24,16 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     color: 'primary',
     categories: this.currentCategories
   }
-
   filterCategories: string[];
-  private filterCategoriesUpdated = new Subject<string[]>();
 
   ngOnInit(): void {
 
     this.filterCategories = [];
+    console.log("HELLOSFSSDF");
 
-    this.postsService.getCategories();
-    this.categoriesSub = this.postsService.getCategoryUpdateListener()
+    this.categoriesSub = this.postsService.getFilterCategoryUpdateListener()
       .subscribe((categories: string[]) => {
+        console.log('stuff?: ' + categories);
         categories.forEach(category => {
           this.currentCategories.push({
             name: category,
@@ -44,6 +44,10 @@ export class CategoriesComponent implements OnInit, OnDestroy {
           this.filterCategories.push(category);
         });
       });
+
+    // this.categoriesSub.unsubscribe();
+
+
   }
 
   updateAllComplete(categoryData: CategoryFilter) {
@@ -51,6 +55,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     console.log('clicked!');
     console.log(categoryData);
     console.log(categoryData.name + ' checked is now ' + categoryData.completed);
+    console.log('Current filter categories: ' + this.filterCategories);
 
     // update filter categories
     // remove / add category to filtered categories array
@@ -60,27 +65,10 @@ export class CategoriesComponent implements OnInit, OnDestroy {
       this.filterCategories.push(categoryData.name);
     }
 
-    // this.postsService.getFilterCategoryUpdateListener()
-    // .subscribe((categories: string[]) => {
-
-    //   this.filterCategories = categories;
-    //   this.filterCategories = this.filterCategories.filter(category => { category !== categoryData.name });
-
-    //   // update filter categories subscription
-    //   this.postsService.filterCategoriesUpdated.next([...this.filterCategories]);
-
-    // });
-
     console.log('filtered categories!: ' + this.filterCategories);
     this.postsService.filterCategoriesUpdated.next([...this.filterCategories]);
 
     this.filterService.changeFilterCategoriesEvent();
-
-
-
-    // somehow pass category of selected categories and pass to posts-list component
-
-
   }
 
   someComplete(): boolean {

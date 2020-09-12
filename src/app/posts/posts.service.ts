@@ -23,7 +23,6 @@ export class PostsService {
   * @return subject.next method call
   */
   getPosts(postsPerPage: number, currentPage: number) {
-
     console.log('inside');
     this.getFilterCategoryUpdateListener().subscribe((t: string[]) => {
       console.log('HELLO!');
