@@ -54,7 +54,6 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
             vietTranslation: postData.vietTranslation,
             categories: postData.categories
           }
-          // here, postData.categories
           console.log('current categories are: ' + postData.categories);
 
           // assign current post's categories (needed in template to mark categories as
@@ -66,6 +65,7 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
         this.postId = null;
       }
     });
+
     // retrieve categories (to display when adding/editing a post)
     this.postsService.getCategories();
     this.categoriesSub = this.postsService.getCategoryUpdateListener()

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -7,14 +7,14 @@ import { map } from 'rxjs/operators';
 import { Post } from './post.model';
 
 @Injectable({ providedIn: 'root' })
-export class PostsService {
+export class PostsService  {
   private posts: Post[] = [];
   private categories: string[] = [];
   private postsUpdated = new Subject<{posts: Post[], postCount: number}>();
   private categoriesUpdated = new Subject<string[]>();
   public filterCategoriesUpdated = new Subject<string[]>();
 
-  filteredCategories: string[];
+  filteredCategories: string[] = [];
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -23,17 +23,35 @@ export class PostsService {
   * @return subject.next method call
   */
   getPosts(postsPerPage: number, currentPage: number) {
-    console.log('inside');
-    this.getFilterCategoryUpdateListener().subscribe((t: string[]) => {
-      console.log('HELLO!');
-      console.log(t);
-      this.filteredCategories = t;
-    })
-
-    // let str = ['test', 'here', 'come up'];
-    const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}&categories=${this.filteredCategories}`;
+    const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
     // call to get method from backend
     this.http.get<{ message: string, posts: any, maxPosts: number }>('http://localhost:3000/api/posts' + queryParams)
+      .pipe(map((postData) => {
+        // changing ._id to id in posts object array
+        return {
+          posts: postData.posts.map(post => {
+            return {
+              id: post._id,
+              engTranslation: post.engTranslation,
+              vietTranslation: post.vietTranslation,
+              categories: post.categories
+            };
+          }), maxPosts: postData.maxPosts
+        };
+      }))
+      .subscribe(transformedPostData => {
+        this.posts = transformedPostData.posts;
+        this.postsUpdated.next({
+          posts: [...this.posts],
+          postCount: transformedPostData.maxPosts
+        });
+      });
+  }
+
+  getFilteredPosts(postsPerPage: number, currentPage: number, filteredCategories: string[]) {
+    const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}&filters=${filteredCategories}`;
+    // call to get method from backend
+    this.http.get<{ message: string, posts: any, maxPosts: number }>('http://localhost:3000/api/posts/categories' + queryParams)
       .pipe(map((postData) => {
         // changing ._id to id in posts object array
         return {
@@ -61,6 +79,21 @@ export class PostsService {
   * @return subject.next method call of categories
   */
   getCategories() {
+    console.log('inside');
+    console.log(this.posts);
+    // this.getFilterCategoryUpdateListener().subscribe((t: string[]) => {
+    //   console.log('HELLO!');
+    //   console.log(t);
+    //   this.categories = t;
+    // });
+
+    // somehow import filtered categories here
+    // in loop below, if post's category is one of the filtered categories and already isn't in array,
+    // add to array
+
+    // but when going into add content, it calls this method. somehow avoid this.
+    // array of categories, starting with all categories
+
     this.http.get<{ message: string, posts: any }>('http://localhost:3000/api/posts')
       .subscribe(postData => {
         for (let i = 0; i < postData.posts.length; i++) {
@@ -74,6 +107,7 @@ export class PostsService {
         // update filter categories subscription
         this.filterCategoriesUpdated.next([...this.categories]);
       });
+
   }
 
   /*

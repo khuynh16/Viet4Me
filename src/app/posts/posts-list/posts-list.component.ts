@@ -21,23 +21,21 @@ export class PostsListComponent implements OnInit, OnDestroy {
   currentPage = 1;
   pageSizeOptions = [1,2,5,10,20];
   isExpanded: boolean = false;
-  determineExpandOption: Subscription;
 
+  determineExpandOption: Subscription;
   determineLanguageOption: Subscription;
   determineFilterCategoriesOption: Subscription;
+  sub: Subscription;
 
   initialPosts: Post[];
   engTag: string;
   vietTag: string;
+  categoryFilters: string[];
 
-  superPosts: string[];
-
-  constructor(public postsService: PostsService, public filtersService: FiltersService) {
-
-  }
+  constructor(public postsService: PostsService, public filtersService: FiltersService) {}
 
   ngOnInit() {
-    this.superPosts = [];
+    this.categoryFilters = [];
     this.engTag = 'ENG';
     this.vietTag = 'VIET';
     this.isLoading = true;
@@ -45,7 +43,6 @@ export class PostsListComponent implements OnInit, OnDestroy {
     this.postsService.getPosts(this.postsPerPage, this.currentPage);
     this.postsSub = this.postsService.getPostUpdateListener()
       .subscribe((postData: {posts: Post[], postCount: number}) => {
-        // once we get updated posts, set spinner to false
         this.isLoading = false;
         this.totalPosts = postData.postCount;
         this.posts = postData.posts;
@@ -54,42 +51,58 @@ export class PostsListComponent implements OnInit, OnDestroy {
 
         this.posts.forEach(post => {
           post.categories.forEach(category => {
-            if (!this.superPosts.includes(category)) {
-              this.superPosts.push(category);
+            if (!this.categoryFilters.includes(category)) {
+              this.categoryFilters.push(category);
             }
           })
         })
-
-        console.log('this is superposts: ' + this.superPosts);
-        this.postsService.filterCategoriesUpdated.next([...this.superPosts]);
+        console.log('this is categoryFilters: ' + this.categoryFilters);
+        // updates filter categories observable (needed to display categories in filter)
+        this.postsService.filterCategoriesUpdated.next([...this.categoryFilters]);
       });
 
-      this.determineExpandOption = this.filtersService.getExpandStatus()
-      .subscribe((e)=>{
-        this.toggleExpand();
-      });
+    // action from radio buttons component where user can choose to expand or collapse posts
+    this.determineExpandOption = this.filtersService.getExpandStatus()
+    .subscribe((e)=>{
+      this.toggleExpand();
+    });
 
+    // access current posts from observable to utilize in the next following method below
     this.postsSub = this.postsService.getPostUpdateListener().subscribe(postData => {
       this.initialPosts = postData.posts;
     })
 
+    // action from radio buttons component where user can switch main card language on top (eng or viet)
     this.determineLanguageOption = this.filtersService.getLangStatus()
       .subscribe(() => {
         this.switchLanguage(this.initialPosts);
-      })
+    });
 
+    // access current filtered categories to utilized in method below
+    this.sub = this.postsService.getFilterCategoryUpdateListener().subscribe(filteredCategories => {
+      this.categoryFilters = filteredCategories;
+    });
+
+    // action from categories component where user can filter posts by categories (DOESN"T WORK ATM)
     this.determineFilterCategoriesOption = this.filtersService.getFilterCategoriesStatus()
-      .subscribe(() => {
+      .subscribe((stuff) => {
         console.log("SUPERDUPER");
-        this.onClickCategoryFilters();
-      })
-  }
-
-  onClickCategoryFilters() {
-    this.postsService.getPosts(this.postsPerPage, this.currentPage);
+        this.onClickCategoryFilters(this.categoryFilters);
+    });
   }
 
   /*
+  * Gets posts to re-create post list with the currently selected filters (DOESN"T WORK ATM)
+  */
+  onClickCategoryFilters(filteredCategories: string[]) {
+    console.log('this is filtered categories: ' + filteredCategories);
+    // maybe call something like this.postsService.getFilteredPosts?
+    this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, filteredCategories);
+    // this.postsService.getCategories();
+  }
+
+  /*
+  * Change pagination details and get posts again.
   * @param pageData object holding data about current page
   */
   onChangedPage(pageData: PageEvent) {
@@ -138,6 +151,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
     this.determineExpandOption.unsubscribe();
     this.determineLanguageOption.unsubscribe();
     this.determineFilterCategoriesOption.unsubscribe();
+    this.sub.unsubscribe();
   }
 }
 

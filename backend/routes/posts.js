@@ -1,5 +1,4 @@
 const express = require('express');
-// const queryString = require('query-string');
 
 // implements backend post schema to use in adding new posts to database
 const Post = require('../models/post');
@@ -7,10 +6,10 @@ const Post = require('../models/post');
 const router = express.Router();
 
 /*
-* adding posts to database
-* -creates a post with request values
-* -saves document into database via .save() (mongoose function)
-* -displays a message to console after successful (201 code) creation
+* Adds new post to database.
+* @param '' the path after the already defined /api/posts route, defined in app.js
+* @param (req, res, next) express middleware
+* @return saved post and json object of message and new post id
 */
 router.post('', (req, res, next) => {
   const post = new Post({
@@ -26,6 +25,12 @@ router.post('', (req, res, next) => {
   });
 });
 
+/*
+* Edits post in database.
+* @param '/:id' id of post
+* @param (req, res, next) express middleware
+* @return update to one post and message
+*/
 router.put('/:id', (req, res, next) => {
   const post = new Post({
     _id: req.body.id,
@@ -39,17 +44,17 @@ router.put('/:id', (req, res, next) => {
 });
 
 /*
-* retrieving all posts from database
-* - mongoose .find() function to retrieve posts and send back a message and posts itself
+* Retrieve all posts in database.
+* @param '' the path after the already defined /api/posts route, defined in app.js
+* @param (req, res, next) express middleware
+* @return posts in database and number of posts (depending on pagination options)
 */
 router.get('', (req, res, next) => {
-  // extract query parameters (if any)
   const pageSize = +req.query.pagesize;
   const currentPage = req.query.page;
-  let currentCheckedCategories = req.query.categories;
+  // let currentCheckedCategories = req.query.categories;
   const postQuery = Post.find();
   let fetchedPosts;
-  let resultDocuments;
 
   if (pageSize && currentPage) {
     postQuery.skip(pageSize * (currentPage - 1))
@@ -58,33 +63,21 @@ router.get('', (req, res, next) => {
 
   postQuery
     .then(documents => {
-      console.log('hello');
-      console.log('this is currentCheckedCats: ' + currentCheckedCategories);
-      console.log('====');
-
       fetchedPosts = documents;
       return Post.countDocuments();
 
-      // if (currentCheckedCategories) {
-      //   resultDocuments.forEach(post => {
-      //     post.categories.forEach(category => {
-      //       if (!currentCheckedCategories.includes(category)) {
-      //         //filter out post
-      //       }
-      //     })
-      //   })
+      // console.log('hello');
+      // console.log('this is currentCheckedCats: ' + currentCheckedCategories);
+      // console.log('====');
 
-        // console.log('RESULT DOCUMENTS AFTER: ');
-        // console.log(resultDocuments);
-      // }
-
-      //   }
-      // })
-
-      // if (currentCheckedCategories) {
-      //   console.log('THERE IS CURRENT CHECKED CATEGORIES');
+      // if (currentCheckedCategories !== 'undefined' && currentCheckedCategories !== undefined) {
+      //   console.log('inside is: ' + currentCheckedCategories);
+      //   console.log('End');
+      //   console.log('second comment here!');
+      //   console.log('This means checkbox has activated!');
       //   filteredPosts = [];
       //   documents.forEach(post => {
+      //     console.log('length: ' + post.categories.length);
       //     for (let i = 0; i < post.categories.length - 1; i++) {
       //       // console.log(post.categories[i]);
       //       if (currentCheckedCategories.includes(post.categories[i]) && !filteredPosts.includes(post.categories[i])) {
@@ -93,21 +86,12 @@ router.get('', (req, res, next) => {
       //     }
       //   });
       //   fetchedPosts = filteredPosts;
-      //   return fetchedPosts.length;
-      //   // console.log(fetchedPosts);
+      //   return Post.countDocuments();
       // } else {
-      //   console.log("THERE IS NONE CUR CHECK CATS");
+      //   console.log('Beginning and post list');
       //   fetchedPosts = documents;
       //   return Post.countDocuments();
       // }
-      //console.log('documents here!' + documents);
-
-      //console.log('test here!' + test);
-
-      //console.log('Below here!');
-      //console.log(currentCheckedCategories);
-
-      // console.log('===================================================================');
 
     })
     .then(count => {
@@ -119,6 +103,85 @@ router.get('', (req, res, next) => {
     });
 });
 
+// THE SECOND ONE
+router.get('/categories', (req, res, next) => {
+  const pageSize = +req.query.pagesize;
+  const currentPage = req.query.page;
+  const filterCategories = req.query.filters;
+  // let currentCheckedCategories = req.query.categories;
+  const postQuery = Post.find();
+  adjustPostsLength = 0;
+
+  if (pageSize && currentPage) {
+    postQuery.skip(pageSize * (currentPage - 1))
+    .limit(pageSize);
+  }
+
+  postQuery
+    .then(documents => {
+
+      console.log('filtersssss:' + filterCategories);
+      filteredPosts = [];
+      documents.forEach(post => {
+        console.log('length: ' + post.categories.length);
+        for (let i = 0; i < post.categories.length; i++) {
+          console.log('Is ' + post.categories[i] + ' in ' + filterCategories + '?' + filterCategories.includes(post.categories[i]));
+          if (filterCategories.includes(post.categories[i]) && !filteredPosts.includes(post.categories[i])) {
+            filteredPosts.push(post);
+          }
+        }
+      });
+      // documents.forEach(post => {
+      //   filteredPosts.push(post);
+      // });
+      adjustPostsLength = documents.length - filteredPosts.length;
+
+      fetchedPosts = filteredPosts;
+      return Post.countDocuments();
+
+      // console.log('hello');
+      // console.log('this is currentCheckedCats: ' + currentCheckedCategories);
+      // console.log('====');
+
+      // if (currentCheckedCategories !== 'undefined' && currentCheckedCategories !== undefined) {
+      //   console.log('inside is: ' + currentCheckedCategories);
+      //   console.log('End');
+      //   console.log('second comment here!');
+      //   console.log('This means checkbox has activated!');
+      //   filteredPosts = [];
+      //   documents.forEach(post => {
+      //     console.log('length: ' + post.categories.length);
+      //     for (let i = 0; i < post.categories.length - 1; i++) {
+      //       // console.log(post.categories[i]);
+      //       if (currentCheckedCategories.includes(post.categories[i]) && !filteredPosts.includes(post.categories[i])) {
+      //         filteredPosts.push(post);
+      //       }
+      //     }
+      //   });
+      //   fetchedPosts = filteredPosts;
+      //   return Post.countDocuments();
+      // } else {
+      //   console.log('Beginning and post list');
+      //   fetchedPosts = documents;
+      //   return Post.countDocuments();
+      // }
+
+    })
+    .then(count => {
+      res.status(200).json({
+        message: 'Posts fetched successfully!',
+        posts: fetchedPosts,
+        maxPosts: (count - adjustPostsLength)
+      });
+    });
+});
+
+/*
+* Get post by specified id.
+* @param '/:id' the post's id
+* @param (req, res, next) express middleware
+* @return post with the identified id
+*/
 router.get('/:id', (req, res, next) => {
   Post.findById(req.params.id).then(post => {
     if (post) {
@@ -130,9 +193,10 @@ router.get('/:id', (req, res, next) => {
 });
 
 /*
-// dynamic passed segment (:id)
-req.params: express function that gives access to encoded
-parameters
+* Delete a post associated with a specific id.
+* @param '/:id' specific post id
+* @(req, res, next) express middleware
+* @return deleted post from databaes and success message
 */
 router.delete('/:id', (req, res, next) => {
   Post.deleteOne({ _id: req.params.id }).then(result => {
