@@ -65,34 +65,6 @@ router.get('', (req, res, next) => {
     .then(documents => {
       fetchedPosts = documents;
       return Post.countDocuments();
-
-      // console.log('hello');
-      // console.log('this is currentCheckedCats: ' + currentCheckedCategories);
-      // console.log('====');
-
-      // if (currentCheckedCategories !== 'undefined' && currentCheckedCategories !== undefined) {
-      //   console.log('inside is: ' + currentCheckedCategories);
-      //   console.log('End');
-      //   console.log('second comment here!');
-      //   console.log('This means checkbox has activated!');
-      //   filteredPosts = [];
-      //   documents.forEach(post => {
-      //     console.log('length: ' + post.categories.length);
-      //     for (let i = 0; i < post.categories.length - 1; i++) {
-      //       // console.log(post.categories[i]);
-      //       if (currentCheckedCategories.includes(post.categories[i]) && !filteredPosts.includes(post.categories[i])) {
-      //         filteredPosts.push(post);
-      //       }
-      //     }
-      //   });
-      //   fetchedPosts = filteredPosts;
-      //   return Post.countDocuments();
-      // } else {
-      //   console.log('Beginning and post list');
-      //   fetchedPosts = documents;
-      //   return Post.countDocuments();
-      // }
-
     })
     .then(count => {
       res.status(200).json({
@@ -119,53 +91,28 @@ router.get('/categories', (req, res, next) => {
 
   postQuery
     .then(documents => {
-
-      console.log('filtersssss:' + filterCategories);
       filteredPosts = [];
+      excludedPosts = [];
+
       documents.forEach(post => {
-        console.log('length: ' + post.categories.length);
+        // initialize variable to 0 to determine if category should be displayed, based on filter
+        numCategoriesMatched = 0;
+        // loop through each post's category and update counter of number of categories that match
+        // in filterCategories variable; if >= 1, the current post should be displayed
         for (let i = 0; i < post.categories.length; i++) {
-          console.log('Is ' + post.categories[i] + ' in ' + filterCategories + '?' + filterCategories.includes(post.categories[i]));
-          if (filterCategories.includes(post.categories[i]) && !filteredPosts.includes(post.categories[i])) {
-            filteredPosts.push(post);
+          if (filterCategories.includes(post.categories[i])) {
+            numCategoriesMatched++;
           }
         }
+        if (numCategoriesMatched >= 1) {
+          filteredPosts.push(post);
+        }
       });
-      // documents.forEach(post => {
-      //   filteredPosts.push(post);
-      // });
+      // variable to help exclude filtered posts from the max posts displayed
       adjustPostsLength = documents.length - filteredPosts.length;
-
+      // returning results of filtered Posts
       fetchedPosts = filteredPosts;
       return Post.countDocuments();
-
-      // console.log('hello');
-      // console.log('this is currentCheckedCats: ' + currentCheckedCategories);
-      // console.log('====');
-
-      // if (currentCheckedCategories !== 'undefined' && currentCheckedCategories !== undefined) {
-      //   console.log('inside is: ' + currentCheckedCategories);
-      //   console.log('End');
-      //   console.log('second comment here!');
-      //   console.log('This means checkbox has activated!');
-      //   filteredPosts = [];
-      //   documents.forEach(post => {
-      //     console.log('length: ' + post.categories.length);
-      //     for (let i = 0; i < post.categories.length - 1; i++) {
-      //       // console.log(post.categories[i]);
-      //       if (currentCheckedCategories.includes(post.categories[i]) && !filteredPosts.includes(post.categories[i])) {
-      //         filteredPosts.push(post);
-      //       }
-      //     }
-      //   });
-      //   fetchedPosts = filteredPosts;
-      //   return Post.countDocuments();
-      // } else {
-      //   console.log('Beginning and post list');
-      //   fetchedPosts = documents;
-      //   return Post.countDocuments();
-      // }
-
     })
     .then(count => {
       res.status(200).json({
