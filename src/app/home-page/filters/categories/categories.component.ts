@@ -68,6 +68,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
       this.filterCategories.push(categoryData.name);
     }
 
+    this.filterCategories = this.filterCategories.sort();
     console.log('filtered categories!: ' + this.filterCategories);
     this.postsService.filterCategoriesUpdated.next([...this.filterCategories]);
 

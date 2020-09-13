@@ -56,6 +56,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
             }
           })
         })
+        this.categoryFilters = this.categoryFilters.sort();
         console.log('this is categoryFilters: ' + this.categoryFilters);
         // updates filter categories observable (needed to display categories in filter)
         this.postsService.filterCategoriesUpdated.next([...this.categoryFilters]);
@@ -107,10 +108,19 @@ export class PostsListComponent implements OnInit, OnDestroy {
   */
   onChangedPage(pageData: PageEvent) {
     // show loading spinner when fetching posts
-    this.isLoading = true;
+
     this.currentPage = pageData.pageIndex + 1;
     this.postsPerPage = pageData.pageSize;
-    this.postsService.getPosts(this.postsPerPage, this.currentPage);
+    console.log('Total posts: ' + this.totalPosts);
+    console.log('posts per page: ' + this.postsPerPage);
+    console.log('currentPage: ' + this.currentPage);
+       if (this.totalPosts > this.postsPerPage) {
+      this.isLoading = true;
+
+      // this.postsService.getPosts(this.postsPerPage, this.currentPage);
+      this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, this.categoryFilters);
+       }
+    // this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, this.categoryFilters);
   }
 
   onDelete(postId: string) {
