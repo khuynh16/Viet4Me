@@ -13,6 +13,9 @@ export class FiltersService {
   private expandSubject = new Subject<any>();
   private langSubject = new Subject<any>();
   private filterCategoriesSubject = new Subject<any>();
+  private filterViaTextSubject = new Subject<any>();
+
+  public userTextFilterUpdated = new Subject<string>();
 
   changeExpandEvent() {
     this.expandSubject.next();
@@ -36,5 +39,20 @@ export class FiltersService {
 
   getFilterCategoriesStatus(): Observable<any> {
     return this.filterCategoriesSubject.asObservable();
+  }
+
+
+
+  changeFilterTextEvent() {
+    this.filterViaTextSubject.next();
+  }
+
+  getFilterTextStatus(): Observable<any> {
+    return this.filterViaTextSubject.asObservable();
+  }
+
+
+  getFilterUserInputListener() {
+    return this.userTextFilterUpdated.asObservable();
   }
 }

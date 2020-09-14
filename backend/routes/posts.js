@@ -50,19 +50,33 @@ router.put('/:id', (req, res, next) => {
 * @return posts in database and number of posts (depending on pagination options)
 */
 router.get('', (req, res, next) => {
-  const pageSize = +req.query.pagesize;
-  const currentPage = req.query.page;
-  // let currentCheckedCategories = req.query.categories;
-  const postQuery = Post.find();
-  let fetchedPosts;
+  // const textFilter = req.query.userfilter;
+  // console.log('TExtfilter: ' + textFilter);
+  // const filteredCategoriesArray = req.query.filters.toString().split(',');
+  // console.log(filteredCategoriesArray);
 
-  if (pageSize && currentPage) {
-    postQuery.skip(pageSize * (currentPage - 1))
-    .limit(pageSize);
-  }
+  // postQuery = Post.find(
+  //   {engTranslation: new RegExp(textFilter, 'i')},
+  //   { categories: { $elemMatch: { $in: filteredCategoriesArray }}}
+  //   );
+  postQuery = Post.find();
+  // if (textFilter !== '') {
+  //   // finds all posts that match user inputed text filter (insensitive to case)
+  //   postQuery = Post.find({engTranslation: new RegExp(textFilter, 'i')});
+  // }
+  // else {
+  //   postQuery = Post.find();
+  // }
+
+  postQuery.then(posts => {
+    adjustedPostsLength = posts.length;
+    console.log("ADJUSTED2: " + adjustedPostsLength);
+  })
 
   postQuery
     .then(documents => {
+      console.log('DOCS HERE');
+      console.log(documents);
       fetchedPosts = documents;
       return Post.countDocuments();
     })
@@ -77,50 +91,43 @@ router.get('', (req, res, next) => {
 
 // THE SECOND ONE
 router.get('/categories', (req, res, next) => {
-  const pageSize = +req.query.pagesize;
-  const currentPage = req.query.page;
-  const filterCategories = req.query.filters;
-  // let currentCheckedCategories = req.query.categories;
-  const postQuery = Post.find();
-  adjustPostsLength = 0;
+  const userfilter = req.query.userfilter;
+  const filteredCategoriesArray = req.query.categoryfilter.toString().split(',');
+  console.log('userfilter: ' + userfilter);
+  console.log('category filter: ' + filteredCategoriesArray);
 
-  if (pageSize && currentPage) {
-    postQuery.skip(pageSize * (currentPage - 1))
-    .limit(pageSize);
+  if (userfilter === undefined || userfilter === 'undefined' || userfilter === '') {
+    console.log('no input');
+    postQuery = Post.find(
+      { "categories": { $elemMatch: { $in: filteredCategoriesArray}}}
+    );
+  } else {
+    postQuery = Post.find(
+      // { engTranslation: new RegExp(userfilter, 'i')},
+      { "engTranslation": new RegExp(userfilter, 'i'), "categories": { $elemMatch: { $in: filteredCategoriesArray }}}
+    );
   }
+
+
+  postQuery.then(posts => {
+    console.log("length after filters: " + posts.length);
+  })
 
   postQuery
     .then(documents => {
-      filteredPosts = [];
-      excludedPosts = [];
+      console.log('DOCUMENTS: ' + documents);
 
-      documents.forEach(post => {
-        // initialize variable to 0 to determine if category should be displayed, based on filter
-        numCategoriesMatched = 0;
-        // loop through each post's category and update counter of number of categories that match
-        // in filterCategories variable; if >= 1, the current post should be displayed
-        for (let i = 0; i < post.categories.length; i++) {
-          if (filterCategories.includes(post.categories[i])) {
-            numCategoriesMatched++;
-          }
-        }
-        if (numCategoriesMatched >= 1) {
-          filteredPosts.push(post);
-        }
-      });
-      // variable to help exclude filtered posts from the max posts displayed
-      adjustPostsLength = documents.length - filteredPosts.length;
-      // returning results of filtered Posts
-      fetchedPosts = filteredPosts;
-      return Post.countDocuments();
+      fetchedPosts = documents;
+      return postQuery.countDocuments();
     })
     .then(count => {
+      console.log("COUNTTS: " + count);
       res.status(200).json({
         message: 'Posts fetched successfully!',
         posts: fetchedPosts,
-        maxPosts: (count - adjustPostsLength)
+        maxPosts: count
       });
-    });
+    })
 });
 
 /*

@@ -19,28 +19,38 @@ export class PostsListComponent implements OnInit, OnDestroy {
   totalPosts = 0;
   postsPerPage = 20;
   currentPage = 1;
+  previousPostsPerPage = this.postsPerPage;
   pageSizeOptions = [1,2,5,10,20];
   isExpanded: boolean = false;
 
   determineExpandOption: Subscription;
   determineLanguageOption: Subscription;
   determineFilterCategoriesOption: Subscription;
+  determineFilterText: Subscription;
   sub: Subscription;
+  sub2: Subscription;
+  sub3: Subscription;
 
   initialPosts: Post[];
   engTag: string;
   vietTag: string;
   categoryFilters: string[];
 
+  userInputText: string;
+  initialUserTextFilter: string;
+
+
   constructor(public postsService: PostsService, public filtersService: FiltersService) {}
 
   ngOnInit() {
+    this.initialUserTextFilter = '';
     this.categoryFilters = [];
     this.engTag = 'ENG';
     this.vietTag = 'VIET';
     this.isLoading = true;
     // trigger http request when post list is loaded
-    this.postsService.getPosts(this.postsPerPage, this.currentPage);
+    // this.postsService.getPosts(this.postsPerPage, this.currentPage);
+    this.postsService.getPosts();
     this.postsSub = this.postsService.getPostUpdateListener()
       .subscribe((postData: {posts: Post[], postCount: number}) => {
         this.isLoading = false;
@@ -90,6 +100,30 @@ export class PostsListComponent implements OnInit, OnDestroy {
         console.log("SUPERDUPER");
         this.onClickCategoryFilters(this.categoryFilters);
     });
+
+    this.sub2 = this.postsService.getPostUpdateListener().subscribe(p => {
+      console.log('PPPPPPPPP: ' + p.postCount);
+      this.totalPosts = p.postCount;
+    })
+
+    this.sub3 = this.filtersService.getFilterUserInputListener().subscribe(text => {
+      console.log('TEXTSSSSSSSSSSS: ' + text);
+      this.userInputText = text;
+
+    })
+
+
+    this.determineFilterText = this.filtersService.getFilterTextStatus()
+      .subscribe((text) => {
+        console.log("TEXT FROM THE INPUT: " + this.userInputText);
+        this.onEnteredTextFilter(this.userInputText);
+      })
+  }
+
+  onEnteredTextFilter(currentTextFilter) {
+    console.log(currentTextFilter + ' is current');
+    // this.postsService.getPosts(this.postsPerPage, this.currentPage);
+    this.postsService.getFilteredPosts(currentTextFilter, this.categoryFilters);
   }
 
   /*
@@ -98,7 +132,10 @@ export class PostsListComponent implements OnInit, OnDestroy {
   onClickCategoryFilters(filteredCategories: string[]) {
     console.log('this is filtered categories: ' + filteredCategories);
     // maybe call something like this.postsService.getFilteredPosts?
-    this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, filteredCategories);
+    this.postsService.getFilteredPosts(this.userInputText, filteredCategories);
+    // this.postsService.getPosts(this.postsPerPage, this.currentPage);
+
+
     // this.postsService.getCategories();
   }
 
@@ -108,17 +145,19 @@ export class PostsListComponent implements OnInit, OnDestroy {
   */
   onChangedPage(pageData: PageEvent) {
     // show loading spinner when fetching posts
+      this.previousPostsPerPage = this.postsPerPage;
+      this.currentPage = pageData.pageIndex + 1;
+      this.postsPerPage = pageData.pageSize;
+      console.log('Total posts: ' + this.totalPosts);
+      console.log('posts per page: ' + this.postsPerPage);
+      console.log('currentPage: ' + this.currentPage);
+      console.log('previous posts per page: ' + this.previousPostsPerPage);
+        if (this.totalPosts > this.postsPerPage || this.totalPosts > this.previousPostsPerPage) {
+        this.isLoading = true;
 
-    this.currentPage = pageData.pageIndex + 1;
-    this.postsPerPage = pageData.pageSize;
-    console.log('Total posts: ' + this.totalPosts);
-    console.log('posts per page: ' + this.postsPerPage);
-    console.log('currentPage: ' + this.currentPage);
-       if (this.totalPosts > this.postsPerPage) {
-      this.isLoading = true;
 
-      // this.postsService.getPosts(this.postsPerPage, this.currentPage);
-      this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, this.categoryFilters);
+      // this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, this.categoryFilters);
+      //  this.postsService.getPosts(this.postsPerPage, this.currentPage);
        }
     // this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, this.categoryFilters);
   }
@@ -126,7 +165,8 @@ export class PostsListComponent implements OnInit, OnDestroy {
   onDelete(postId: string) {
     this.isLoading = true;
     this.postsService.deletePost(postId).subscribe(() => {
-      this.postsService.getPosts(this.postsPerPage, this.currentPage);
+      // this.postsService.getPosts(this.postsPerPage, this.currentPage);
+      this.postsService.getPosts();
     });
   }
 
@@ -162,6 +202,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
     this.determineLanguageOption.unsubscribe();
     this.determineFilterCategoriesOption.unsubscribe();
     this.sub.unsubscribe();
+    this.sub2.unsubscribe();
   }
 }
 

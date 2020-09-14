@@ -22,10 +22,10 @@ export class PostsService  {
   * Retrieve posts from database.
   * @return subject.next method call
   */
-  getPosts(postsPerPage: number, currentPage: number) {
-    const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
+  getPosts() {
+    // const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
     // call to get method from backend
-    this.http.get<{ message: string, posts: any, maxPosts: number }>('http://localhost:3000/api/posts' + queryParams)
+    this.http.get<{ message: string, posts: any, maxPosts: number }>('http://localhost:3000/api/posts')
       .pipe(map((postData) => {
         // changing ._id to id in posts object array
         return {
@@ -48,8 +48,8 @@ export class PostsService  {
       });
   }
 
-  getFilteredPosts(postsPerPage: number, currentPage: number, filteredCategories: string[]) {
-    const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}&filters=${filteredCategories}`;
+  getFilteredPosts(userInputedFilter, filteredCategories: string[]) {
+    const queryParams = `?userfilter=${userInputedFilter}&categoryfilter=${filteredCategories}`;
     // call to get method from backend
     this.http.get<{ message: string, posts: any, maxPosts: number }>('http://localhost:3000/api/posts/categories' + queryParams)
       .pipe(map((postData) => {
@@ -66,7 +66,10 @@ export class PostsService  {
         };
       }))
       .subscribe(transformedPostData => {
+        console.log('this.posts!!!!!!');
+
         this.posts = transformedPostData.posts;
+        console.log(this.posts);
         this.postsUpdated.next({
           posts: [...this.posts],
           postCount: transformedPostData.maxPosts
