@@ -32,6 +32,9 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
   isChecked = false;
   isLoading = false;
 
+  translatedInEng: string;
+  translatedInViet: string;
+
   constructor(public postsService: PostsService,
     public route: ActivatedRoute,
     private google: GoogleTranslateService) { }
@@ -122,21 +125,59 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
     }
     // load spinner when post is saved/edited
     this.isLoading = true;
-    if (this.mode === 'create') {
-      this.postsService.addPost(
-        form.value.engTranslation,
-        'viet translation here!',
-        this.selectedCategories
+
+
+    this.translatedInEng = form.value.engTranslation;
+
+    // object that stores current english word/phrase to translate to vietnamese,
+    // and a 'target' variable that sends to Google API to translate into vietnamese
+    const googleObj: GoogleObj = {
+      q: form.value.engTranslation,
+      target: 'vi'
+    };
+
+    // api translates and calls addPost method in service
+    this.google.translate(googleObj)
+      .subscribe(
+        (res: any) => {
+          this.translatedInViet = res.data.translations[0].translatedText;
+          if (this.mode === 'create') {
+            this.postsService.addPost(
+              this.translatedInEng,
+              this.translatedInViet,
+              this.selectedCategories
+            );
+          } else {
+            this.postsService.updatePost(
+              this.postId,
+              this.translatedInEng,
+              this.translatedInViet,
+              this.selectedCategories
+            );
+          }
+        },
+        err => {
+          console.log(err);
+        }
       );
-    } else  {
-      this.postsService.updatePost(
-        this.postId,
-        form.value.engTranslation,
-        'viet translation update!',
-        this.selectedCategories
-      );
-    }
-    form.resetForm();
+
+      form.resetForm();
+
+    // if (this.mode === 'create') {
+    //   this.postsService.addPost(
+    //     form.value.engTranslation,
+    //     'viet translation here!',
+    //     this.selectedCategories
+    //   );
+    // } else  {
+    //   this.postsService.updatePost(
+    //     this.postId,
+    //     form.value.engTranslation,
+    //     'viet translation update!',
+    //     this.selectedCategories
+    //   );
+    // }
+
   }
 
   /*

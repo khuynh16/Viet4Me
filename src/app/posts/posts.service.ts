@@ -22,10 +22,10 @@ export class PostsService  {
   * Retrieve posts from database.
   * @return subject.next method call
   */
-  getPosts() {
-    // const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
+  getPosts(postsPerPage, currentPage) {
+     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
     // call to get method from backend
-    this.http.get<{ message: string, posts: any, maxPosts: number }>('http://localhost:3000/api/posts')
+    this.http.get<{ message: string, posts: any, maxPosts: number }>('http://localhost:3000/api/posts' + queryParams)
       .pipe(map((postData) => {
         // changing ._id to id in posts object array
         return {
@@ -48,20 +48,30 @@ export class PostsService  {
       });
   }
 
-  getFilteredPosts(userInputedFilter, filteredCategories: string[]) {
-    const queryParams = `?userfilter=${userInputedFilter}&categoryfilter=${filteredCategories}`;
+  getFilteredPosts(postsPerPage, currentPage, userInputedFilter, filteredCategories: string[], currentLanguage) {
+    const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}&userfilter=${userInputedFilter}&categoryfilter=${filteredCategories}&language=${currentLanguage}`;
     // call to get method from backend
     this.http.get<{ message: string, posts: any, maxPosts: number }>('http://localhost:3000/api/posts/categories' + queryParams)
       .pipe(map((postData) => {
         // changing ._id to id in posts object array
         return {
           posts: postData.posts.map(post => {
-            return {
-              id: post._id,
-              engTranslation: post.engTranslation,
-              vietTranslation: post.vietTranslation,
-              categories: post.categories
-            };
+            console.log('DDDDHH THE LANGUAGE IS: ' + currentLanguage);
+            if (currentLanguage === 'ENG') {
+              return {
+                id: post._id,
+                engTranslation: post.engTranslation,
+                vietTranslation: post.vietTranslation,
+                categories: post.categories
+              };
+            } else if (currentLanguage === 'VIET') {
+              return {
+                id: post._id,
+                engTranslation: post.vietTranslation,
+                vietTranslation: post.engTranslation,
+                categories: post.categories
+              };
+            }
           }), maxPosts: postData.maxPosts
         };
       }))

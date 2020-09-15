@@ -54,6 +54,8 @@ router.get('', (req, res, next) => {
   // console.log('TExtfilter: ' + textFilter);
   // const filteredCategoriesArray = req.query.filters.toString().split(',');
   // console.log(filteredCategoriesArray);
+  const pageSize = +req.query.pagesize;
+  const currentPage = +req.query.page;
 
   // postQuery = Post.find(
   //   {engTranslation: new RegExp(textFilter, 'i')},
@@ -67,6 +69,11 @@ router.get('', (req, res, next) => {
   // else {
   //   postQuery = Post.find();
   // }
+  if (pageSize && currentPage) {
+    postQuery
+      .skip(pageSize * (currentPage - 1))
+      .limit(pageSize);
+  }
 
   postQuery.then(posts => {
     adjustedPostsLength = posts.length;
@@ -91,26 +98,45 @@ router.get('', (req, res, next) => {
 
 // THE SECOND ONE
 router.get('/categories', (req, res, next) => {
+  const pageSize = +req.query.pagesize;
+  const currentPage = +req.query.page;
   const userfilter = req.query.userfilter;
   const filteredCategoriesArray = req.query.categoryfilter.toString().split(',');
+  const currentLanguage = req.query.language;
   console.log('userfilter: ' + userfilter);
   console.log('category filter: ' + filteredCategoriesArray);
+  console.log('language: ' + currentLanguage);
 
-  if (userfilter === undefined || userfilter === 'undefined' || userfilter === '') {
+  if (userfilter === 'undefined' || userfilter === '') {
     console.log('no input');
     postQuery = Post.find(
       { "categories": { $elemMatch: { $in: filteredCategoriesArray}}}
     );
-  } else {
+    // postQuery.limit(pageSize);
+
+  } else if (currentLanguage === 'ENG') {
+    console.log('ENG check');
     postQuery = Post.find(
+
       // { engTranslation: new RegExp(userfilter, 'i')},
       { "engTranslation": new RegExp(userfilter, 'i'), "categories": { $elemMatch: { $in: filteredCategoriesArray }}}
     );
+  } else if (currentLanguage === 'VIET') {
+    postQuery = Post.find(
+    { "vietTranslation": new RegExp(userfilter, 'i'), "categories": { $elemMatch: { $in: filteredCategoriesArray }}}
+    );
   }
 
+  console.log('page size and current Page: ' + pageSize + ', ' + currentPage);
+  // if (pageSize && currentPage) {
+  // postQuery
+  //     .skip(pageSize * (currentPage - 1))
+  //     .limit(pageSize);
+  // }
 
   postQuery.then(posts => {
     console.log("length after filters: " + posts.length);
+    templength = posts.length;
   })
 
   postQuery

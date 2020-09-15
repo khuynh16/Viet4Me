@@ -39,6 +39,8 @@ export class PostsListComponent implements OnInit, OnDestroy {
   userInputText: string;
   initialUserTextFilter: string;
 
+  currentLanguage = 'ENG';
+
 
   constructor(public postsService: PostsService, public filtersService: FiltersService) {}
 
@@ -50,7 +52,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     // trigger http request when post list is loaded
     // this.postsService.getPosts(this.postsPerPage, this.currentPage);
-    this.postsService.getPosts();
+    this.postsService.getPosts(this.postsPerPage, this.currentPage);
     this.postsSub = this.postsService.getPostUpdateListener()
       .subscribe((postData: {posts: Post[], postCount: number}) => {
         this.isLoading = false;
@@ -106,13 +108,13 @@ export class PostsListComponent implements OnInit, OnDestroy {
       this.totalPosts = p.postCount;
     })
 
+    // passes user's typed filter text to variable (used in the next method)
     this.sub3 = this.filtersService.getFilterUserInputListener().subscribe(text => {
       console.log('TEXTSSSSSSSSSSS: ' + text);
       this.userInputText = text;
-
     })
 
-
+    // calls postsService function whenever the text filter updates (for every letter or clear)
     this.determineFilterText = this.filtersService.getFilterTextStatus()
       .subscribe((text) => {
         console.log("TEXT FROM THE INPUT: " + this.userInputText);
@@ -122,8 +124,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
 
   onEnteredTextFilter(currentTextFilter) {
     console.log(currentTextFilter + ' is current');
-    // this.postsService.getPosts(this.postsPerPage, this.currentPage);
-    this.postsService.getFilteredPosts(currentTextFilter, this.categoryFilters);
+    this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, currentTextFilter, this.categoryFilters, this.currentLanguage);
   }
 
   /*
@@ -131,42 +132,39 @@ export class PostsListComponent implements OnInit, OnDestroy {
   */
   onClickCategoryFilters(filteredCategories: string[]) {
     console.log('this is filtered categories: ' + filteredCategories);
-    // maybe call something like this.postsService.getFilteredPosts?
-    this.postsService.getFilteredPosts(this.userInputText, filteredCategories);
-    // this.postsService.getPosts(this.postsPerPage, this.currentPage);
-
-
-    // this.postsService.getCategories();
+    this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, this.userInputText, filteredCategories, this.currentLanguage);
   }
 
   /*
   * Change pagination details and get posts again.
   * @param pageData object holding data about current page
   */
-  onChangedPage(pageData: PageEvent) {
-    // show loading spinner when fetching posts
-      this.previousPostsPerPage = this.postsPerPage;
-      this.currentPage = pageData.pageIndex + 1;
-      this.postsPerPage = pageData.pageSize;
-      console.log('Total posts: ' + this.totalPosts);
-      console.log('posts per page: ' + this.postsPerPage);
-      console.log('currentPage: ' + this.currentPage);
-      console.log('previous posts per page: ' + this.previousPostsPerPage);
-        if (this.totalPosts > this.postsPerPage || this.totalPosts > this.previousPostsPerPage) {
-        this.isLoading = true;
+  // onChangedPage(pageData: PageEvent) {
+  //   // show loading spinner when fetching posts
+  //     this.previousPostsPerPage = this.postsPerPage;
+  //     this.currentPage = pageData.pageIndex + 1;
+  //     this.postsPerPage = pageData.pageSize;
+  //     console.log('Total posts: ' + this.totalPosts);
+  //     console.log('posts per page: ' + this.postsPerPage);
+  //     console.log('currentPage: ' + this.currentPage);
+  //     console.log('previous posts per page: ' + this.previousPostsPerPage);
+  //       if (this.totalPosts > this.postsPerPage || this.totalPosts > this.previousPostsPerPage) {
+  //       this.isLoading = true;
+  //       this.postsService.getPosts(this.postsPerPage, this.currentPage);
+  //       // this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, this.userInputText, this.categoryFilters, this.currentLanguage);
+  //     }
 
 
-      // this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, this.categoryFilters);
-      //  this.postsService.getPosts(this.postsPerPage, this.currentPage);
-       }
-    // this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, this.categoryFilters);
-  }
+  //     // this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, this.categoryFilters);
+  //     //this.postsService.getPosts(this.postsPerPage, this.currentPage);
+  //   // this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, this.categoryFilters);
+  // }
 
   onDelete(postId: string) {
     this.isLoading = true;
     this.postsService.deletePost(postId).subscribe(() => {
       // this.postsService.getPosts(this.postsPerPage, this.currentPage);
-      this.postsService.getPosts();
+      this.postsService.getPosts(this.postsPerPage, this.currentPage);
     });
   }
 
@@ -179,6 +177,12 @@ export class PostsListComponent implements OnInit, OnDestroy {
   }
 
   switchLanguage(posts: Post[]) {
+    if (this.currentLanguage === 'ENG') {
+      this.currentLanguage = 'VIET';
+    } else {
+      this.currentLanguage = 'ENG';
+    }
+
     let tempString;
     posts.forEach(post => {
       tempString = post.engTranslation;
@@ -194,6 +198,10 @@ export class PostsListComponent implements OnInit, OnDestroy {
       this.engTag = 'ENG';
       this.vietTag = 'VIET';
     }
+
+    // call to retrieve posts
+    // needed in the case when they is user types input to filter by and switches language
+    this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, this.userInputText, this.categoryFilters, this.currentLanguage);
   }
 
   ngOnDestroy() {

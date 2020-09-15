@@ -3,11 +3,13 @@ import { HttpClient } from '@angular/common/http';
 
 import { GoogleObj } from './translate.model';
 
+import { environment } from '../../../src/environments/environment';
+
 @Injectable({providedIn: 'root'})
 export class GoogleTranslateService {
 
   url = 'https://translation.googleapis.com/language/translate/v2?key=';
-  key = '';
+  key = environment.G_KEY;
 
   constructor(private http: HttpClient) { }
 
