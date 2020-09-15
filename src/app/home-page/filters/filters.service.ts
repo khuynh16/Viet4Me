@@ -25,8 +25,8 @@ export class FiltersService {
     return this.expandSubject.asObservable();
   }
 
-  changeLangEvent() {
-    this.langSubject.next();
+  changeLangEvent(language) {
+    this.langSubject.next(language);
   }
 
   getLangStatus(): Observable<any>{
@@ -40,8 +40,6 @@ export class FiltersService {
   getFilterCategoriesStatus(): Observable<any> {
     return this.filterCategoriesSubject.asObservable();
   }
-
-
 
   changeFilterTextEvent() {
     this.filterViaTextSubject.next();

@@ -31,6 +31,7 @@ import { RadioFilterBtnsComponent } from './home-page/filters/radio-display-btns
 import { SearchBarComponent } from './home-page/filters/search-bar/search-bar.component';
 import { FiltersComponent } from './home-page/filters/filters.component';
 import { PostsListComponent } from './posts/posts-list/posts-list.component';
+import { VietCharactersComponent } from './home-page/filters/viet-characters/viet-characters.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { PostsListComponent } from './posts/posts-list/posts-list.component';
     RadioFilterBtnsComponent,
     SearchBarComponent,
     FiltersComponent,
-    PostsListComponent
+    PostsListComponent,
+    VietCharactersComponent
   ],
   imports: [
     BrowserModule,

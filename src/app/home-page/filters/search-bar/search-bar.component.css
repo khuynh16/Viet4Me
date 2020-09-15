@@ -5,6 +5,7 @@
 section {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -26,3 +27,22 @@ mat-label,
   border-right: 20px solid #4387c1;
   border-bottom: 20px solid transparent;
 }
+
+.vietCharacters {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 10px;
+
+}
+
+.vietCharacters button {
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  font-family: 'Be Vietnam', 'Acme';
+}
+
+/* .vietCharactersPanel {
+
+} */

@@ -1,8 +1,8 @@
 <section>
   <p>Initial display options</p>
   <mat-radio-group aria-label="Select an option" class="categoryRadioGroup">
-    <mat-radio-button value="1" [checked]="true" (change)="changeLang()">English</mat-radio-button>
-    <mat-radio-button value="2" (change)="changeLang()">Vietnamese</mat-radio-button>
+    <mat-radio-button value="English" [checked]="true" (change)="changeLang('ENG')">English</mat-radio-button>
+    <mat-radio-button value="Vietnamese" (change)="changeLang('VIET')">Vietnamese</mat-radio-button>
     <div class="triangle-right-corner"></div>
   </mat-radio-group>
   <hr class="displayOptionsHr">

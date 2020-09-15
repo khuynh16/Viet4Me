@@ -22,10 +22,11 @@ export class RadioFilterBtnsComponent implements OnInit {
   }
 
   /*
-  * Handling the change of language on the top of posts (rather than in the body).
+  * Handling the change of language on what languages appears on top (rather than expanding the post).
+  * @param language the current language selected in the language filter
   * @return function call to a function in filters.service.ts
   */
-  changeLang() {
-    this.filterService.changeLangEvent();
+  changeLang(language) {
+    this.filterService.changeLangEvent(language);
   }
 }

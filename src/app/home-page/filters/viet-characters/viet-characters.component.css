@@ -1,0 +1,30 @@
+.vietCharactersHeading {
+  padding-left: 10px;
+  padding-top: 10px;
+  font-family: 'Be Vietnam', 'Acme' !important;
+}
+
+.vietCharactersContainer {
+  margin-top: 10px;
+  background-color: lightgray;
+  padding-bottom: 10px;
+}
+
+.vietCharactersContent {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 5px;
+}
+
+.firstRow, .secondRow, .thirdRow {
+  display: flex;
+}
+
+.firstRow button, .secondRow button, .thirdRow button {
+  width: 32px;
+  height: 35px;
+  font-family: 'Be Vietnam', 'Acme' !important;
+  font-size: 18px;
+  cursor: pointer;
+  outline: none;
+}

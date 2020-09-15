@@ -51,7 +51,6 @@ export class PostsListComponent implements OnInit, OnDestroy {
     this.vietTag = 'VIET';
     this.isLoading = true;
     // trigger http request when post list is loaded
-    // this.postsService.getPosts(this.postsPerPage, this.currentPage);
     this.postsService.getPosts(this.postsPerPage, this.currentPage);
     this.postsSub = this.postsService.getPostUpdateListener()
       .subscribe((postData: {posts: Post[], postCount: number}) => {

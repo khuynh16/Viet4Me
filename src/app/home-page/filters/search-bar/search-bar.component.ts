@@ -11,6 +11,7 @@ export class SearchBarComponent implements OnInit {
 
   constructor(public filterService: FiltersService) { }
 
+
   ngOnInit(): void {
   }
 
@@ -18,7 +19,6 @@ export class SearchBarComponent implements OnInit {
     console.log(userTypedInput);
 
     this.filterService.userTextFilterUpdated.next(userTypedInput);
-
     this.filterService.changeFilterTextEvent();
   }
 
@@ -26,6 +26,4 @@ export class SearchBarComponent implements OnInit {
     this.value = '';
     this.onUpdateInput('');
   }
-
-
 }
