@@ -3,125 +3,124 @@
   <div class="vietCharactersContent">
     <div class="aCharacters">
       <div class="firstRow">
-        <button>á</button>
-        <button>à</button>
-        <button>ả</button>
-        <button>ã</button>
-        <button>ạ</button>
-        <button>ă</button>
+        <div *ngFor="let char of aFirstRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
       <div class="secondRow">
-        <button>ắ</button>
-        <button>ằ</button>
-        <button>ẳ</button>
-        <button>ẵ</button>
-        <button>ặ</button>
-        <button>â</button>
+        <div *ngFor="let char of aSecondRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
       <div class="thirdRow">
-        <button>ấ</button>
-        <button>ầ</button>
-        <button>ẩ</button>
-        <button>ẫ</button>
-        <button>ậ</button>
+        <div *ngFor="let char of aThirdRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
     </div>
+
     <div class="dCharacters">
       <div class="firstRow">
-        <button>đ</button>
+        <div *ngFor="let char of dFirstRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
       <div class="secondRow">
-        <button>₫</button>
+        <div *ngFor="let char of dSecondRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
     </div>
+
     <div class="eCharacters">
       <div class="firstRow">
-        <button>é</button>
-        <button>è</button>
-        <button>ẻ</button>
-        <button>ẽ</button>
+        <div *ngFor="let char of eFirstRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
       <div class="secondRow">
-        <button>ẹ</button>
-        <button>ê</button>
-        <button>ế</button>
-        <button>ề</button>
+        <div *ngFor="let char of eSecondRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
       <div class="thirdRow">
-        <button>ể</button>
-        <button>ễ</button>
-        <button>ệ</button>
+        <div *ngFor="let char of eThirdRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
     </div>
+
     <div class="iCharacters">
       <div class="firstRow">
-        <button>í</button>
-        <button>ì</button>
+        <div *ngFor="let char of iFirstRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
       <div class="secondRow">
-        <button>ỉ</button>
-        <button>ĩ</button>
+        <div *ngFor="let char of iSecondRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
       <div class="thirdRow">
-        <button>ị</button>
+        <div *ngFor="let char of iThirdRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
     </div>
+
     <div class="oCharacters">
       <div class="firstRow">
-        <button>ó</button>
-        <button>ò</button>
-        <button>ò</button>
-        <button>õ</button>
-        <button>ọ</button>
-        <button>ô</button>
+        <div *ngFor="let char of oFirstRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
       <div class="secondRow">
-        <button>ố</button>
-        <button>ồ</button>
-        <button>ổ</button>
-        <button>ỗ</button>
-        <button>ộ</button>
-        <button>ơ</button>
+        <div *ngFor="let char of oSecondRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
       <div class="thirdRow">
-        <button>ớ</button>
-        <button>ờ</button>
-        <button>ở</button>
-        <button>ỡ</button>
-        <button>ợ</button>
+        <div *ngFor="let char of oThirdRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
     </div>
+
     <div class="uCharacters">
       <div class="firstRow">
-        <button>ú</button>
-        <button>ù</button>
-        <button>ủ</button>
-        <button>ũ</button>
+        <div *ngFor="let char of uFirstRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
       <div class="secondRow">
-        <button>ụ</button>
-        <button>ư</button>
-        <button>ứ</button>
-        <button>ừ</button>
+        <div *ngFor="let char of uSecondRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
       <div class="thirdRow">
-        <button>ử</button>
-        <button>ữ</button>
-        <button>ự</button>
+        <div *ngFor="let char of uThirdRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
     </div>
+
     <div class="yCharacters">
       <div class="firstRow">
-        <button>ý</button>
-        <button>ỳ</button>
+        <div *ngFor="let char of yFirstRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
       <div class="secondRow">
-        <button>ỷ</button>
-        <button>ỹ</button>
+        <div *ngFor="let char of ySecondRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
       <div class="thirdRow">
-        <button>ỵ</button>
+        <div *ngFor="let char of yThirdRow">
+          <button value="{{char}}" (click)="insertIntoInput($event.target.value)">{{ char }}</button>
+        </div>
       </div>
+
     </div>
   </div>
 </div>
