@@ -2,6 +2,7 @@ const express = require('express');
 
 // implements backend post schema to use in adding new posts to database
 const Post = require('../models/post');
+const checkAuth = require('../middleware/check-auth');
 
 const router = express.Router();
 

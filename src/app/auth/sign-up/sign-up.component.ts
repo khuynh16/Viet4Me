@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { AuthService } from '../auth.service';
+
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -14,12 +16,12 @@ export class SignUpComponent implements OnInit {
   invalidPassDesc: string;
 
   constructor(private formBuilder: FormBuilder,
-              private router: Router) { }
+              private router: Router,
+              public authService: AuthService) { }
 
   ngOnInit(): void {
     this.signUpForm = this.formBuilder.group({
       'signUpEmail': new FormControl(null, Validators.required),
-      'newUsername': new FormControl(null, Validators.required),
       'newPassword': new FormControl(null, Validators.required),
       'reenterPassword': new FormControl(null, Validators.required)
     })
@@ -28,11 +30,6 @@ export class SignUpComponent implements OnInit {
   invalidEmail()
   {
   	return (this.submitted && this.signUpForm.controls.signUpEmail.errors !== null);
-  }
-
-  invalidUsername()
-  {
-  	return (this.submitted && this.signUpForm.controls.newUsername.errors !== null);
   }
 
   invalidPassword()
@@ -51,7 +48,7 @@ export class SignUpComponent implements OnInit {
 
   onSubmit(form) {
     this.submitted = true;
-    
+
     // form values here
     console.log(form.controls);
 
@@ -62,6 +59,8 @@ export class SignUpComponent implements OnInit {
   	else
   	{
       this.toBeRegistered = true;
+      console.log(form.controls.newPassword.value);
+      this.authService.createUser(form.controls.signUpEmail.value, form.controls.newPassword.value);
       this.router.navigate(['/home']);
   	}
   }

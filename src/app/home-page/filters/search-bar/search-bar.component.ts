@@ -24,15 +24,16 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   onUpdateInput(userTypedInput) {
-    console.log(userTypedInput);
+    console.log('content: ' + userTypedInput);
 
     this.filterService.userTextFilterUpdated.next(userTypedInput);
     this.filterService.changeFilterTextEvent();
   }
 
   clearFunction() {
+    console.log('des');
     this.value = '';
-    this.onUpdateInput('');
+    this.onUpdateInput(this.value);
   }
 
   ngOnDestroy() {

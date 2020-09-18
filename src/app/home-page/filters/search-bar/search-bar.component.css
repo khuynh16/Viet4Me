@@ -1,5 +1,5 @@
 .example-form-field {
-  width: 200px;
+  width: 80%;
 }
 
 section {
@@ -15,6 +15,7 @@ section {
 mat-label,
 .cdk-text-field-autofill-monitored:not(:-webkit-autofill) {
   font-family: 'Be Vietnam', sans-serif;
+  font-size: 18px;
 }
 
 .triangle-right-corner {

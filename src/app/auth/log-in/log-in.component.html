@@ -1,22 +1,27 @@
 <div class="background fit-full-screen whiteText align-horizontal-vertical">
-    <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="logInForm" (ngSubmit)="onSubmit(logInForm)">
         <hr class="hrLine">
         <h1 class="logInTitle">Welcome Back! Log In.</h1>
         <hr class="hrLine">
         <label for="logInEmail">Email</label><br>
-        <input 
-            type="email" 
-            id="logInEmail" 
-            placeholder=" email...">
+        <input
+            type="email"
+            id="logInEmail"
+            formControlName="logInEmail"
+            placeholder=" email..."
+            email
+            required>
         <br>
         <label for="logInPassword">Password</label>
         <br>
-        <input 
-            type="password" 
-            id="logInPassword" 
-            placeholder=" password...">
+        <input
+            type="password"
+            id="logInPassword"
+            formControlName="logInPassword"
+            placeholder=" password..."
+            required>
         <br><br>
-        <input type="submit" id="logInSubmit" value="Submit" [disabled]="!logInForm.valid">
+        <input type="submit" id="logInSubmit" value="Submit">
         <br>
         <app-form-nav-links></app-form-nav-links>
     </form>

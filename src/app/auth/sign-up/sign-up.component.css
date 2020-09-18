@@ -1,7 +1,7 @@
 form {
     background:rgba(0,0,0,0.5);
     width: 450px;
-    height: 570px;
+    height: 500px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -19,9 +19,9 @@ label:first-of-type{
 }
 
 #signUpEmail,
-#newUsername, 
+#newUsername,
 #newPassword,
-#reenterPassword, 
+#reenterPassword,
 #signUpSubmit,
 label {
     width: 300px;
@@ -29,8 +29,8 @@ label {
 }
 
 #signUpEmail,
-#newUsername, 
-#newPassword, 
+#newUsername,
+#newPassword,
 #reenterPassword,
 #signUpSubmit {
     font-size: 17px;

@@ -9,25 +9,12 @@
                 <label for="signUpEmail">Enter your Email</label>
                 <p *ngIf="invalidEmail()" id="sign_in_email_error" class="">/Invalid email.</p>
             </div>
-            <input 
-                type="email" 
+            <input
+                type="email"
                 id="signUpEmail"
-                formControlName="signUpEmail" 
+                formControlName="signUpEmail"
                 placeholder=" email..."
                 email
-                required>  
-        </div>
-        <br>
-        <div class="form-group" [ngClass]="{ 'has-error': invalidUsername() }">
-            <div>
-                <label for="newUsername">Enter a Username</label>
-                <p *ngIf="invalidUsername()" id="sign_in_username_error" class="">/Invalid username.</p>
-            </div>
-            <input 
-                type="text" 
-                id="newUsername" 
-                formControlName="newUsername"
-                placeholder=" username..."
                 required>
         </div>
         <br>
@@ -36,9 +23,9 @@
                 <label for="newPassword">Enter a Password</label>
                 <p *ngIf="invalidPassword()" id="sign_in_password_error" class="">/Invalid password.</p>
             </div>
-            <input 
-                type="password" 
-                id="newPassword" 
+            <input
+                type="password"
+                id="newPassword"
                 formControlName="newPassword"
                 placeholder=" password...">
         </div>
@@ -49,9 +36,9 @@
                 <p *ngIf="invalidRePassword()" id="sign_in_no_re_pass_error" class="">/Invalid password.</p>
                 <p *ngIf="!doPasswordsMatch(signUpForm) && !invalidRePassword()" id="sign_in_pass_not_match_error" class="">/Passwords don't match.</p>
             </div>
-            <input 
-                type="password" 
-                id="reenterPassword" 
+            <input
+                type="password"
+                id="reenterPassword"
                 formControlName="reenterPassword"
                 placeholder=" password...">
         </div>
