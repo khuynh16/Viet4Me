@@ -69,6 +69,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
         console.log('posts creator and id: ');
         console.log(this.posts[0].creator + ', ' + this.userId);
 
+        // only posts that user creates are to be visible
         this.posts = this.posts.filter(post => post.creator === this.userId);
 
         console.log('this.posts after: ');
