@@ -3,4 +3,5 @@ export interface Post {
   engTranslation: string;
   vietTranslation: string;
   categories: string[];
+  creator: string;
 }

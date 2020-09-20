@@ -12,6 +12,7 @@
     text-decoration: none;
     color: white;
     height: 100%;
+    cursor: pointer;
 }
 
 .nav-button-group {
@@ -40,6 +41,6 @@
     margin-right: 10px;
 }
 
-.logOutHeader {
+.logInOrOut {
   margin-left: auto;
 }

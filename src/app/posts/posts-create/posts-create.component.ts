@@ -7,6 +7,7 @@ import { PostsService } from '../posts.service';
 import { GoogleObj } from '../../google-translate/translate.model';
 import { GoogleTranslateService } from '../../google-translate/google-translate.service';
 import { Post } from '../post.model';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-posts-create',
@@ -35,14 +36,20 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
   translatedInEng: string;
   translatedInViet: string;
 
+  userId: string;
+
   constructor(public postsService: PostsService,
     public route: ActivatedRoute,
-    private google: GoogleTranslateService) { }
+    private google: GoogleTranslateService,
+    public authService: AuthService) { }
 
   ngOnInit(): void {
     // initialize current post categories array to empty (and to re-initialize during
     // the edit post section)
     this.currentPostCategories = [];
+
+    this.userId = this.authService.getUserId();
+
     // subscribing to paramMap observable to see if there is a postId (denoting we are in edit mode)
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('postId')) {
@@ -55,7 +62,8 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
             id: postData._id,
             engTranslation: postData.engTranslation,
             vietTranslation: postData.vietTranslation,
-            categories: postData.categories
+            categories: postData.categories,
+            creator: this.userId
           }
           console.log('current categories are: ' + postData.categories);
 
@@ -76,6 +84,8 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
         this.categories = categories;
         console.log(this.categories);
       });
+
+
   }
 
   /*
@@ -136,6 +146,8 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
       target: 'vi'
     };
 
+    console.log('HEREERSRS');
+    console.log('THE USERID: ' + this.userId);
     // api translates and calls addPost method in service
     this.google.translate(googleObj)
       .subscribe(
@@ -145,14 +157,16 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
             this.postsService.addPost(
               this.translatedInEng,
               this.translatedInViet,
-              this.selectedCategories
+              this.selectedCategories,
+              this.userId
             );
           } else {
             this.postsService.updatePost(
               this.postId,
               this.translatedInEng,
               this.translatedInViet,
-              this.selectedCategories
+              this.selectedCategories,
+              this.userId
             );
           }
         },
@@ -177,6 +191,8 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
     //     this.selectedCategories
     //   );
     // }
+
+    // form.resetForm();
 
   }
 

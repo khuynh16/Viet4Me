@@ -32,7 +32,7 @@ import { SearchBarComponent } from './home-page/filters/search-bar/search-bar.co
 import { FiltersComponent } from './home-page/filters/filters.component';
 import { PostsListComponent } from './posts/posts-list/posts-list.component';
 import { VietCharactersComponent } from './home-page/filters/viet-characters/viet-characters.component';
-import { AuthInterceptor } from './auth/auth-interceptor';
+// import { AuthInterceptor } from './auth/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -72,7 +72,9 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     MatProgressSpinnerModule,
     HttpClientModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+//{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}

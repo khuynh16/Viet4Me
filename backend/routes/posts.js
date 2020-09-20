@@ -2,7 +2,7 @@ const express = require('express');
 
 // implements backend post schema to use in adding new posts to database
 const Post = require('../models/post');
-const checkAuth = require('../middleware/check-auth');
+// const checkAuth = require('../middleware/check-auth');
 
 const router = express.Router();
 
@@ -16,7 +16,8 @@ router.post('', (req, res, next) => {
   const post = new Post({
     engTranslation: req.body.engTranslation,
     vietTranslation: req.body.vietTranslation,
-    categories: req.body.categories
+    categories: req.body.categories,
+    creator: req.body.creator
   });
   post.save().then(createdPost => {
     res.status(201).json({
@@ -37,7 +38,8 @@ router.put('/:id', (req, res, next) => {
     _id: req.body.id,
     engTranslation: req.body.engTranslation,
     vietTranslation: req.body.vietTranslation,
-    categories: req.body.categories
+    categories: req.body.categories,
+    creator: req.body.creator
   });
   Post.updateOne({_id: req.params.id}, post).then(result => {
     res.status(200).json({message: 'Update successful!'});

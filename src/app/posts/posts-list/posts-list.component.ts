@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Post } from '../post.model';
 import { PostsService } from '../posts.service';
 import { FiltersService } from 'src/app/home-page/filters/filters.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-posts-list',
@@ -22,11 +23,14 @@ export class PostsListComponent implements OnInit, OnDestroy {
   previousPostsPerPage = this.postsPerPage;
   pageSizeOptions = [1,2,5,10,20];
   isExpanded: boolean = false;
+  userIsAuthenticated = false;
+  userId: string;
 
   determineExpandOption: Subscription;
   determineLanguageOption: Subscription;
   determineFilterCategoriesOption: Subscription;
   determineFilterText: Subscription;
+  authStatusSub: Subscription;
   sub: Subscription;
   sub2: Subscription;
   sub3: Subscription;
@@ -42,9 +46,12 @@ export class PostsListComponent implements OnInit, OnDestroy {
   currentLanguage = 'ENG';
 
 
-  constructor(public postsService: PostsService, public filtersService: FiltersService) {}
+  constructor(public postsService: PostsService,
+              public filtersService: FiltersService,
+              public authService: AuthService) {}
 
   ngOnInit() {
+    this.userId = this.authService.getUserId();
     this.initialUserTextFilter = '';
     this.categoryFilters = [];
     this.engTag = 'ENG';
@@ -58,6 +65,13 @@ export class PostsListComponent implements OnInit, OnDestroy {
         this.totalPosts = postData.postCount;
         this.posts = postData.posts;
         console.log('this is this.posts:');
+        console.log(this.posts);
+        console.log('posts creator and id: ');
+        console.log(this.posts[0].creator + ', ' + this.userId);
+
+        this.posts = this.posts.filter(post => post.creator === this.userId);
+
+        console.log('this.posts after: ');
         console.log(this.posts);
 
         this.posts.forEach(post => {
@@ -118,7 +132,15 @@ export class PostsListComponent implements OnInit, OnDestroy {
       .subscribe((text) => {
         console.log("TEXT FROM THE INPUT: " + this.userInputText);
         this.onEnteredTextFilter(this.userInputText);
-      })
+      });
+
+    this.authStatusSub = this.authService.getAuthStatusListener()
+      .subscribe((isAuthenticated) => {
+        this.userIsAuthenticated = isAuthenticated;
+
+        console.log('Current authenticity: ' + this.userIsAuthenticated);
+        console.log('Current UserId: ' + this.userId);
+      });
   }
 
   onEnteredTextFilter(currentTextFilter) {
@@ -210,6 +232,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
     this.determineFilterCategoriesOption.unsubscribe();
     this.sub.unsubscribe();
     this.sub2.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 }
 

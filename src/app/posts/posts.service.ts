@@ -34,7 +34,8 @@ export class PostsService  {
               id: post._id,
               engTranslation: post.engTranslation,
               vietTranslation: post.vietTranslation,
-              categories: post.categories
+              categories: post.categories,
+              creator: post.creator
             };
           }), maxPosts: postData.maxPosts
         };
@@ -62,14 +63,16 @@ export class PostsService  {
                 id: post._id,
                 engTranslation: post.engTranslation,
                 vietTranslation: post.vietTranslation,
-                categories: post.categories
+                categories: post.categories,
+                creator: post.creator
               };
             } else if (currentLanguage === 'VIET') {
               return {
                 id: post._id,
                 engTranslation: post.vietTranslation,
                 vietTranslation: post.engTranslation,
-                categories: post.categories
+                categories: post.categories,
+                creator: post.creator
               };
             }
           }), maxPosts: postData.maxPosts
@@ -130,12 +133,13 @@ export class PostsService  {
   * @param categories array of categories that the post will be entered in
   * @return subject.next call of posts array (with newly added post)
   */
-  addPost(engTranslation: string, vietTranslation: string, categories: string[]) {
+  addPost(engTranslation: string, vietTranslation: string, categories: string[], userId: string) {
     const post: Post = {
       id: null,
       engTranslation: engTranslation,
       vietTranslation: vietTranslation,
-      categories: categories
+      categories: categories,
+      creator: userId
     };
     this.http.post<{ message: string, postId: string }>("http://localhost:3000/api/posts", post)
       .subscribe(responseData => {
@@ -160,12 +164,13 @@ export class PostsService  {
   * @param categories array of categories that the post is in
   * @return a subject.next method call to update posts array
   */
-  updatePost(id: string, engTranslation: string, vietTranslation: string, categories: string[]) {
+  updatePost(id: string, engTranslation: string, vietTranslation: string, categories: string[], userId: string) {
     const post: Post = {
       id: id,
       engTranslation: engTranslation,
       vietTranslation: vietTranslation,
-      categories: categories
+      categories: categories,
+      creator: userId
     };
     // call to backend method
     this.http.put('http://localhost:3000/api/posts/' + id, post)

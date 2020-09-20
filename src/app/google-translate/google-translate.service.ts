@@ -9,7 +9,7 @@ import { environment } from '../../../src/environments/environment';
 export class GoogleTranslateService {
 
   url = 'https://translation.googleapis.com/language/translate/v2?key=';
-  key = environment.G_KEY;
+  key = environment.GOOGLE_APPLICATION_CREDENTIALS;
 
   constructor(private http: HttpClient) { }
 
