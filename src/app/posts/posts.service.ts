@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Post } from './post.model';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class PostsService  {
@@ -16,7 +17,7 @@ export class PostsService  {
 
   filteredCategories: string[] = [];
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
   /*
   * Retrieve posts from database.
@@ -97,6 +98,7 @@ export class PostsService  {
   getCategories() {
     console.log('inside');
     console.log(this.posts);
+    console.log('current userId: ' + this.authService.getUserId());
     // this.getFilterCategoryUpdateListener().subscribe((t: string[]) => {
     //   console.log('HELLO!');
     //   console.log(t);
@@ -113,11 +115,14 @@ export class PostsService  {
     this.http.get<{ message: string, posts: any }>('http://localhost:3000/api/posts')
       .subscribe(postData => {
         for (let i = 0; i < postData.posts.length; i++) {
-          for (let j = 0; j < postData.posts[i].categories.length; j++) {
-            if (!this.categories.includes(postData.posts[i].categories[j])) {
-              this.categories.push(postData.posts[i].categories[j]);
+          if (postData.posts[i].creator === this.authService.getUserId()) {
+            for (let j = 0; j < postData.posts[i].categories.length; j++) {
+              if (!this.categories.includes(postData.posts[i].categories[j])) {
+                this.categories.push(postData.posts[i].categories[j]);
+              }
             }
           }
+
         }
         this.categoriesUpdated.next([...this.categories]);
         // update filter categories subscription

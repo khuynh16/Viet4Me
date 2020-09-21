@@ -37,6 +37,7 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
   translatedInViet: string;
 
   userId: string;
+  currentUserId: string;
 
   constructor(public postsService: PostsService,
     public route: ActivatedRoute,
@@ -148,6 +149,13 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
 
     console.log('HEREERSRS');
     console.log('THE USERID: ' + this.userId);
+    if (this.userId === null) {
+      this.currentUserId = 'GUEST';
+    }
+    else {
+      this.currentUserId = this.userId;
+    }
+    console.log('The current user ID: ' + this.currentUserId);
     // api translates and calls addPost method in service
     this.google.translate(googleObj)
       .subscribe(
@@ -158,7 +166,7 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
               this.translatedInEng,
               this.translatedInViet,
               this.selectedCategories,
-              this.userId
+              this.currentUserId
             );
           } else {
             this.postsService.updatePost(
@@ -166,7 +174,7 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
               this.translatedInEng,
               this.translatedInViet,
               this.selectedCategories,
-              this.userId
+              this.currentUserId
             );
           }
         },

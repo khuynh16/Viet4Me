@@ -64,10 +64,12 @@ export class PostsListComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.totalPosts = postData.postCount;
         this.posts = postData.posts;
+        // access current posts from observable to utilize in the next following method below
+        this.initialPosts = postData.posts;
         console.log('this is this.posts:');
         console.log(this.posts);
         console.log('posts creator and id: ');
-        console.log(this.posts[0].creator + ', ' + this.userId);
+        // console.log(this.posts[0].creator + ', ' + this.userId);
 
         // only posts that user creates are to be visible
         this.posts = this.posts.filter(post => post.creator === this.userId);
@@ -95,9 +97,9 @@ export class PostsListComponent implements OnInit, OnDestroy {
     });
 
     // access current posts from observable to utilize in the next following method below
-    this.postsSub = this.postsService.getPostUpdateListener().subscribe(postData => {
-      this.initialPosts = postData.posts;
-    })
+    // this.postsSub = this.postsService.getPostUpdateListener().subscribe(postData => {
+    //   this.initialPosts = postData.posts;
+    // })
 
     // action from radio buttons component where user can switch main card language on top (eng or viet)
     this.determineLanguageOption = this.filtersService.getLangStatus()
@@ -110,17 +112,12 @@ export class PostsListComponent implements OnInit, OnDestroy {
       this.categoryFilters = filteredCategories;
     });
 
-    // action from categories component where user can filter posts by categories (DOESN"T WORK ATM)
+    // action from categories component where user can filter posts by categories
     this.determineFilterCategoriesOption = this.filtersService.getFilterCategoriesStatus()
       .subscribe((stuff) => {
         console.log("SUPERDUPER");
         this.onClickCategoryFilters(this.categoryFilters);
     });
-
-    this.sub2 = this.postsService.getPostUpdateListener().subscribe(p => {
-      console.log('PPPPPPPPP: ' + p.postCount);
-      this.totalPosts = p.postCount;
-    })
 
     // passes user's typed filter text to variable (used in the next method)
     this.sub3 = this.filtersService.getFilterUserInputListener().subscribe(text => {
@@ -232,7 +229,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
     this.determineLanguageOption.unsubscribe();
     this.determineFilterCategoriesOption.unsubscribe();
     this.sub.unsubscribe();
-    this.sub2.unsubscribe();
+    // this.sub2.unsubscribe();
     this.authStatusSub.unsubscribe();
   }
 }

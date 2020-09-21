@@ -17,6 +17,7 @@ section {
   border-left: 12px solid rgb(56, 56, 56);
   border-right: 12px solid rgb(56, 56, 56);
   position: relative;
+  padding: 10px 0;
 }
 
 section p {

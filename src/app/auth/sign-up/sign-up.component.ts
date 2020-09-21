@@ -61,7 +61,7 @@ export class SignUpComponent implements OnInit {
       this.toBeRegistered = true;
       console.log(form.controls.newPassword.value);
       this.authService.createUser(form.controls.signUpEmail.value, form.controls.newPassword.value);
-      this.router.navigate(['/home']);
+      // this.router.navigate(['/home']);
   	}
   }
 }

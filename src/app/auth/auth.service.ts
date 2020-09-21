@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthData } from './auth-data.model';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { PostsService } from '../posts/posts.service';
 
 @Injectable({ providedIn: 'root'})
 export class AuthService {
@@ -28,9 +29,12 @@ export class AuthService {
 
     createUser(email: string, password: string) {
       const authData: AuthData = { email: email, password: password };
-        this.http.post('http://localhost:3000/api/user/signup', authData)
+        this.http.post<{message: string, userId: string}>('http://localhost:3000/api/user/signup', authData)
           .subscribe(response => {
             console.log(response);
+            this.authStatusListener.next(true);
+            this.userId = response.userId;
+            this.router.navigate(['/home']);
           });
     }
 
@@ -59,6 +63,7 @@ export class AuthService {
       this.token = null;
       this.userId = null;
       this.authStatusListener.next(false);
+      // this.postsService.filterCategoriesUpdated.next([]);
       this.router.navigate(['/landing-page']);
       // clears token timer to be used again when logged in
       clearTimeout(this.tokenTimer);
@@ -66,11 +71,5 @@ export class AuthService {
 
     toLogin() {
       this.router.navigate(['/log-in']);
-    }
-
-    toLandingPage() {
-      this.token = null;
-      this.authStatusListener.next(false);
-      this.router.navigate(['/landing-page']);
     }
 }
