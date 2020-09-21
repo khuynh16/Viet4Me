@@ -1,19 +1,22 @@
 .vietCharactersHeading {
   padding-left: 10px;
-  padding-top: 10px;
   font-family: 'Be Vietnam', 'Acme' !important;
 }
 
 .vietCharactersContainer {
   margin-top: 10px;
   background-color: lightgray;
-  padding-bottom: 10px;
 }
 
 .vietCharactersContent {
   display: flex;
   justify-content: space-evenly;
   padding-top: 5px;
+}
+
+.vietKeyboardHeader {
+  background-color: lightgray;
+  height: 50px;
 }
 
 .firstRow, .secondRow, .thirdRow {
@@ -27,4 +30,24 @@
   font-size: 18px;
   cursor: pointer;
   outline: none;
+}
+
+:host::ng-deep .vietKeyboardPanel .mat-expansion-panel-body,
+:host::ng-deep .vietKeyboardPanel {
+  background-color: lightgray;
+}
+
+:host::ng-deep .vietKeyboardPanel .mat-expansion-panel-body {
+  padding-top: 5px;
+}
+
+.clickMeText {
+  display: flex;
+  align-items: center;
+  color: #000000DE;
+  font-family: 'Be Vietnam', 'Acme';
+}
+
+hr {
+  margin-bottom: 10px;
 }

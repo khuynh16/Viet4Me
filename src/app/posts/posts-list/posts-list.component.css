@@ -63,7 +63,7 @@ mat-paginator {
 }
 
 .categoriesParagraph {
-  padding-top: 10px;
+  padding-top: 20px;
 }
 
 .languageStatus {
@@ -79,7 +79,7 @@ mat-paginator {
   flex: 1;
   font-size: 18px;
   color: white;
-  margin: 5px 0;
+  margin: 10px 0;
 }
 
 .post-image {
