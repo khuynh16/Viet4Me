@@ -51,3 +51,39 @@ Libraries included:
 * Implement Google text-to-speech for the vietnamese translation for each post (looked into it, really want to implement but might need time to figure out)
 * Pagination (as to not load all posts immediately, affecting loadtime)
   * (Note: has been implemented but commented out as it was not working as intended with category filter and search bar filter)
+  
+## Images of Project (as of 9/22/2020)
+  
+#### Landing page   
+
+<img src="images/landing-page.png" width="50%">
+
+#### Login and signup form 
+
+<img src="images/log-in.png" width="50%">
+<img src="images/sign-up.png" width="50%">
+
+#### Home page when user logs in
+
+<img src="images/first-view-when-logged-in.png" width="50%">
+
+#### Filter expansion panel in home page
+
+<img src="images/filter.png" width="50%">
+
+#### Filter expansion panel when viet display filter option selected (notice the 'Click Me!' expansion bar)
+
+<img src="images/viet-filter-keyboard-closed.png" width="50%">
+
+#### Viet keyboard expansion panel (open)
+
+<img src="images/viet-filter-keyboard-open.png" width="50%">
+
+#### Adding post form
+
+<img src="images/add-post.png" width="50%">
+
+#### Expanded post view
+
+<img src="images/one-expanded-panel.png" width="50%">
+
