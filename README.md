@@ -8,24 +8,26 @@ As of 9/22/2020, the project is still being developed and has not yet been hoste
 
 ## Functionality (as of 9/22/2020):
 
-* Creating an account and storing in database
-* Adding a post (comprised of entering an English word/phrase to translate, adding/choosing categories to store in)
-* Editing a post (the phrase to translate, the categories the current post is stored in)
-* Deleting a post
+* In terms of user:
+  * Creating an account and storing in database
+  * Adding a post (comprised of entering an English word/phrase to translate, adding/choosing categories to store in)
+  * Editing a post (the phrase to translate, the categories the current post is stored in)
+  * Deleting a post
+  
+* In terms of user experience: 
+  * Correct authentication and authorization to add/edit/delete posts that the user themselves created in the first place (and viewing only their posts)
+  * Animation of the buffalo and login + signup forms 
+  * Filtering posts via category and search bar
+  * Filter option to display english content or viet content on top of expansion panels (with the other inside the expansion panel)
+  * Vietnamese keyboard of viet characters displayed to use for search bar to filter via search bar (Note: keyboard only displayed when viet display filter option selected)
+  * Filter option to have all panels expanded or collapsed on button click
+  
+## Utilized Software
 
-## Code scaffolding
+## Previous Features Depreciated From Project
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Things to Still Work On
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
