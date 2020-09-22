@@ -12,7 +12,7 @@ export class PostsService  {
   private posts: Post[] = [];
   private categories: string[] = [];
   private postsUpdated = new Subject<{posts: Post[], postCount: number}>();
-  private categoriesUpdated = new Subject<string[]>();
+  public categoriesUpdated = new Subject<string[]>();
   public filterCategoriesUpdated = new Subject<string[]>();
 
   filteredCategories: string[] = [];

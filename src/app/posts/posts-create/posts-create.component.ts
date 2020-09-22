@@ -85,8 +85,6 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
         this.categories = categories;
         console.log(this.categories);
       });
-
-
   }
 
   /*

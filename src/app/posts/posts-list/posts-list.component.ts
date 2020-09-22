@@ -88,6 +88,8 @@ export class PostsListComponent implements OnInit, OnDestroy {
         console.log('this is categoryFilters: ' + this.categoryFilters);
         // updates filter categories observable (needed to display categories in filter)
         this.postsService.filterCategoriesUpdated.next([...this.categoryFilters]);
+
+        this.postsService.categoriesUpdated.next([...this.categoryFilters]);
       });
 
     // action from radio buttons component where user can choose to expand or collapse posts

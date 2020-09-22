@@ -1,20 +1,16 @@
 <div class="background fit-full-screen align-horizontal-vertical whiteText">
     <div class="main-content">
+      <div [@buffaloAnimation]="beginningState">
         <img id="buffalo-bg-image" src="../../assets/images/water-buffalo.png" alt="">
-        <h1 class="landing-page-title">Viet 4 Me!</h1>
-        <div class="button-group">
-            <button class="main-button" routerLink="/log-in"><span>Log In</span></button>
-            <button class="main-button" routerLink="/sign-up"><span>Sign Up</span></button>
-            <!-- <button class="main-button" routerLink="/use-as-guest"><span>Use As Guest</span></button> -->
-        </div>
-        <!-- <div class="rect top-rectangle"></div>
-        <div class="rect right-rectangle"></div>
-        <div class="rect bottom-rectangle"></div>
-        <div class="rect left-rectangle"></div>
-        <div class="rect bottom-left-rectangle"></div>
-        <div class="rect bottom-right-rectangle"></div>
-        <div class="rect top-right-rectangle"></div>
-        <div class="rect top-left-rectangle"></div> -->
+      </div>
+      <div [@smokeAnimation]="beginningState">
+        <img id="smoke-bg-image" src="../../assets/images/running-smoke-effect.png" alt="">
+      </div>
+      <h1 class="landing-page-title">Viet 4 Me!</h1>
+      <div class="button-group">
+          <button class="main-button" (click)="toLoginPage()"><span>Log In</span></button>
+          <button class="main-button" routerLink="/sign-up"><span>Sign Up</span></button>
+      </div>
     </div>
 </div>
 

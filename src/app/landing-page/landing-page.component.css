@@ -16,6 +16,16 @@
 #buffalo-bg-image {
     width: 25%;
     height: auto;
+    position: relative;
+}
+
+#smoke-bg-image {
+  width: 20%;
+  height: auto;
+  z-index: 1000;
+  position: absolute;
+  top: 22%;
+  right: 28%;
 }
 
 .landing-page-title {

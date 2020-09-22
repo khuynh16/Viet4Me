@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { AuthData } from './auth-data.model';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { PostsService } from '../posts/posts.service';
 
 @Injectable({ providedIn: 'root'})
 export class AuthService {
