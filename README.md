@@ -1,10 +1,17 @@
 # Viet4Me
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.3.
+The project is a "self-learning" Vietnamese app where you are able to translate any word or phrase from English into Vietnamese. Alongside its translation, you are able to make posts and are able to categorize and filter certain posts to view! Think of it as a Google Translate meets Quizlet application.
 
-## Development server
+## Project Link
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+As of 9/22/2020, the project is still being developed and has not yet been hosted to view in working order. Update link will be here (in the hopefully near future!).
+
+## Functionality (as of 9/22/2020):
+
+* Creating an account and storing in database
+* Adding a post (comprised of entering an English word/phrase to translate, adding/choosing categories to store in)
+* Editing a post (the phrase to translate, the categories the current post is stored in)
+* Deleting a post
 
 ## Code scaffolding
 
