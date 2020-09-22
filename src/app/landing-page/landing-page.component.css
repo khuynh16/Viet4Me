@@ -13,13 +13,13 @@
 }
 
 /* source image: https://www.clipartmax.com/middle/m2H7i8H7G6N4H7Z5_water-buffalo-icon-water-buffalo-cartoon/ */
-#buffalo-bg-image {
+.buffalo-bg-image {
     width: 25%;
     height: auto;
     position: relative;
 }
 
-#smoke-bg-image {
+.smoke-bg-image {
   width: 20%;
   height: auto;
   z-index: 1000;

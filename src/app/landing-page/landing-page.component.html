@@ -1,15 +1,13 @@
 <div class="background fit-full-screen align-horizontal-vertical whiteText">
     <div class="main-content">
       <div [@buffaloAnimation]="beginningState">
-        <img id="buffalo-bg-image" src="../../assets/images/water-buffalo.png" alt="">
-      </div>
-      <div [@smokeAnimation]="beginningState">
-        <img id="smoke-bg-image" src="../../assets/images/running-smoke-effect.png" alt="">
+        <img class="buffalo-bg-image" src="../../assets/images/water-buffalo.png" alt="">
+        <img class="smoke-bg-image" src="../../assets/images/running-smoke-effect.png" alt="" *ngIf="isSmokeDisplayed">
       </div>
       <h1 class="landing-page-title">Viet 4 Me!</h1>
       <div class="button-group">
-          <button class="main-button" (click)="toLoginPage()"><span>Log In</span></button>
-          <button class="main-button" routerLink="/sign-up"><span>Sign Up</span></button>
+          <button class="main-button" (click)="onClick('log-in')"><span>Log In</span></button>
+          <button class="main-button" (click)="onClick('sign-up')"><span>Sign Up</span></button>
       </div>
     </div>
 </div>

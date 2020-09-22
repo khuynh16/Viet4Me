@@ -1,5 +1,5 @@
-<div class="background fit-full-screen whiteText align-horizontal-vertical">
-    <form [formGroup]="logInForm" (ngSubmit)="onSubmit(logInForm)">
+<div [@formAnimation]="toAnimate" class="background fit-full-screen whiteText align-horizontal-vertical">
+    <form [formGroup]="logInForm" (ngSubmit)="onSubmit(logInForm)" class="loginForm">
         <hr class="hrLine">
         <h1 class="logInTitle">Welcome Back! Log In.</h1>
         <hr class="hrLine">
