@@ -1,3 +1,14 @@
+# Table of Contents
+
+- [Viet4Me Description](#viet4me)
+- [Project Link](#project-link)
+- [Functionality](#functionality)
+- [Utilized Software](#utilized-software)
+- [Previous Features Depreciated From Project](#previous-features-depreciated-from-project)
+- [Things to Still Work On](#things-to-still-work-on)
+- [Images of Project](#images-of-project)
+
+
 # Viet4Me
 
 The project is a "self-learning" Vietnamese app where you are able to translate any word or phrase from English into Vietnamese. Alongside its translation, you are able to make posts and are able to categorize and filter certain posts to view! Think of it as a Google Translate meets Quizlet application.
@@ -6,7 +17,7 @@ The project is a "self-learning" Vietnamese app where you are able to translate 
 
 As of 9/22/2020, the project is still being developed and has not yet been hosted to view in working order. Update link will be here (in the hopefully near future!).
 
-## Functionality (as of 9/22/2020):
+## Functionality
 
 * __In terms of user__:
   * Creating an account and storing in database
@@ -23,7 +34,7 @@ As of 9/22/2020, the project is still being developed and has not yet been hoste
   * Vietnamese keyboard of viet characters displayed to use for search bar to filter via search bar (Note: keyboard only displayed when viet display filter option selected)
   * Filter option to have all panels expanded or collapsed on button click
   
-## Utilized Software (as of 9/22/2020)
+## Utilized Software
 
 The application utilizes the __MEAN__ stack (__MongoDB, Express.js, Angular, and Node.js__). 
 
@@ -52,7 +63,7 @@ Libraries included:
 * Pagination (as to not load all posts immediately, affecting loadtime)
   * (Note: has been implemented but commented out as it was not working as intended with category filter and search bar filter)
   
-## Images of Project (as of 9/22/2020)
+## Images of Project
   
 #### Landing page   
 
