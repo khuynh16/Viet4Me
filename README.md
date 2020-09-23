@@ -57,6 +57,7 @@ Libraries included:
 
 ## Things to Still Work On
 
+* 'Manage Account' Button where user can edit their chosen email and password, as well as removing categories (even if there are posts within said category)
 * Cleaning the code (lots of spacing issues, comments to rewrite/write, removing of console.logs)
 * Web responsiveness (especially for mobile)
 * Implement Google text-to-speech for the vietnamese translation for each post (looked into it, really want to implement but might need time to figure out)
