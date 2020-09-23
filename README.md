@@ -1,6 +1,6 @@
 # Table of Contents
 
-- [Viet4Me Description](#viet4me)
+- [Project Description](#viet4me)
 - [Project Link](#project-link)
 - [Functionality](#functionality)
 - [Utilized Software](#utilized-software)
