@@ -26,7 +26,7 @@ router.post('/signup', (req, res, next) => {
       })
       .catch(err => {
         res.status(500).json({
-          error: err
+            message: 'Email is already registered to an account!'
         });
       });
     });
@@ -38,7 +38,7 @@ router.post('/login', (req, res, next) => {
     .then(user => {
       if (!user) {
         return res.status(401).json({
-          message: 'Auth failed!'
+          message: 'Email is not registered to an account (or wrong email)!'
         });
       }
       fetchedUser = user;
@@ -48,7 +48,7 @@ router.post('/login', (req, res, next) => {
     .then(result => {
       if (!result) {
         return res.status(401).json({
-          message: 'Auth failed!'
+          message: 'Password does not match account!'
         });
       }
       // valid password sent by user
@@ -65,7 +65,7 @@ router.post('/login', (req, res, next) => {
     })
     .catch(err => {
       return res.status(401).json({
-        message: 'Auth failed!'
+        message: 'Invalid authentication credentials!'
       });
     });
 });

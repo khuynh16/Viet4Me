@@ -34,6 +34,8 @@ export class AuthService {
             this.authStatusListener.next(true);
             this.userId = response.userId;
             this.router.navigate(['/home']);
+          }, error => {
+            console.log('Email already taken!');
           });
     }
 

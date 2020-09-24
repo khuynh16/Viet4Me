@@ -8,12 +8,6 @@ import { trigger, style, animate, transition, keyframes, query, group } from '@a
   styleUrls: ['./landing-page.component.css'],
   animations: [
     trigger('buffaloAnimation', [
-      // state('beginningState', style({
-      //   opacity: 1
-      // })),
-      // state('clickedState', style({
-      //   transform: 'translateX(-300%)'
-      // })),
       transition('* => clickedState', [
 
         query('.smoke-bg-image', style({ opacity: 0 })),
@@ -25,14 +19,14 @@ import { trigger, style, animate, transition, keyframes, query, group } from '@a
             style({ transform: 'rotate(0)', offset: 0 }),
             style({ transform: 'rotate(20deg)', offset: 0.3 }),
             style({ transform: 'rotate(0)', offset: 0.5 }),
-            style({ transform: 'translateX(-300%)', offset: 1 })
+            style({ transform: 'translateX(-120vh)', offset: 1 })
           ]))),
           query('.smoke-bg-image',
           animate('1500ms', keyframes([
             style({ opacity: 0, offset: 0 }),
             style({ opacity: 0, offset: 0.5 }),
             style({ opacity: 1, offset: 0.51 }),
-            style({ transform: 'translateX(-370%)', offset: 1 })
+            style({ transform: 'translateX(-120vh)', offset: 1 })
           ])))
         ]),
       ])
@@ -60,6 +54,6 @@ export class LandingPageComponent implements OnInit {
 
     setTimeout(() => {
       this.router.navigate(['/' + routePath]);
-    }, 1500);  //1.5 seconds
+    }, 1500);
   }
 }

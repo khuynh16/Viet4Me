@@ -24,6 +24,11 @@ router.post('', (req, res, next) => {
       message: 'Post added successfully',
       postId: createdPost._id
     });
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: 'Creating a post failed!'
+    });
   });
 });
 
@@ -43,6 +48,11 @@ router.put('/:id', (req, res, next) => {
   });
   Post.updateOne({_id: req.params.id}, post).then(result => {
     res.status(200).json({message: 'Update successful!'});
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: 'Could not update post!'
+    })
   });
 });
 
@@ -157,6 +167,11 @@ router.get('/categories', (req, res, next) => {
         maxPosts: count
       });
     })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Fetching filtered posts failed!'
+      })
+    })
 });
 
 /*
@@ -173,6 +188,11 @@ router.get('/:id', (req, res, next) => {
       res.status(404).json({message: 'Post not found!'});
     }
   })
+  .catch(error => {
+    res.status(500).json({
+      message: 'Retrieving specific post failed!'
+    })
+  })
 });
 
 /*
@@ -185,6 +205,11 @@ router.delete('/:id', (req, res, next) => {
   Post.deleteOne({ _id: req.params.id }).then(result => {
     console.log(result);
     res.status(200).json({ message: 'Post deleted!' });
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: 'Deleting specific post failed!'
+    })
   })
 });
 
