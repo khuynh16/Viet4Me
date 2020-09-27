@@ -5,7 +5,8 @@
 - [Functionality](#functionality)
 - [Utilized Software](#utilized-software)
 - [Previous Features Depreciated From Project](#previous-features-depreciated-from-project)
-- [Things to Still Work On](#things-to-still-work-on)
+- [Things Currently In Progress](#things-currently-in-progress)
+- [Ideas to Implement In The Future](#ideas-to-implement-in-the-future)
 - [Images of Project](#images-of-project)
 
 
@@ -55,15 +56,18 @@ Libraries included:
   * was to implement a select-image in the create post section, where users will be able to select image from a select few (images from some sort of Google Image API) 
   * removed (from design, wasn't implemented functionally) as it was deemed unnecessary
 
-## Things to Still Work On
+## Things Currently In Progress
 
 * 'Manage Account' Button where user can edit their chosen email and password, as well as removing categories (even if there are posts within said category)
-* Error handling and displaying UI messages for said errors (like wrong username/password, user with email already exists, etc)
 * Cleaning the code (lots of spacing issues, comments to rewrite/write, removing of console.logs)
 * Web responsiveness (especially for mobile)
-* Implement Google text-to-speech for the vietnamese translation for each post (looked into it, really want to implement but might need time to figure out)
 * Pagination (as to not load all posts immediately, affecting loadtime)
   * (Note: has been implemented but commented out as it was not working as intended with category filter and search bar filter)
+  
+## Ideas to Implement In The Future
+
+* Google text-to-speech for the vietnamese translation for each post
+* Audio capture feature (to capture your voice pronunciating the vietnamese word or phrase)
   
 ## Images of Project
   
