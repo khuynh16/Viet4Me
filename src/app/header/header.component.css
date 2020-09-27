@@ -4,6 +4,7 @@
   position: fixed;
   top: 0;
   z-index: 1000;
+  height: 10%;
 }
 
 .nav-button-group a {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { AuthData } from './auth-data.model';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root'})
@@ -12,65 +12,85 @@ export class AuthService {
   private tokenTimer: number;
   private authStatusListener = new BehaviorSubject<boolean>(false);
 
-    constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
-    getToken() {
-      return this.token;
-    }
+  /*
+  * Getter method for token.
+  * @return user token
+  */
+  getToken() {
+    return this.token;
+  }
 
-    getUserId() {
-      return this.userId;
-    }
+  /*
+  * Getter method for userId.
+  * @return user id
+  */
+  getUserId() {
+    return this.userId;
+  }
 
-    getAuthStatusListener() {
-      return this.authStatusListener.asObservable();
-    }
+  /*
+  * Observable for auth status (true or false value)
+  * @return an observable for auth status behavior subject
+  */
+  getAuthStatusListener() {
+    return this.authStatusListener.asObservable();
+  }
 
-    createUser(email: string, password: string) {
-      const authData: AuthData = { email: email, password: password };
-        this.http.post<{message: string, userId: string}>('http://localhost:3000/api/user/signup', authData)
-          .subscribe(response => {
-            console.log(response);
-            this.authStatusListener.next(true);
-            this.userId = response.userId;
-            this.router.navigate(['/home']);
-          }, error => {
-            console.log('Email already taken!');
-          });
-    }
-
-    login(email: string, password: string) {
-      const authData: AuthData = { email: email, password: password };
-      this.http.post<{token: string, expiresIn: number, userId: string}>('http://localhost:3000/api/user/login', authData)
+  /*
+  * Create new user to database.
+  * @param email user's email
+  * @param password user's password
+  * @return call to http request of creating user and navigating to home page
+  */
+  createUser(email: string, password: string) {
+    const authData: AuthData = { email: email, password: password };
+      this.http.post<{message: string, userId: string}>('http://localhost:3000/api/user/signup', authData)
         .subscribe(response => {
-          console.log(response);
-          const token = response.token;
-          this.token = token;
+          this.authStatusListener.next(true);
           this.userId = response.userId;
-          if (token) {
-            const expiresInDuration = response.expiresIn;
-            // token assigned to logout after 1 hour
-            this.tokenTimer = setTimeout(() => {
-              this.logout();
-            }, expiresInDuration * 1000);
-            this.authStatusListener.next(true);
-            this.router.navigate(['/home']);
-          }
-
+          this.router.navigate(['/home']);
+        }, error => {
         });
-    }
+  }
 
-    logout() {
-      this.token = null;
-      this.userId = null;
-      this.authStatusListener.next(false);
-      // this.postsService.filterCategoriesUpdated.next([]);
-      this.router.navigate(['/landing-page']);
-      // clears token timer to be used again when logged in
-      clearTimeout(this.tokenTimer);
-    }
+  /*
+  * Log in user to application.
+  * @param email user's email
+  * @param password user's password
+  * @return http request to logging in user, setting observable value to true, and navigating home
+  */
+  login(email: string, password: string) {
+    const authData: AuthData = { email: email, password: password };
+    this.http.post<{token: string, expiresIn: number, userId: string}>('http://localhost:3000/api/user/login', authData)
+      .subscribe(response => {
+        const token = response.token;
+        this.token = token;
+        this.userId = response.userId;
+        if (token) {
+          const expiresInDuration = response.expiresIn;
+          // token assigned to logout after 1 hour
+          this.tokenTimer = setTimeout(() => {
+            this.logout();
+          }, expiresInDuration * 1000);
+          this.authStatusListener.next(true);
+          this.router.navigate(['/home']);
+        }
 
-    toLogin() {
-      this.router.navigate(['/log-in']);
-    }
+      });
+  }
+
+  /*
+  * Log out user from application.
+  * @return multiple values to null, auth status observable to false, clearing token timer, and navigating home
+  */
+  logout() {
+    this.token = null;
+    this.userId = null;
+    this.authStatusListener.next(false);
+    this.router.navigate(['/landing-page']);
+    // clears token timer to be used again when logged in
+    clearTimeout(this.tokenTimer);
+  }
 }

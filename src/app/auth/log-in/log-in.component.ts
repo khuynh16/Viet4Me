@@ -35,14 +35,16 @@ export class LogInComponent implements OnInit {
     });
   }
 
+  /*
+  * Submits form.
+  * @param form the form to submit (containing login credentials)
+  * @return nothing if invalid form; a call to authService login method if valid form
+  */
   onSubmit(form) {
-    console.log('HELLO');
-    console.log(form.controls);
     if (this.logInForm.invalid === true) {
       return;
     } else {
       this.authService.login(form.controls.logInEmail.value, form.controls.logInPassword.value);
     }
   }
-
 }

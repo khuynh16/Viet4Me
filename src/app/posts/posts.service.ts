@@ -14,13 +14,14 @@ export class PostsService  {
   private postsUpdated = new Subject<{posts: Post[], postCount: number}>();
   public categoriesUpdated = new Subject<string[]>();
   public filterCategoriesUpdated = new Subject<string[]>();
-
   filteredCategories: string[] = [];
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
   /*
-  * Retrieve posts from database.
+  * Retrieve all posts from database.
+  * @param postsPerPage number of posts to display initial via pagination (pagination not working atm)
+  * @param currentPage first page of pagination (again, pagination not activate atm)
   * @return subject.next method call
   */
   getPosts(postsPerPage, currentPage) {
@@ -50,6 +51,14 @@ export class PostsService  {
       });
   }
 
+  /*
+  * Retrieved filtered posts (posts with certain filters utilized by user)
+  * @param postsPerPage number of posts via pagination
+  * @param currentPage first page of pagination
+  * @param userInputedFilter user search bar filter value
+  * @param filteredCategories all categories of filtered posts
+  * @param currentLanguage language (eng if filter not activated, viet if filter activated)
+  */
   getFilteredPosts(postsPerPage, currentPage, userInputedFilter, filteredCategories: string[], currentLanguage) {
     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}&userfilter=${userInputedFilter}&categoryfilter=${filteredCategories}&language=${currentLanguage}`;
     // call to get method from backend
@@ -58,7 +67,6 @@ export class PostsService  {
         // changing ._id to id in posts object array
         return {
           posts: postData.posts.map(post => {
-            console.log('DDDDHH THE LANGUAGE IS: ' + currentLanguage);
             if (currentLanguage === 'ENG') {
               return {
                 id: post._id,
@@ -80,10 +88,7 @@ export class PostsService  {
         };
       }))
       .subscribe(transformedPostData => {
-        console.log('this.posts!!!!!!');
-
         this.posts = transformedPostData.posts;
-        console.log(this.posts);
         this.postsUpdated.next({
           posts: [...this.posts],
           postCount: transformedPostData.maxPosts
@@ -96,24 +101,10 @@ export class PostsService  {
   * @return subject.next method call of categories
   */
   getCategories() {
-    console.log('inside');
-    console.log(this.posts);
-    console.log('current userId: ' + this.authService.getUserId());
-    // this.getFilterCategoryUpdateListener().subscribe((t: string[]) => {
-    //   console.log('HELLO!');
-    //   console.log(t);
-    //   this.categories = t;
-    // });
-
-    // somehow import filtered categories here
-    // in loop below, if post's category is one of the filtered categories and already isn't in array,
-    // add to array
-
-    // but when going into add content, it calls this method. somehow avoid this.
-    // array of categories, starting with all categories
-
     this.http.get<{ message: string, posts: any }>('http://localhost:3000/api/posts')
       .subscribe(postData => {
+        // loops through all posts, and if the post's creator matches current user, loop through
+        // post's categories array and update this.categories array with unique categories
         for (let i = 0; i < postData.posts.length; i++) {
           if (postData.posts[i].creator === this.authService.getUserId()) {
             for (let j = 0; j < postData.posts[i].categories.length; j++) {
@@ -122,13 +113,11 @@ export class PostsService  {
               }
             }
           }
-
         }
+        // update observables
         this.categoriesUpdated.next([...this.categories]);
-        // update filter categories subscription
         this.filterCategoriesUpdated.next([...this.categories]);
       });
-
   }
 
   /*
@@ -208,10 +197,7 @@ export class PostsService  {
     this.categories.push(categoryName);
     this.categories = this.categories.sort();
     this.categoriesUpdated.next([...this.categories]);
-    console.log('categories after adding category: ' + this.categories);
-
     this.filterCategoriesUpdated.next([...this.categories]);
-
   }
 
   /*
@@ -231,6 +217,10 @@ export class PostsService  {
     return this.categoriesUpdated.asObservable();
   }
 
+  /*
+  * Returns observable for categories (for filtered posts)
+  * @return observable for categories of filtered posts
+  */
   getFilterCategoryUpdateListener() {
     return this.filterCategoriesUpdated.asObservable();
   }

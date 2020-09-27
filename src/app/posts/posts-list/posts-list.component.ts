@@ -31,9 +31,8 @@ export class PostsListComponent implements OnInit, OnDestroy {
   determineFilterCategoriesOption: Subscription;
   determineFilterText: Subscription;
   authStatusSub: Subscription;
-  sub: Subscription;
-  sub2: Subscription;
-  sub3: Subscription;
+  getCategoryFiltersSub: Subscription;
+  getUserTextFilterSub: Subscription;
 
   initialPosts: Post[];
   engTag: string;
@@ -44,7 +43,6 @@ export class PostsListComponent implements OnInit, OnDestroy {
   initialUserTextFilter: string;
 
   currentLanguage = 'ENG';
-
 
   constructor(public postsService: PostsService,
               public filtersService: FiltersService,
@@ -64,31 +62,20 @@ export class PostsListComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.totalPosts = postData.postCount;
         this.posts = postData.posts;
-        // access current posts from observable to utilize in the next following method below
         this.initialPosts = postData.posts;
-        console.log('this is this.posts:');
-        console.log(this.posts);
-        console.log('posts creator and id: ');
-        // console.log(this.posts[0].creator + ', ' + this.userId);
-
         // only posts that user creates are to be visible
         this.posts = this.posts.filter(post => post.creator === this.userId);
-
-        console.log('this.posts after: ');
-        console.log(this.posts);
-
+        // assigning category array to only categories visible by user
         this.posts.forEach(post => {
           post.categories.forEach(category => {
             if (!this.categoryFilters.includes(category)) {
               this.categoryFilters.push(category);
             }
           })
-        })
+        });
         this.categoryFilters = this.categoryFilters.sort();
-        console.log('this is categoryFilters: ' + this.categoryFilters);
-        // updates filter categories observable (needed to display categories in filter)
+        // updates filter categories (and categories) observable (needed to display categories in filter)
         this.postsService.filterCategoriesUpdated.next([...this.categoryFilters]);
-
         this.postsService.categoriesUpdated.next([...this.categoryFilters]);
       });
 
@@ -98,11 +85,6 @@ export class PostsListComponent implements OnInit, OnDestroy {
       this.toggleExpand();
     });
 
-    // access current posts from observable to utilize in the next following method below
-    // this.postsSub = this.postsService.getPostUpdateListener().subscribe(postData => {
-    //   this.initialPosts = postData.posts;
-    // })
-
     // action from radio buttons component where user can switch main card language on top (eng or viet)
     this.determineLanguageOption = this.filtersService.getLangStatus()
       .subscribe(() => {
@@ -110,49 +92,49 @@ export class PostsListComponent implements OnInit, OnDestroy {
     });
 
     // access current filtered categories to utilized in method below
-    this.sub = this.postsService.getFilterCategoryUpdateListener().subscribe(filteredCategories => {
+    this.getCategoryFiltersSub = this.postsService.getFilterCategoryUpdateListener().subscribe(filteredCategories => {
       this.categoryFilters = filteredCategories;
     });
 
     // action from categories component where user can filter posts by categories
     this.determineFilterCategoriesOption = this.filtersService.getFilterCategoriesStatus()
       .subscribe((stuff) => {
-        console.log("SUPERDUPER");
         this.onClickCategoryFilters(this.categoryFilters);
     });
 
     // passes user's typed filter text to variable (used in the next method)
-    this.sub3 = this.filtersService.getFilterUserInputListener().subscribe(text => {
-      console.log('TEXTSSSSSSSSSSS: ' + text);
+    this.getUserTextFilterSub = this.filtersService.getFilterUserInputListener().subscribe(text => {
       this.userInputText = text;
     })
 
     // calls postsService function whenever the text filter updates (for every letter or clear)
     this.determineFilterText = this.filtersService.getFilterTextStatus()
       .subscribe((text) => {
-        console.log("TEXT FROM THE INPUT: " + this.userInputText);
         this.onEnteredTextFilter(this.userInputText);
       });
 
+    // initialize authenticity
     this.authStatusSub = this.authService.getAuthStatusListener()
       .subscribe((isAuthenticated) => {
         this.userIsAuthenticated = isAuthenticated;
-
-        console.log('Current authenticity: ' + this.userIsAuthenticated);
-        console.log('Current UserId: ' + this.userId);
       });
   }
 
+  /*
+  * Gets posts associated with user text in search bar.
+  * @param currentTextFilter the user text in search bar
+  * @return call to postsService function to return filtered posts
+  */
   onEnteredTextFilter(currentTextFilter) {
-    console.log(currentTextFilter + ' is current');
     this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, currentTextFilter, this.categoryFilters, this.currentLanguage);
   }
 
   /*
-  * Gets posts to re-create post list with the currently selected filters (DOESN"T WORK ATM)
+  * Gets posts to re-create post list with the currently selected filters.
+  * @param filteredCategories categories associated with selected categories
+  * @return postsService function call that returns filtered posts
   */
   onClickCategoryFilters(filteredCategories: string[]) {
-    console.log('this is filtered categories: ' + filteredCategories);
     this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, this.userInputText, filteredCategories, this.currentLanguage);
   }
 
@@ -181,10 +163,14 @@ export class PostsListComponent implements OnInit, OnDestroy {
   //   // this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, this.categoryFilters);
   // }
 
+  /*
+  * Delete post.
+  * @param postId the id of the current post to be deleted
+  * @return remaining posts (after deletion of current post)
+  */
   onDelete(postId: string) {
     this.isLoading = true;
     this.postsService.deletePost(postId).subscribe(() => {
-      // this.postsService.getPosts(this.postsPerPage, this.currentPage);
       this.postsService.getPosts(this.postsPerPage, this.currentPage);
     });
   }
@@ -197,20 +183,25 @@ export class PostsListComponent implements OnInit, OnDestroy {
     this.isExpanded = !this.isExpanded;
   }
 
+  /*
+  * Switches language that is on the mat expansion header (vs the expansion body).
+  * @param posts the current posts of user
+  * @return posts with either language on top (and the other inside each expansion panel)
+  */
   switchLanguage(posts: Post[]) {
+    let tempString: string;
+    // assign the opposite language (to be switched to)
     if (this.currentLanguage === 'ENG') {
       this.currentLanguage = 'VIET';
     } else {
       this.currentLanguage = 'ENG';
     }
-
-    let tempString;
+    // exchange the string translation values with one another
     posts.forEach(post => {
       tempString = post.engTranslation;
       post.engTranslation = post.vietTranslation;
       post.vietTranslation = tempString;
     });
-
     // switch language symbols to ENG or VIET based on selected language filter option
     if (this.engTag === 'ENG') {
       this.engTag = 'VIET';
@@ -219,9 +210,8 @@ export class PostsListComponent implements OnInit, OnDestroy {
       this.engTag = 'ENG';
       this.vietTag = 'VIET';
     }
-
     // call to retrieve posts
-    // needed in the case when they is user types input to filter by and switches language
+    // needed in the case when there is user types input to filter by and switches language
     this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, this.userInputText, this.categoryFilters, this.currentLanguage);
   }
 
@@ -230,8 +220,8 @@ export class PostsListComponent implements OnInit, OnDestroy {
     this.determineExpandOption.unsubscribe();
     this.determineLanguageOption.unsubscribe();
     this.determineFilterCategoriesOption.unsubscribe();
-    this.sub.unsubscribe();
-    // this.sub2.unsubscribe();
+    this.getCategoryFiltersSub.unsubscribe();
+    this.getUserTextFilterSub.unsubscribe();
     this.authStatusSub.unsubscribe();
   }
 }

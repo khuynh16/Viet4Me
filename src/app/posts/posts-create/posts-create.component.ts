@@ -21,23 +21,18 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
 
-  // caetgory variables
   categories: string[] = [];
   selectedCategories: string[] = [];
+  isChecked = false;
+  isLoading = false;
   currentPostCategories: string[];
   private categoriesSub: Subscription;
-
   private mode = 'create';
   private postId: string;
   post: Post;
-  isChecked = false;
-  isLoading = false;
-
   translatedInEng: string;
   translatedInViet: string;
-
   userId: string;
-  currentUserId: string;
 
   constructor(public postsService: PostsService,
     public route: ActivatedRoute,
@@ -45,12 +40,8 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
     public authService: AuthService) { }
 
   ngOnInit(): void {
-    // initialize current post categories array to empty (and to re-initialize during
-    // the edit post section)
     this.currentPostCategories = [];
-
     this.userId = this.authService.getUserId();
-
     // subscribing to paramMap observable to see if there is a postId (denoting we are in edit mode)
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('postId')) {
@@ -66,24 +57,18 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
             categories: postData.categories,
             creator: this.userId
           }
-          console.log('current categories are: ' + postData.categories);
-
-          // assign current post's categories (needed in template to mark categories as
-          // checked when a user clicks edit post
           this.currentPostCategories = postData.categories;
+          this.selectedCategories = this.currentPostCategories;
         });
       } else {
         this.mode = 'create';
         this.postId = null;
       }
     });
-
-    // retrieve categories (to display when adding/editing a post)
     this.postsService.getCategories();
     this.categoriesSub = this.postsService.getCategoryUpdateListener()
       .subscribe((categories: string[]) => {
         this.categories = categories;
-        console.log(this.categories);
       });
   }
 
@@ -105,22 +90,20 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
   * @return change to selectedCategories array (the current categories for a post)
   */
   onChange(e:any) {
-    // set variable to current post categories to start
+    // initial state to be either:
+    // -empty if user is creating a new post
+    // -array of all categories from user's current posts
     this.selectedCategories = this.currentPostCategories;
+    // adding category to array if user is checking the category box or removing category from array
+    // if user is unchecking category box
     if (e.checked) {
-      console.log(e.source.value + ' is checked!');
-      // only add to array if value isn't already in array
       if (!this.selectedCategories.includes(e.source.value)) {
         this.selectedCategories.push(e.source.value);
-        // sort categories array alphabetically
         this.selectedCategories = this.selectedCategories.sort();
       }
     } else {
-      console.log(e.source.value + ' is now unchecked!');
       this.selectedCategories = this.selectedCategories.filter(category => category != e.source.value);
     }
-    console.log('current selected categories are below:');
-    console.log(this.selectedCategories);
   }
 
   /*
@@ -132,28 +115,14 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
     if (form.invalid) {
       return;
     }
-    // load spinner when post is saved/edited
     this.isLoading = true;
-
-
     this.translatedInEng = form.value.engTranslation;
-
     // object that stores current english word/phrase to translate to vietnamese,
     // and a 'target' variable that sends to Google API to translate into vietnamese
     const googleObj: GoogleObj = {
       q: form.value.engTranslation,
       target: 'vi'
     };
-
-    console.log('HEREERSRS');
-    console.log('THE USERID: ' + this.userId);
-    if (this.userId === null) {
-      this.currentUserId = 'GUEST';
-    }
-    else {
-      this.currentUserId = this.userId;
-    }
-    console.log('The current user ID: ' + this.currentUserId);
     // api translates and calls addPost method in service
     this.google.translate(googleObj)
       .subscribe(
@@ -164,7 +133,7 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
               this.translatedInEng,
               this.translatedInViet,
               this.selectedCategories,
-              this.currentUserId
+              this.userId
             );
           } else {
             this.postsService.updatePost(
@@ -172,7 +141,7 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
               this.translatedInEng,
               this.translatedInViet,
               this.selectedCategories,
-              this.currentUserId
+              this.userId
             );
           }
         },
@@ -180,26 +149,7 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
           console.log(err);
         }
       );
-
-      form.resetForm();
-
-    // if (this.mode === 'create') {
-    //   this.postsService.addPost(
-    //     form.value.engTranslation,
-    //     'viet translation here!',
-    //     this.selectedCategories
-    //   );
-    // } else  {
-    //   this.postsService.updatePost(
-    //     this.postId,
-    //     form.value.engTranslation,
-    //     'viet translation update!',
-    //     this.selectedCategories
-    //   );
-    // }
-
-    // form.resetForm();
-
+    form.resetForm();
   }
 
   /*
@@ -210,4 +160,3 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
     this.categoriesSub.unsubscribe();
   }
 }
-

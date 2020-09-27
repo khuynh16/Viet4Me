@@ -70,10 +70,6 @@ section {
   flex-direction: column;
 }
 
-/* .checkboxTitle {
-  padding-bottom: 10px;
-} */
-
 .addCategoryDiv {
   display: flex;
   justify-content: space-between;

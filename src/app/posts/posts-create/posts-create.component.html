@@ -5,7 +5,6 @@
     <div class="innerContainer" *ngIf="!isLoading">
       <form class="postCreateForm" (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading">
         <h2 class="postCreateTitle">Add a new word or phrase to be translated!</h2>
-
         <mat-form-field class="">
           <mat-label>Enter english word or phrase:</mat-label>
           <input
@@ -16,9 +15,7 @@
             required
             #engTranslation="ngModel">
         </mat-form-field>
-
         <p class="checkboxTitle">Select or add categories to store input in (optional):</p>
-
         <section>
           <div class="checkboxCategories" *ngFor="let category of categories; let i = index;">
             <mat-checkbox id="category-{{ i }}" [checked]="currentPostCategories.includes(category)" name="{{category}}" [value]="category" (change)="onChange($event)">
@@ -26,10 +23,7 @@
               <!-- <button type="button" class="removeCategoryBtn">X</button> -->
             </mat-checkbox>
           </div>
-
-
           <p class="info-text" *ngIf="categories.length <= 0">[You have no categories, add one below!]</p>
-
           <div class="addCategoryDiv">
             <mat-form-field class="addCategoryNameField">
               <mat-label>Want a new category? Add one here (optional):</mat-label>
@@ -43,15 +37,11 @@
             <button mat-stroked-button type="button" id="addCategoryBtn" (click)="onAddCategory(newCategory.value)">Add</button>
           </div>
       </section>
-
-        <section class="submitContentSection">
-          <button mat-stroked-button type="submit" class="submitContentBtn">Submit Content</button>
-        </section>
-
-
+      <section class="submitContentSection">
+        <button mat-stroked-button type="submit" class="submitContentBtn">Submit Content</button>
+      </section>
       </form>
     </div>
-    <!-- <app-posts-list></app-posts-list> (THIS IS FOR TESTING PURPOSES) -->
   </div>
 </div>
 
