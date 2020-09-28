@@ -4,18 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatDialogModule } from '@angular/material/dialog';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,9 +22,9 @@ import { SearchBarComponent } from './home-page/filters/search-bar/search-bar.co
 import { FiltersComponent } from './home-page/filters/filters.component';
 import { PostsListComponent } from './posts/posts-list/posts-list.component';
 import { VietCharactersComponent } from './home-page/filters/viet-characters/viet-characters.component';
-// import { AuthInterceptor } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
+import { AngularMaterialModule } from './angular-material.module';
 
 @NgModule({
   declarations: [
@@ -63,19 +52,9 @@ import { ErrorComponent } from './error/error.component';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatExpansionModule,
-    MatSnackBarModule,
-    MatRadioModule,
-    MatIconModule,
-    MatPaginatorModule,
-    MatProgressSpinnerModule,
     HttpClientModule,
-    MatDialogModule
+    AngularMaterialModule
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
