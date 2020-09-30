@@ -16,7 +16,9 @@ The project is a "self-learning" Vietnamese app where you are able to translate 
 
 ## Project Link
 
-As of 9/22/2020, the project is still being developed and has not yet been hosted to view in working order. Update link will be here (in the hopefully near future!).
+The project is hosted via AWS S3 (the frontend) and Elastic Beanstalk (the backend) at:
+
+&nbsp;&nbsp;&nbsp; http://viet4me.s3-website.us-east-2.amazonaws.com/landing-page
 
 ## Functionality
 
