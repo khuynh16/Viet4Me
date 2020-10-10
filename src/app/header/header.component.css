@@ -73,8 +73,17 @@ mat-icon {
 
   ::ng-deep .mat-menu-content button {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
   }
 
+  ::ng-deep .mat-menu-content button span {
+    font-family: 'Be Vietnam', 'Poppins';
+  }
+
+  .mat-icon-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

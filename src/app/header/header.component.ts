@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material/menu';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  @ViewChild('menuTrigger') menuTrigger: MatMenuTrigger;
   private authListenerSubs: Subscription;
   userIsAuthenticated = false;
 
@@ -21,6 +23,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
         if (isAuthenticated === false)
           this.router.navigate(['/landing-page']);
       });
+  }
+
+  onResize(event) {
+    if (event.target.innerWidth >= 661) {
+      this.menuTrigger.closeMenu();
+    }
   }
 
   onLogOut() {

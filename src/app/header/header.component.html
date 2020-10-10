@@ -7,21 +7,25 @@
       <a routerLinkActive="active" class="align-horizontal-vertical" >Manage Account</a>
       <a *ngIf="userIsAuthenticated" routerLinkActive="active" class="align-horizontal-vertical logInOrOut" (click)="onLogOut()">Log out</a>
     </div>
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <button (window:resize)="onResize($event)" mat-icon-button #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
       <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>dialpad</mat-icon>
-        <span>Redial</span>
+      <button mat-menu-item routerLink="/home">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
       </button>
-      <button mat-menu-item disabled>
-        <mat-icon>voicemail</mat-icon>
-        <span>Check voice mail</span>
+      <button mat-menu-item routerLink="/add-content">
+        <mat-icon>input</mat-icon>
+        <span>Add Content</span>
       </button>
       <button mat-menu-item>
-        <mat-icon>notifications_off</mat-icon>
-        <span>Disable alerts</span>
+        <mat-icon>edit</mat-icon>
+        <span>Manage Account</span>
+      </button>
+      <button mat-menu-item (click)="onLogOut()">
+        <mat-icon>power_settings_new</mat-icon>
+        <span>Log Out</span>
       </button>
     </mat-menu>
 </mat-toolbar>
