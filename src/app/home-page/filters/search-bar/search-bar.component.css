@@ -44,6 +44,14 @@ mat-label,
   font-family: 'Be Vietnam', 'Acme';
 }
 
-/* .vietCharactersPanel {
+@media only screen and (max-width: 820px) {
+  section {
+    margin-top: 10px;
+  }
+}
 
-} */
+@media only screen and (max-width: 539px) {
+  section {
+    margin-top: 20px;
+  }
+}

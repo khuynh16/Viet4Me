@@ -14,11 +14,8 @@ const userRoutes = require('./routes/user');
 // express application to implement routing procedures
 const app = express();
 
-// import credential variable to connect to database
-const DB_CREDENTIALS = require('../config');
-
 // connection to database
-mongoose.connect(DB_CREDENTIALS.DB_URL)
+mongoose.connect(process.env.DB_URL)
   .then(() => {
     console.log('Connected to database!');
   })

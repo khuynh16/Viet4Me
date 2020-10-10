@@ -65,3 +65,4 @@ import { AngularMaterialModule } from './angular-material.module';
 export class AppModule { }
 
 //{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+

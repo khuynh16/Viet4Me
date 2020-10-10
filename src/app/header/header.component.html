@@ -2,9 +2,26 @@
     <span routerLink="/landing-page" class="logo" (click)="backToLandingPage()">Viet4Me</span>
     <span class="spacer">|</span>
     <div class="nav-button-group">
-        <a routerLinkActive="active" class="align-horizontal-vertical" routerLink="/home">Home</a>
-        <a routerLinkActive="active" class="align-horizontal-vertical" routerLink="/add-content">Add Content</a>
-        <a routerLinkActive="active" class="align-horizontal-vertical" >Manage Account</a>
-        <a *ngIf="userIsAuthenticated" routerLinkActive="active" class="align-horizontal-vertical logInOrOut" (click)="onLogOut()">Log out</a>
-      </div>
+      <a routerLinkActive="active" class="align-horizontal-vertical" routerLink="/home">Home</a>
+      <a routerLinkActive="active" class="align-horizontal-vertical" routerLink="/add-content">Add Content</a>
+      <a routerLinkActive="active" class="align-horizontal-vertical" >Manage Account</a>
+      <a *ngIf="userIsAuthenticated" routerLinkActive="active" class="align-horizontal-vertical logInOrOut" (click)="onLogOut()">Log out</a>
+    </div>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>dialpad</mat-icon>
+        <span>Redial</span>
+      </button>
+      <button mat-menu-item disabled>
+        <mat-icon>voicemail</mat-icon>
+        <span>Check voice mail</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>Disable alerts</span>
+      </button>
+    </mat-menu>
 </mat-toolbar>

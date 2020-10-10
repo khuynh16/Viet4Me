@@ -7,6 +7,8 @@ import { map } from 'rxjs/operators';
 import { Post } from './post.model';
 import { AuthService } from '../auth/auth.service';
 
+import { environment } from '../../../src/environments/environment';
+
 @Injectable({ providedIn: 'root' })
 export class PostsService  {
   private posts: Post[] = [];
@@ -27,7 +29,7 @@ export class PostsService  {
   getPosts(postsPerPage, currentPage) {
      const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
     // call to get method from backend
-    this.http.get<{ message: string, posts: any, maxPosts: number }>('http://localhost:3000/api/posts' + queryParams)
+    this.http.get<{ message: string, posts: any, maxPosts: number }>(environment.apiUrl + '/posts' + queryParams)
       .pipe(map((postData) => {
         // changing ._id to id in posts object array
         return {
@@ -62,7 +64,7 @@ export class PostsService  {
   getFilteredPosts(postsPerPage, currentPage, userInputedFilter, filteredCategories: string[], currentLanguage) {
     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}&userfilter=${userInputedFilter}&categoryfilter=${filteredCategories}&language=${currentLanguage}`;
     // call to get method from backend
-    this.http.get<{ message: string, posts: any, maxPosts: number }>('http://localhost:3000/api/posts/categories' + queryParams)
+    this.http.get<{ message: string, posts: any, maxPosts: number }>(environment.apiUrl + '/posts/categories' + queryParams)
       .pipe(map((postData) => {
         // changing ._id to id in posts object array
         return {
@@ -101,7 +103,7 @@ export class PostsService  {
   * @return subject.next method call of categories
   */
   getCategories() {
-    this.http.get<{ message: string, posts: any }>('http://localhost:3000/api/posts')
+    this.http.get<{ message: string, posts: any }>(environment.apiUrl + '/posts')
       .subscribe(postData => {
         // loops through all posts, and if the post's creator matches current user, loop through
         // post's categories array and update this.categories array with unique categories
@@ -135,7 +137,7 @@ export class PostsService  {
       categories: categories,
       creator: userId
     };
-    this.http.post<{ message: string, postId: string }>("http://localhost:3000/api/posts", post)
+    this.http.post<{ message: string, postId: string }>(environment.apiUrl + "/posts", post)
       .subscribe(responseData => {
         this.router.navigate(['/home']);
       });
@@ -147,7 +149,7 @@ export class PostsService  {
   * @return subject.next call of posts array (with deleted post)
   */
   deletePost(postId: string) {
-    return this.http.delete('http://localhost:3000/api/posts/' + postId);
+    return this.http.delete(environment.apiUrl + '/posts/' + postId);
   }
 
   /*
@@ -167,7 +169,7 @@ export class PostsService  {
       creator: userId
     };
     // call to backend method
-    this.http.put('http://localhost:3000/api/posts/' + id, post)
+    this.http.put(environment.apiUrl +'/posts/' + id, post)
       .subscribe(response => {
         this.router.navigate(['/home']);
       });
@@ -184,7 +186,7 @@ export class PostsService  {
       engTranslation: string,
       vietTranslation: string,
       categories: string[]
-    }>('http://localhost:3000/api/posts/' + id);
+    }>(environment.apiUrl + '/posts/' + id);
   }
 
   /*

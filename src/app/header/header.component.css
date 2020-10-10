@@ -45,3 +45,36 @@
 .logInOrOut {
   margin-left: auto;
 }
+
+mat-icon {
+  display: none;
+}
+
+@media only screen and (max-width: 660px) {
+  .nav-button-group > a:not(first-child) {
+    display: none;
+  }
+
+  .spacer {
+    display: none;
+  }
+
+  /* ::ng-deep .mat-button-ripple.mat-ripple, ::ng-deep .mat-button-focus-overlay {
+    display: none;
+  } */
+
+  mat-icon {
+    display: block;
+  }
+
+  button.mat-menu-item {
+    height: 100%;
+  }
+
+  ::ng-deep .mat-menu-content button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}
