@@ -46,8 +46,8 @@ export class AuthService {
   * @param password user's password
   * @return call to http request of creating user and navigating to home page
   */
-  createUser(email: string, password: string) {
-    const authData: AuthData = { email: email, password: password };
+  createUser(email: string, password: string, reenterPassword: string) {
+    const authData: AuthData = { email: email, password: password, reenterPassword: reenterPassword };
       this.http.post<{message: string, userId: string}>(environment.apiUrl + '/user/signup', authData)
         .subscribe(response => {
           this.authStatusListener.next(true);

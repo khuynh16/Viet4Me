@@ -42,8 +42,8 @@ label {
 }
 
 .signUpTitle {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    text-align: center;
+    padding: 10px;
 }
 
 #signUpSubmit {
@@ -51,4 +51,22 @@ label {
     background-color: rgb(33, 189, 33);
     border: none;
     cursor: pointer;
+}
+
+@media only screen and (max-width: 500px) {
+  label,
+  #signUpEmail,
+  #newPassword,
+  #reenterPassword,
+  #signUpSubmit {
+    width: 80%;
+  }
+
+  form {
+    width: 95%;
+  }
+
+  .signUpTitle {
+    font-size: 30px;
+  }
 }

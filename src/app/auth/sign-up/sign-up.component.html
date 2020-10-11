@@ -4,44 +4,30 @@
         <h1 class="signUpTitle">Welcome! Create an Account.</h1>
         <hr class="hrLine">
         <br>
-        <div class="form-group" [ngClass]="{ 'has-error': invalidEmail() }">
-            <div>
-                <label for="signUpEmail">Enter your Email</label>
-                <p *ngIf="invalidEmail()" id="sign_in_email_error" class="">/Invalid email.</p>
-            </div>
-            <input
-                type="email"
-                id="signUpEmail"
-                formControlName="signUpEmail"
-                placeholder=" email..."
-                email
-                required>
-        </div>
+        <label for="signUpEmail">Email</label>
+        <input
+            type="email"
+            id="signUpEmail"
+            formControlName="signUpEmail"
+            placeholder=" email..."
+            email
+            required>
         <br>
-        <div class="form-group" [ngClass]="{ 'has-error': invalidPassword() }">
-            <div>
-                <label for="newPassword">Enter a Password</label>
-                <p *ngIf="invalidPassword()" id="sign_in_password_error" class="">/Invalid password.</p>
-            </div>
-            <input
-                type="password"
-                id="newPassword"
-                formControlName="newPassword"
-                placeholder=" password...">
-        </div>
+        <label for="newPassword">Password</label>
+        <input
+            type="password"
+            id="newPassword"
+            formControlName="newPassword"
+            placeholder=" password..."
+            required>
         <br>
-        <div class="form-group" [ngClass]="{ 'has-error': invalidRePassword() || !doPasswordsMatch(signUpForm) }">
-            <div>
-                <label for="reenterPassword">Re-enter Password</label>
-                <p *ngIf="invalidRePassword()" id="sign_in_no_re_pass_error" class="">/Invalid password.</p>
-                <p *ngIf="!doPasswordsMatch(signUpForm) && !invalidRePassword()" id="sign_in_pass_not_match_error" class="">/Passwords don't match.</p>
-            </div>
-            <input
-                type="password"
-                id="reenterPassword"
-                formControlName="reenterPassword"
-                placeholder=" password...">
-        </div>
+        <label for="newPassword">Password</label>
+        <input
+            type="password"
+            id="reenterPassword"
+            formControlName="reenterPassword"
+            placeholder=" password..."
+            required>
         <br><br>
         <input type="submit" id="signUpSubmit" value="Register">
         <br>

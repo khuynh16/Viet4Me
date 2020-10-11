@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
 import { trigger, style, animate, transition, keyframes, query } from '@angular/animations';
 
 import { AuthService } from '../auth.service';
@@ -23,14 +22,10 @@ import { AuthService } from '../auth.service';
   ]
 })
 export class SignUpComponent implements OnInit {
-  toBeRegistered = false;
-  submitted = false;
   toAnimate = 'start';
   signUpForm: FormGroup;
-  invalidPassDesc: string;
 
   constructor(private formBuilder: FormBuilder,
-              private router: Router,
               public authService: AuthService) { }
 
   ngOnInit(): void {
@@ -41,41 +36,10 @@ export class SignUpComponent implements OnInit {
     })
   }
 
-  invalidEmail()
-  {
-  	return (this.submitted && this.signUpForm.controls.signUpEmail.errors !== null);
-  }
-
-  invalidPassword()
-  {
-  	return (this.submitted && this.signUpForm.controls.newPassword.errors !== null);
-  }
-
-  invalidRePassword()
-  {
-  	return (this.submitted && this.signUpForm.controls.reenterPassword.errors !== null);
-  }
-
-  doPasswordsMatch(form) {
-    return (form.value.newPassword === form.value.reenterPassword);
-  }
-
   onSubmit(form) {
-    this.submitted = true;
-
-    // form values here
-    console.log(form.controls);
-
   	if(this.signUpForm.invalid === true)
-  	{
   		return;
-  	}
   	else
-  	{
-      this.toBeRegistered = true;
-      console.log(form.controls.newPassword.value);
-      this.authService.createUser(form.controls.signUpEmail.value, form.controls.newPassword.value);
-      // this.router.navigate(['/home']);
-  	}
+      this.authService.createUser(form.controls.signUpEmail.value, form.controls.newPassword.value, form.controls.reenterPassword.value);
   }
 }

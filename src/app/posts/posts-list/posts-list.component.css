@@ -66,6 +66,13 @@ mat-paginator {
   padding-top: 20px;
 }
 
+.categoriesList {
+  font-family: 'Be Vietnam', 'Poppins';
+  display: list-item;
+  list-style-position: inside;
+  text-overflow: ellipsis;
+}
+
 .languageStatus {
   display: flex;
   align-items: center;
@@ -76,10 +83,12 @@ mat-paginator {
 .content {
   display: flex;
   justify-content: center;
+  text-align: center;
   flex: 1;
   font-size: 18px;
   color: white;
   margin: 10px 0;
+  padding: 0 20px;
 }
 
 .post-image {

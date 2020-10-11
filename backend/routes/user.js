@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
-const user = require('../models/user');
 
 const router = express.Router();
 
@@ -11,6 +10,11 @@ const router = express.Router();
 * Create new user for application and store in database.
 */
 router.post('/signup', (req, res, next) => {
+  if (req.body.password !== req.body.reenterPassword) {
+    return res.status(500).json({
+      message: 'Passwords do not match!'
+    });
+  }
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
       const user = new User({
