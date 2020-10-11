@@ -61,8 +61,7 @@ Libraries included:
 ## Things Currently In Progress
 
 * 'Manage Account' Button where user can edit their chosen email and password, as well as removing categories (even if there are posts within said category)
-* Cleaning the code (lots of spacing issues, comments to rewrite/write, removing of console.logs)
-* Web responsiveness (especially for mobile)
+* Cleaning the code (cleaned a lot initially but some areas to clean up still)
 * Pagination (as to not load all posts immediately, affecting loadtime)
   * (Note: has been implemented but commented out as it was not working as intended with category filter and search bar filter)
   
