@@ -5,7 +5,8 @@
     <div class="innerContainer" *ngIf="!isLoading">
       <form class="postCreateForm" (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading">
         <h2 class="postCreateTitle">Add a new word or phrase to be translated!</h2>
-        <mat-form-field class="">
+        <mat-form-field class="enterContent">
+          <p class="lowerWidthEnterContentCaption">Enter english word or phrase:</p>
           <mat-label>Enter english word or phrase:</mat-label>
           <input
             matInput
@@ -26,6 +27,7 @@
           <p class="info-text" *ngIf="categories.length <= 0">[You have no categories, add one below!]</p>
           <div class="addCategoryDiv">
             <mat-form-field class="addCategoryNameField">
+              <p class="lowerWidthAddCategoryCaption">Want a new category? Add one here (optional):</p>
               <mat-label>Want a new category? Add one here (optional):</mat-label>
               <input
                 matInput

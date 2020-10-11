@@ -57,6 +57,10 @@ section {
   text-align: center;
 }
 
+.checkboxTitle {
+  text-align: center;
+}
+
 .mat-stroked-button {
   border-color: white;
 }
@@ -116,4 +120,44 @@ section {
 
 ::ng-deep.mat-checkbox-inner-container {
   cursor: pointer;
+}
+
+.lowerWidthEnterContentCaption,
+.lowerWidthAddCategoryCaption {
+  display: none;
+}
+
+::ng-deep .mat-checkbox-layout .mat-checkbox-label {
+  white-space: normal !important;
+}
+
+@media only screen and (max-width: 720px) {
+  .addCategoryDiv {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .addCategoryNameField mat-label {
+    display: none;
+  }
+
+  .lowerWidthAddCategoryCaption {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .lowerWidthEnterContentCaption {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .enterContent mat-label {
+    display: none;
+  }
+
+
 }

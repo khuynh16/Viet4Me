@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NgForm} from '@angular/forms';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { NgForm, NgModel} from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -33,6 +33,8 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
   translatedInEng: string;
   translatedInViet: string;
   userId: string;
+
+  @ViewChild('newCategory') newCategory: NgModel;
 
   constructor(public postsService: PostsService,
     public route: ActivatedRoute,
@@ -81,6 +83,7 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
     if (categoryName === '' || this.categories.includes(categoryName)) {
       return;
     }
+    this.newCategory.reset();
     this.postsService.addCategory(categoryName, this.categories);
   }
 
