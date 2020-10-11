@@ -62,6 +62,7 @@ Libraries included:
 
 * 'Manage Account' Button where user can edit their chosen email and password, as well as removing categories (even if there are posts within said category)
 * Cleaning the code (cleaned a lot initially but some areas to clean up still)
+* Lazy loading of components for optimization
 * Pagination (as to not load all posts immediately, affecting loadtime)
   * (Note: has been implemented but commented out as it was not working as intended with category filter and search bar filter)
   
