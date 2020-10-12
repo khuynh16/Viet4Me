@@ -9,11 +9,8 @@
 
 html, body {
   overflow: auto;
-  height: auto;
-}
-
-body {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  /* height: 100vh; */
+  min-height: 100%;
 }
 
 /* img source: https://unsplash.com/s/photos/vietnam-sunset */
@@ -24,6 +21,7 @@ body {
       ), url('../src/assets/images/vietnam.jpg'), no-repeat;
     background-size: cover;
   background-attachment: fixed;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .compensatedFixedHeader {
