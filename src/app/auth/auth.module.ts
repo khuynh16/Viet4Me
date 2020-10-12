@@ -7,6 +7,7 @@ import { LogInComponent } from './log-in/log-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { FormNavLinksComponent } from './form-nav-links/form-nav-links.component';
 import { AngularMaterialModule } from '../angular-material.module';
+import { AuthRoutingModule } from './auth-routing.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AngularMaterialModule } from '../angular-material.module';
     CommonModule,
     AngularMaterialModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    AuthRoutingModule
   ],
   exports: [
     LogInComponent,

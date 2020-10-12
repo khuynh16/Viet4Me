@@ -11,6 +11,7 @@ import { VietCharactersComponent } from './filters/viet-characters/viet-characte
 import { HeaderModule } from '../header/header.module';
 import { PostsModule } from '../posts/posts.module';
 import { AngularMaterialModule } from '../angular-material.module';
+import { HomePageRoutingModule } from './home-page-routing.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AngularMaterialModule } from '../angular-material.module';
     FormsModule,
     HeaderModule,
     PostsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    HomePageRoutingModule
   ],
   exports: [
     HomePageComponent,

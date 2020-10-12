@@ -139,7 +139,7 @@ export class PostsService  {
     };
     this.http.post<{ message: string, postId: string }>(environment.apiUrl + "/posts", post)
       .subscribe(responseData => {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/main-page/home']);
       });
   }
 
@@ -171,7 +171,7 @@ export class PostsService  {
     // call to backend method
     this.http.put(environment.apiUrl +'/posts/' + id, post)
       .subscribe(response => {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/main-page/home']);
       });
   }
 

@@ -1,7 +1,7 @@
 <span class="form-nav-links">
     <a
         (click)="onSwitchMode()"
-        [routerLink]="isLogInPage ? ['/sign-up'] : ['/log-in']">
+        [routerLink]="isLogInPage ? ['/auth/sign-up'] : ['/auth/log-in']">
         Switch to {{ isLogInPage ? 'Sign Up' : 'Log In'}}
     </a>|
     <a routerLink="/landing-page">Back to Main Menu</a>

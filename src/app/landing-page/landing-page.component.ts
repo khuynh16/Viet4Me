@@ -15,14 +15,14 @@ import { trigger, style, animate, transition, keyframes, query, group } from '@a
 
         group([
           query('.buffalo-bg-image',
-          animate('1500ms', keyframes([
+          animate('1700ms', keyframes([
             style({ transform: 'rotate(0)', offset: 0 }),
             style({ transform: 'rotate(20deg)', offset: 0.3 }),
             style({ transform: 'rotate(0)', offset: 0.5 }),
             style({ transform: 'translateX(-120vh)', offset: 1 })
           ]))),
           query('.smoke-bg-image',
-          animate('1500ms', keyframes([
+          animate('1700ms', keyframes([
             style({ opacity: 0, offset: 0 }),
             style({ opacity: 0, offset: 0.5 }),
             style({ opacity: 1, offset: 0.51 }),
@@ -53,7 +53,7 @@ export class LandingPageComponent implements OnInit {
     this.isSmokeDisplayed = true;
 
     setTimeout(() => {
-      this.router.navigate(['/' + routePath]);
+      this.router.navigate(['/auth/' + routePath]);
     }, 1500);
   }
 }

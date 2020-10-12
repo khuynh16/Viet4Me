@@ -11,10 +11,6 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
 import { AngularMaterialModule } from './angular-material.module';
-import { HeaderModule } from './header/header.module';
-import { PostsModule } from './posts/posts.module';
-import { AuthModule } from './auth/auth.module';
-import { HomePageModule } from './home-page/home-page.module';
 
 @NgModule({
   declarations: [
@@ -30,11 +26,7 @@ import { HomePageModule } from './home-page/home-page.module';
     FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AngularMaterialModule,
-    HeaderModule,
-    PostsModule,
-    AuthModule,
-    HomePageModule
+    AngularMaterialModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }

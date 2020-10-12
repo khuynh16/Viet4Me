@@ -77,7 +77,7 @@ export class AuthService {
             this.logout();
           }, expiresInDuration * 1000);
           this.authStatusListener.next(true);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/main-page/home']);
         }
 
       });
