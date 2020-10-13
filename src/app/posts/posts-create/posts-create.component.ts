@@ -131,6 +131,7 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: any) => {
           this.translatedInViet = res.data.translations[0].translatedText;
+
           if (this.mode === 'create') {
             this.postsService.addPost(
               this.translatedInEng,

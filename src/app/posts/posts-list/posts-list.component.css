@@ -44,6 +44,21 @@ mat-paginator {
   border: 3px solid rgb(56, 56, 56);
 }
 
+mat-action-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fa,
+.audio {
+  display: flex;
+  align-items: center;
+}
+
+.fa {
+  cursor: pointer;
+}
+
 ::ng-deep.mat-paginator-range-label,
 ::ng-deep.mat-paginator-page-size-label {
   font-family: 'poppins', 'Be Vietnam' !important;

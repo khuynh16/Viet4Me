@@ -16,8 +16,11 @@
           {{ category }}
         </p>
         <mat-action-row>
-          <a mat-button color="primary" [routerLink]="['/main-page/edit-content', post.id]">EDIT</a>
-          <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+          <a class="audio"><i class="fa fa-volume-up fa-2x"></i></a>
+          <div class="actionRowButtons">
+            <a mat-button color="primary" [routerLink]="['/main-page/edit-content', post.id]">EDIT</a>
+            <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+          </div>
         </mat-action-row>
       </mat-expansion-panel>
     </mat-accordion>
