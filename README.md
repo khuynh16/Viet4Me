@@ -31,6 +31,7 @@ The project is hosted via AWS S3 (the frontend) and Elastic Beanstalk (the backe
   
 * __In terms of user experience__: 
   * Correct authentication and authorization to add/edit/delete posts that the user themselves created in the first place (and viewing only their posts)
+  * Lazy loading of components for optimization
   * Animation of the buffalo and login + signup forms 
   * Filtering posts via category and search bar
   * Filter option to display english content or viet content on top of expansion panels (with the other inside the expansion panel)
@@ -62,7 +63,6 @@ Libraries included:
 
 * 'Manage Account' Button where user can edit their chosen email and password, as well as removing categories (even if there are posts within said category)
 * Cleaning the code (cleaned a lot initially but some areas to clean up still)
-* Lazy loading of components for optimization
 * Pagination (as to not load all posts immediately, affecting loadtime)
   * (Note: has been implemented but commented out as it was not working as intended with category filter and search bar filter)
   
