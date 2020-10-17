@@ -63,40 +63,19 @@ router.put('/:id', (req, res, next) => {
 * @return posts in database and number of posts (depending on pagination options)
 */
 router.get('', (req, res, next) => {
-  // const textFilter = req.query.userfilter;
-  // console.log('TExtfilter: ' + textFilter);
-  // const filteredCategoriesArray = req.query.filters.toString().split(',');
-  // console.log(filteredCategoriesArray);
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
 
-  // postQuery = Post.find(
-  //   {engTranslation: new RegExp(textFilter, 'i')},
-  //   { categories: { $elemMatch: { $in: filteredCategoriesArray }}}
-  //   );
   postQuery = Post.find();
-  // if (textFilter !== '') {
-  //   // finds all posts that match user inputed text filter (insensitive to case)
-  //   postQuery = Post.find({engTranslation: new RegExp(textFilter, 'i')});
-  // }
-  // else {
-  //   postQuery = Post.find();
-  // }
+
   if (pageSize && currentPage) {
     postQuery
       .skip(pageSize * (currentPage - 1))
       .limit(pageSize);
   }
 
-  postQuery.then(posts => {
-    adjustedPostsLength = posts.length;
-    console.log("ADJUSTED2: " + adjustedPostsLength);
-  })
-
   postQuery
     .then(documents => {
-      console.log('DOCS HERE');
-      console.log(documents);
       fetchedPosts = documents;
       return Post.countDocuments();
     })
@@ -109,29 +88,24 @@ router.get('', (req, res, next) => {
     });
 });
 
-// THE SECOND ONE
+/*
+* Get posts based on certain categories from database.
+* @param '/categories' the path after /api/posts, defined in app.js
+* @param (req, res, next) express middleware for requests, response, and next
+* @return posts from database that matches the certain filtered categories 
+*/
+
 router.get('/categories', (req, res, next) => {
-  const pageSize = +req.query.pagesize;
-  const currentPage = +req.query.page;
   const userfilter = req.query.userfilter;
   const filteredCategoriesArray = req.query.categoryfilter.toString().split(',');
   const currentLanguage = req.query.language;
-  console.log('userfilter: ' + userfilter);
-  console.log('category filter: ' + filteredCategoriesArray);
-  console.log('language: ' + currentLanguage);
 
   if (userfilter === 'undefined' || userfilter === '') {
-    console.log('no input');
     postQuery = Post.find(
       { "categories": { $elemMatch: { $in: filteredCategoriesArray}}}
     );
-    // postQuery.limit(pageSize);
-
   } else if (currentLanguage === 'ENG') {
-    console.log('ENG check');
     postQuery = Post.find(
-
-      // { engTranslation: new RegExp(userfilter, 'i')},
       { "engTranslation": new RegExp(userfilter, 'i'), "categories": { $elemMatch: { $in: filteredCategoriesArray }}}
     );
   } else if (currentLanguage === 'VIET') {
@@ -140,27 +114,12 @@ router.get('/categories', (req, res, next) => {
     );
   }
 
-  console.log('page size and current Page: ' + pageSize + ', ' + currentPage);
-  // if (pageSize && currentPage) {
-  // postQuery
-  //     .skip(pageSize * (currentPage - 1))
-  //     .limit(pageSize);
-  // }
-
-  postQuery.then(posts => {
-    console.log("length after filters: " + posts.length);
-    templength = posts.length;
-  })
-
   postQuery
     .then(documents => {
-      console.log('DOCUMENTS: ' + documents);
-
       fetchedPosts = documents;
       return postQuery.countDocuments();
     })
     .then(count => {
-      console.log("COUNTTS: " + count);
       res.status(200).json({
         message: 'Posts fetched successfully!',
         posts: fetchedPosts,
