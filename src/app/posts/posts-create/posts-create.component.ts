@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs';
 import { PostsService } from '../posts.service';
 import { GoogleObj } from '../../google-translate/translate.model';
 import { GoogleTranslateService } from '../../google-translate/google-translate.service';
+import { GoogleSynObj } from '../../google-synthesize/synthesize.model';
+import { GoogleSynthesizeService } from '../../google-synthesize/google-synthesize.service';
 import { Post } from '../post.model';
 import { AuthService } from 'src/app/auth/auth.service';
 
@@ -39,6 +41,7 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
   constructor(public postsService: PostsService,
     public route: ActivatedRoute,
     private google: GoogleTranslateService,
+    private googleSyn: GoogleSynthesizeService,
     public authService: AuthService) { }
 
   ngOnInit(): void {
@@ -126,28 +129,61 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
       q: form.value.engTranslation,
       target: 'vi'
     };
+    
     // api translates and calls addPost method in service
     this.google.translate(googleObj)
       .subscribe(
         (res: any) => {
           this.translatedInViet = res.data.translations[0].translatedText;
 
-          if (this.mode === 'create') {
-            this.postsService.addPost(
-              this.translatedInEng,
-              this.translatedInViet,
-              this.selectedCategories,
-              this.userId
-            );
-          } else {
-            this.postsService.updatePost(
-              this.postId,
-              this.translatedInEng,
-              this.translatedInViet,
-              this.selectedCategories,
-              this.userId
-            );
-          }
+          const googleSyn: GoogleSynObj = {
+            input: {
+              "ssml": this.translatedInViet
+            },
+            voice: {
+              "languageCode": "vi-VN",
+              "ssmlGender": "FEMALE"
+            },
+            audioConfig: {
+              "audioEncoding": "MP3"
+            }
+          };
+
+          this.googleSyn.synthesize(googleSyn)
+            .subscribe(
+              (res: any) => {
+                console.log("this is the audioContent response value: ");
+                console.log(res.audioContent);
+
+
+
+                if (this.mode === 'create') {
+                  this.postsService.addPost(
+                    this.translatedInEng,
+                    this.translatedInViet,
+                    this.selectedCategories,
+                    this.userId
+                  );
+                } else {
+                  this.postsService.updatePost(
+                    this.postId,
+                    this.translatedInEng,
+                    this.translatedInViet,
+                    this.selectedCategories,
+                    this.userId
+                  );
+                }
+
+
+              },
+              err => {
+                console.log(err);
+              }
+            )
+
+          
+
+          
         },
         err => {
           console.log(err);
