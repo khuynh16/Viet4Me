@@ -7,12 +7,13 @@
 - [Previous Features Depreciated From Project](#previous-features-depreciated-from-project)
 - [Things Currently In Progress](#things-currently-in-progress)
 - [Ideas to Implement In The Future](#ideas-to-implement-in-the-future)
+- [Changelog (Notable Changes/Updates as of 10/18/2020)](#changelog)
 - [Images of Project](#images-of-project)
 
 
 # Viet4Me
 
-The project is a "self-learning" Vietnamese app where you are able to translate any word or phrase from English into Vietnamese. Alongside its translation, you are able to make posts and are able to categorize and filter certain posts to view! Think of it as a Google Translate meets Quizlet application.
+The project is a "self-learning" Vietnamese app where you are able to translate any word or phrase from English into Vietnamese. With each translation comes its own post and you are able to categorize and filter certain posts to view! Think of it as a Google Translate meets Quizlet application.
 
 ## Project Link
 
@@ -28,15 +29,17 @@ The project is hosted via AWS S3 (the frontend) and Elastic Beanstalk (the backe
   * Added posts includes an english phrase, which is translated into Vietnamese via Google Translate API upon viewing posts in home page
   * Editing a post (the phrase to translate, the categories the current post is stored in)
   * Deleting a post
+  * Filtering posts via category and search bar
+  * Filter option to display english content or viet content visibly first on top of expansion panels
+  * Filter option to have all panels expanded or collapsed on button click
+  * Vietnamese keyboard of viet characters displayed to use for search bar to filter content (Note: keyboard only displayed when viet display filter option selected)
   
 * __In terms of user experience__: 
   * Correct authentication and authorization to add/edit/delete posts that the user themselves created in the first place (and viewing only their posts)
   * Lazy loading of components for optimization
   * Animation of the buffalo and login + signup forms 
-  * Filtering posts via category and search bar
-  * Filter option to display english content or viet content on top of expansion panels (with the other inside the expansion panel)
-  * Vietnamese keyboard of viet characters displayed to use for search bar to filter via search bar (Note: keyboard only displayed when viet display filter option selected)
-  * Filter option to have all panels expanded or collapsed on button click
+  * Mobile responsive to fit all browsers and devices
+  * Able to click on audio icon for each post to hear the respective vietnamese translation
   
 ## Utilized Software
 
@@ -61,6 +64,7 @@ Libraries included:
 
 ## Things Currently In Progress
 
+* Testing via Jasmine and Karma
 * 'Manage Account' Button where user can edit their chosen email and password, as well as removing categories (even if there are posts within said category)
 * Cleaning the code (cleaned a lot initially but some areas to clean up still)
 * Pagination (as to not load all posts immediately, affecting loadtime)
@@ -68,8 +72,12 @@ Libraries included:
   
 ## Ideas to Implement In The Future
 
-* Google text-to-speech for the vietnamese translation for each post
 * Audio capture feature (to capture your voice pronunciating the vietnamese word or phrase)
+
+## Changelog 
+
+* __10/18/2020__
+  * Implemented Google Text to Speech API to now allow users to click speaker icon and be able to hear vietnamese translation
   
 ## Images of Project
   
