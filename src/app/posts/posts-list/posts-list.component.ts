@@ -7,6 +7,9 @@ import { PostsService } from '../posts.service';
 import { FiltersService } from 'src/app/home-page/filters/filters.service';
 import { AuthService } from 'src/app/auth/auth.service';
 
+import { GoogleSynObj } from '../../google-synthesize/synthesize.model';
+import { GoogleSynthesizeService } from '../../google-synthesize/google-synthesize.service';
+
 @Component({
   selector: 'app-posts-list',
   templateUrl: './posts-list.component.html',
@@ -46,7 +49,8 @@ export class PostsListComponent implements OnInit, OnDestroy {
 
   constructor(public postsService: PostsService,
               public filtersService: FiltersService,
-              public authService: AuthService) {}
+              public authService: AuthService,
+              private googleSyn: GoogleSynthesizeService) {}
 
   ngOnInit() {
     this.userId = this.authService.getUserId();
@@ -213,6 +217,37 @@ export class PostsListComponent implements OnInit, OnDestroy {
     // call to retrieve posts
     // needed in the case when there is user types input to filter by and switches language
     this.postsService.getFilteredPosts(this.postsPerPage, this.currentPage, this.userInputText, this.categoryFilters, this.currentLanguage);
+  }
+
+  /*
+  * Plays viet audio of viet word or phrase when clicked.
+    @param vietTextToRead the currently selected post's viet word or phrase
+    @return Google text to speech api, playing audio of current word or phrase 
+  */
+  playAudio(vietTextToRead) {
+    const googleSyn: GoogleSynObj = {
+      input: {
+        "ssml": vietTextToRead
+      },
+      voice: {
+        "languageCode": "vi-VN",
+        "ssmlGender": "FEMALE"
+      },
+      audioConfig: {
+        "audioEncoding": "MP3"
+      }
+    };
+
+    this.googleSyn.synthesize(googleSyn)
+      .subscribe(
+        (res: any) => {
+          let vietAudio = new Audio("data:audio/wav;base64," + res.audioContent);
+          vietAudio.play();
+        },
+        err => {
+          console.log(err);
+        }
+      )
   }
 
   ngOnDestroy() {
