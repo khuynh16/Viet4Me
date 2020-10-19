@@ -13,10 +13,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   constructor(public filterService: FiltersService) { }
 
-
   ngOnInit(): void {
     this.sub = this.filterService.getFilterUserInputListener().subscribe(text => {
-      console.log('SUPE: ' + text);
       if (this.value !== 'undefined') {
         this.value = text;
       }
@@ -24,14 +22,11 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   onUpdateInput(userTypedInput) {
-    console.log('content: ' + userTypedInput);
-
     this.filterService.userTextFilterUpdated.next(userTypedInput);
     this.filterService.changeFilterTextEvent();
   }
 
   clearFunction() {
-    console.log('des');
     this.value = '';
     this.onUpdateInput(this.value);
   }

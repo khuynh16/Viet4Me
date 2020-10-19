@@ -49,13 +49,11 @@ export class VietCharactersComponent implements OnInit, OnDestroy {
     });
 
     this.sub2 = this.filterService.getFilterUserInputListener().subscribe(text => {
-      console.log('current user: ' + text);
       this.currentUserFilterText = text;
     })
   }
 
   insertIntoInput(letter) {
-    console.log('LETTER: ' + letter);
     // update subject with previous subject value + selected vietnamese character
     // if current subject value is undefined, update subject with just the character
     if (this.currentUserFilterText) {

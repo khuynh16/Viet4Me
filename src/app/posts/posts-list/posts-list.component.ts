@@ -224,7 +224,15 @@ export class PostsListComponent implements OnInit, OnDestroy {
     @param vietTextToRead the currently selected post's viet word or phrase
     @return Google text to speech api, playing audio of current word or phrase 
   */
-  playAudio(vietTextToRead) {
+  playAudio(currentLangTag, engText, vietText) {
+
+    let vietTextToRead;
+    if (currentLangTag === 'VIET') {
+      vietTextToRead = vietText;
+    } else {
+      vietTextToRead = engText;
+    }
+
     const googleSyn: GoogleSynObj = {
       input: {
         "ssml": vietTextToRead
