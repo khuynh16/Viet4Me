@@ -1,12 +1,8 @@
 const express = require('express');
 
-// implements backend post schema to use in adding new posts to database
 const Post = require('../models/post');
-// const checkAuth = require('../middleware/check-auth');
 
 const router = express.Router();
-
-const fs = require('fs');
 
 /*
 * Adds new post to database.
@@ -65,17 +61,7 @@ router.put('/:id', (req, res, next) => {
 * @return posts in database and number of posts (depending on pagination options)
 */
 router.get('', (req, res, next) => {
-  const pageSize = +req.query.pagesize;
-  const currentPage = +req.query.page;
-
   postQuery = Post.find();
-
-  // if (pageSize && currentPage) {
-  //   postQuery
-  //     .skip(pageSize * (currentPage - 1))
-  //     .limit(pageSize);
-  // }
-
   postQuery
     .then(documents => {
       fetchedPosts = documents;
