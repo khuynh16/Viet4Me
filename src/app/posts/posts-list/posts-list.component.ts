@@ -60,7 +60,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
     this.vietTag = 'VIET';
     this.isLoading = true;
     // trigger http request when post list is loaded
-    this.postsService.getPosts(this.postsPerPage, this.currentPage);
+    this.postsService.getPosts();
     this.postsSub = this.postsService.getPostUpdateListener()
       .subscribe((postData: {posts: Post[], postCount: number}) => {
         this.isLoading = false;
@@ -175,7 +175,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
   onDelete(postId: string) {
     this.isLoading = true;
     this.postsService.deletePost(postId).subscribe(() => {
-      this.postsService.getPosts(this.postsPerPage, this.currentPage);
+      this.postsService.getPosts();
     });
   }
 

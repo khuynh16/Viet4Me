@@ -31,6 +31,10 @@
     border: 2px solid lightgrey;
 }
 
+.hamburger {
+  display: none;
+}
+
 /* Style the active class, and buttons on mouse-over */
 .active, a:hover, .logo:hover {
     background-color: #21639c;
@@ -42,7 +46,7 @@
     margin-right: 10px;
 }
 
-.logInOrOut {
+.logOut {
   margin-left: auto;
 }
 
@@ -51,6 +55,10 @@ mat-icon {
 }
 
 @media only screen and (max-width: 660px) {
+  .hamburger {
+    display: block;
+  }
+
   .nav-button-group > a:not(first-child) {
     display: none;
   }

@@ -26,10 +26,10 @@ export class PostsService  {
   * @param currentPage first page of pagination (again, pagination not activate atm)
   * @return subject.next method call
   */
-  getPosts(postsPerPage, currentPage) {
-     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
+  getPosts() {
+    //  const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
     // call to get method from backend
-    this.http.get<{ message: string, posts: any, maxPosts: number }>(environment.apiUrl + '/posts' + queryParams)
+    this.http.get<{ message: string, posts: any, maxPosts: number }>(environment.apiUrl + '/posts')
       .pipe(map((postData) => {
         // changing ._id to id in posts object array
         return {
