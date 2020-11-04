@@ -4,9 +4,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { LandingPageComponent } from './landing-page.component';
-import { Router } from '@angular/router';
 
 describe('LandingPageComponent', () => {
     let component: LandingPageComponent;
@@ -41,7 +41,7 @@ describe('LandingPageComponent', () => {
         fixture = TestBed.createComponent(LandingPageComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-    })
+    });
 
     it('should create landing page component', () => {
         expect(component).toBeDefined();     
@@ -80,7 +80,7 @@ describe('LandingPageComponent', () => {
         });
     }));
 
-    it('should navigate to /login on login button click', fakeAsync(() => {
+    it('should navigate to /login on login button click', async(() => {
         const buttons = fixture.debugElement.queryAll(By.css('button'));
         const loginButton: HTMLButtonElement = buttons[0].nativeElement;
         loginButton.click();
@@ -89,7 +89,7 @@ describe('LandingPageComponent', () => {
             expect(location.path()).toBe('/auth/log-in');
         });
         // clears timers in queue; without throws an error
-        flush();
+        // flush();
     }));
 });
 

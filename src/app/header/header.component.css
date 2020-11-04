@@ -67,10 +67,6 @@ mat-icon {
     display: none;
   }
 
-  /* ::ng-deep .mat-button-ripple.mat-ripple, ::ng-deep .mat-button-focus-overlay {
-    display: none;
-  } */
-
   mat-icon {
     display: block;
   }
@@ -87,11 +83,5 @@ mat-icon {
 
   ::ng-deep .mat-menu-content button span {
     font-family: 'Be Vietnam', 'Poppins';
-  }
-
-  .mat-icon-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 }
