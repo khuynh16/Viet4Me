@@ -27,7 +27,7 @@ mat-expansion-panel mat-expansion-panel-header {
 }
 
 :host::ng-deep .filterPanel .mat-expansion-panel-body {
-  background: rgb(56, 56, 56);
+  background: #686b67;
   padding-top: 16px;
 }
 

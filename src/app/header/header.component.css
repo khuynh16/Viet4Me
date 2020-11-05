@@ -12,8 +12,10 @@
     padding-right: 15px;
     text-decoration: none;
     color: white;
-    height: 100%;
+    height: 80%;
     cursor: pointer;
+    margin-top: 6px;
+    border-radius: 25px;
 }
 
 .nav-button-group {
@@ -40,6 +42,11 @@
     color: white;
 }
 
+/* .active, 
+a:hover {
+  margin: 10px 0;
+} */
+
 .spacer {
     margin-left: 10px;
     margin-right: 10px;
@@ -51,6 +58,12 @@
 
 mat-icon {
   display: none;
+}
+
+.divider{
+  width: 10px;
+  height: auto;
+  display: inline-block;
 }
 
 @media only screen and (max-width: 750px) {

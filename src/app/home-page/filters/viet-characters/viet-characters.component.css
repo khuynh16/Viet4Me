@@ -5,7 +5,7 @@
 
 .vietCharactersContainer {
   margin-top: 10px;
-  background-color: lightgray;
+  background-color: white;
 }
 
 .vietCharactersContent {
@@ -15,7 +15,7 @@
 }
 
 .vietKeyboardHeader {
-  background-color: lightgray;
+  background-color: white;
   height: 50px;
 }
 
@@ -34,7 +34,7 @@
 
 :host::ng-deep .vietKeyboardPanel .mat-expansion-panel-body,
 :host::ng-deep .vietKeyboardPanel {
-  background-color: lightgray;
+  background-color: white;
 }
 
 :host::ng-deep .vietKeyboardPanel .mat-expansion-panel-body {
