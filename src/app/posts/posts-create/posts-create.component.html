@@ -16,6 +16,9 @@
             required
             #engTranslation="ngModel">
         </mat-form-field>
+        <br>
+        <br>
+        <br>
         <p class="checkboxTitle">Select or add categories to store input in (optional):</p>
         <section>
           <div class="checkboxCategories" *ngFor="let category of categories; let i = index;">
@@ -25,6 +28,8 @@
             </mat-checkbox>
           </div>
           <p class="info-text" *ngIf="categories.length <= 0">[You have no categories, add one below!]</p>
+          <br>
+          <br>
           <div class="addCategoryDiv">
             <mat-form-field class="addCategoryNameField">
               <p class="lowerWidthAddCategoryCaption">Want a new category? Add one here (optional):</p>

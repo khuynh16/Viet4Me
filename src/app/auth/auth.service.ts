@@ -52,7 +52,7 @@ export class AuthService {
         .subscribe(response => {
           this.authStatusListener.next(true);
           this.userId = response.userId;
-          this.router.navigate(['/home']);
+          this.router.navigate(['/main-page/home']);
         }, error => {
         });
   }
