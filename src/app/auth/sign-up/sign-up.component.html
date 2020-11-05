@@ -1,7 +1,7 @@
 <div [@formAnimation]="toAnimate" class="background fit-full-screen whiteText align-horizontal-vertical">
     <form [formGroup]="signUpForm" (ngSubmit)="onSubmit(signUpForm)" class="signupForm">
         <hr class="hrLine">
-        <h1 class="signUpTitle">Welcome! Create an Account.</h1>
+        <p class="signUpTitle">Welcome! Create an Account.</p>
         <hr class="hrLine">
         <br>
         <label for="signUpEmail">Email</label>
@@ -30,6 +30,7 @@
             required>
         <br><br>
         <input type="submit" id="signUpSubmit" value="Register">
+        <br>
         <br>
         <app-form-nav-links></app-form-nav-links>
     </form>

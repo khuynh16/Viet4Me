@@ -1,7 +1,7 @@
 form {
     background:rgba(0,0,0,0.5);
     width: 450px;
-    height: 500px;
+    height: 70vh;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -44,6 +44,7 @@ label {
 .signUpTitle {
     text-align: center;
     padding: 10px;
+    font-size: 1.7rem;
 }
 
 #signUpSubmit {
@@ -64,9 +65,5 @@ label {
 
   form {
     width: 95%;
-  }
-
-  .signUpTitle {
-    font-size: 30px;
   }
 }

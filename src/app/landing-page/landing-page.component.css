@@ -7,9 +7,6 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    /* background-image: url('../../assets/images/water-buffalo.png'); */
-    /* -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px); */
 }
 
 /* source image: https://www.clipartmax.com/middle/m2H7i8H7G6N4H7Z5_water-buffalo-icon-water-buffalo-cartoon/ */
@@ -29,13 +26,8 @@
 }
 
 .landing-page-title {
-    font-size: 70px;
-    padding-bottom: 50px;
-    /* text-shadow: -4px 3px 0 #3a50d9, -14px 7px 0 #0a0e27; */
-}
-
-.landing-page-title, .main-button {
-    font-family: 'Acme', sans-serif;
+  font-size: 50px;
+  padding-bottom: 50px;
 }
 
 /* button animation source from: https://uicookies.com/css-buttons/ */

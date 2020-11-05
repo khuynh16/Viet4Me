@@ -1,7 +1,7 @@
 form {
     background:rgba(0,0,0,0.5);
     width: 450px;
-    height: 420px;
+    height: 65vh;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -40,6 +40,7 @@ label {
 .logInTitle {
     padding: 10px;
     text-align: center;
+    font-size: 2rem;
 }
 
 #logInSubmit {
@@ -60,8 +61,10 @@ label {
   #logInSubmit {
     width: 80%;
   }
+}
 
-  .logInTitle {
-    font-size: 30px;
+@media only screen and (max-width: 387px) {
+  .newLineInText {
+    display: block;
   }
 }

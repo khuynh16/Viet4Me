@@ -1,7 +1,7 @@
 <div [@formAnimation]="toAnimate" class="background fit-full-screen whiteText align-horizontal-vertical">
     <form [formGroup]="logInForm" (ngSubmit)="onSubmit(logInForm)" class="loginForm">
         <hr class="hrLine">
-        <h1 class="logInTitle">Welcome Back! Log In.</h1>
+        <p class="logInTitle">Welcome Back! <span class="newLineInText"></span>Log In.</p>
         <hr class="hrLine">
         <br>
         <label for="logInEmail">Email</label>
@@ -22,6 +22,7 @@
             required>
         <br><br>
         <input type="submit" id="logInSubmit" value="Submit">
+        <br>
         <br>
         <app-form-nav-links></app-form-nav-links>
     </form>
