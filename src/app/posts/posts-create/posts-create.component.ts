@@ -85,6 +85,8 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
       return;
     }
     this.newCategory.reset();
+    // marks newly added category as checked 
+    this.currentPostCategories.push(categoryName);
     this.postsService.addCategory(categoryName, this.categories);
   }
 
