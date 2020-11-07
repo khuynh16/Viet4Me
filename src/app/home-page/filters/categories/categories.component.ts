@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { PostsService } from 'src/app/posts/posts.service';
 import { CategoryFilter } from './category-filter.model';
 import { FiltersService } from '../filters.service';
+import { _MAT_HINT } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-categories',
@@ -84,7 +85,34 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     if (this.categoryFilter.categories == null) {
       return;
     }
-    this.categoryFilter.categories.forEach(t => t.completed = completed);
+      // loop through each categoryFilter.categories element and mark as either checked or not checked
+      for (let category of this.categoryFilter.categories) {
+        category.completed = completed;
+      };
+
+      // call to function to handle processing of all posts to be visible or hidden
+      this.updateAllCategories(this.categoryFilter.categories);
+  }
+
+  /*
+  * Display or hide all posts when clicking the main checkbox for categories in filter.
+  * @param allCategories CategoryFilter.categories array that contains all post categories
+  * @return subject.next call to update subject variables and a call to service function 
+  *   to update filtered categories for viewing
+  */
+  updateAllCategories(allCategories) {
+    if (this.allComplete === false) {
+      this.postsService.filterCategoriesUpdated.next([]);
+    }
+    else {
+      for (let category of allCategories) {
+        if (!this.filterCategories.includes(category.name)) {
+          this.filterCategories.push(category.name);
+        }
+      }
+      this.postsService.filterCategoriesUpdated.next([...this.filterCategories]);
+    }
+    this.filterService.changeFilterCategoriesEvent();
   }
 
   /*
