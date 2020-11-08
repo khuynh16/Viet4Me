@@ -67,3 +67,9 @@ label {
     width: 95%;
   }
 }
+
+@media only screen and (max-height: 800px) {
+    form {
+        height: 90vh;
+    }
+}
