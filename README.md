@@ -78,7 +78,7 @@ Libraries included:
 
 * __10/18/2020__
   * Implemented Google Text to Speech API to now allow users to click speaker icon and be able to hear vietnamese translation
-*__11/06/2020__
+* __11/06/2020__
   * Implemented hiding/showing all posts when clicking master category checkbox
   
 ## Images of Project
