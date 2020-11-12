@@ -18,16 +18,16 @@ mat-label,
   font-size: 18px;
 }
 
-::ng-deep .mat-focused .mat-form-field-label {
-  color: black !important;
+:host ::ng-deep .mat-focused .mat-form-field-label {
+  color: black;
 }
 
-::ng-deep.mat-form-field-underline {
-  background-color: black !important;
+:host ::ng-deep.mat-form-field-underline {
+  background-color: black;
 } 
 
-::ng-deep.mat-form-field-ripple {
-  background-color: black !important;;
+:host ::ng-deep.mat-form-field-ripple {
+  background-color: black;
 }
 
 .triangle-right-corner {

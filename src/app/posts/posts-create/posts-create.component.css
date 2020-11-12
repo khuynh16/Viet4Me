@@ -42,12 +42,16 @@ section {
   background: rgba(0,0,0,0.5);
 }
 
-::ng-deep.mat-form-field-appearance-legacy .mat-form-field-underline {
-  background-color: white !important;
+:host ::ng-deep.mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: white;
 }
 
-::ng-deep.mat-checkbox-frame {
-  border-color: white !important;
+:host ::ng-deep.mat-checkbox-frame {
+  border-color: white;
+}
+
+:host ::ng-deep .mat-form-field-required-marker {
+  color: #f44336;
 }
 
 .postCreateTitle {
