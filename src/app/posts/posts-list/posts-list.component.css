@@ -129,3 +129,11 @@ mat-action-row {
 .info-text {
   text-align: center;
 }
+
+/* overwrites default angular theme css, making panel (when closing) visible
+   background was white and now it is transparent */
+@media (hover: none) {
+  :host ::ng-deep .mat-expansion-panel:not(.mat-expanded):not([aria-disabled=true]) .mat-expansion-panel-header:hover {
+    background: rgb(0 0 0 / 0.00);
+  }
+}
