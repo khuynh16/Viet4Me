@@ -71,6 +71,12 @@ mat-icon {
     align-items: center;
 }
 
+@media only screen and (max-width: 980px) {
+    mat-panel-title {
+        font-size: 1.8vw;
+    }
+}
+
 @media only screen and (max-width: 680px) {
     .adjustBackgroundBecauseHeader {
         height: auto;
