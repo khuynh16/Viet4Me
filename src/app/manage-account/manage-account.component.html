@@ -1,0 +1,77 @@
+<app-header></app-header>
+<div class="adjustBackgroundBecauseHeader">
+    <div class="container">
+        <div class="firstRow">
+            <mat-accordion class="example-headers-align">
+                <mat-expansion-panel disabled hideToggle [expanded]="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Want to log in with another email? Change email associated with your account.
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      <mat-icon>email</mat-icon>
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <mat-action-row>
+                    <button mat-button color="primary">Change email</button>
+                  </mat-action-row>
+                </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion class="example-headers-align">
+                <mat-expansion-panel disabled hideToggle [expanded]="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Don't like your password? Change it!
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      <mat-icon>security</mat-icon>
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <mat-action-row>
+                    <button mat-button color="primary">Change password</button>
+                  </mat-action-row>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+        <div class="secondRow">
+            <mat-accordion class="example-headers-align">
+                <mat-expansion-panel disabled hideToggle [expanded]="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Rename an already existing post category.
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      <mat-icon>library_books</mat-icon>
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <mat-action-row>
+                    <button mat-button color="primary">Rename category name</button>
+                  </mat-action-row>
+                </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion class="example-headers-align">
+                <mat-expansion-panel disabled hideToggle [expanded]="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Remove category and its posts entirely from account.
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      <mat-icon>delete_forever</mat-icon>
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <mat-action-row>
+                    <button mat-button color="primary">Remove category</button>
+                  </mat-action-row>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+        
+
+        
+        <!-- <p>Categories</p>
+        <ul>
+            <li>Credentials (edit email, edit password)</li>
+            <li>Post Categories (rename category, remove category and its posts)</li>
+        </ul> -->
+    </div>
+</div>

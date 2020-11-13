@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { HomePageComponent } from './home-page.component';
+import { ManageAccountComponent } from '../manage-account/manage-account.component';
 import { CategoriesComponent } from './filters/categories/categories.component';
 import { RadioFilterBtnsComponent } from './filters/radio-display-btns/radio-display-btns.component';
 import { SearchBarComponent } from './filters/search-bar/search-bar.component';
@@ -16,6 +17,7 @@ import { HomePageRoutingModule } from './home-page-routing.module';
 @NgModule({
   declarations: [
     HomePageComponent,
+    ManageAccountComponent,
     CategoriesComponent,
     RadioFilterBtnsComponent,
     SearchBarComponent,

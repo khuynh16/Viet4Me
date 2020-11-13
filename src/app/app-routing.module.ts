@@ -8,7 +8,6 @@ const routes: Routes = [
   { path: 'landing-page', component: LandingPageComponent },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)},
   { path: 'main-page', loadChildren: () => import('./home-page/home-page.module').then(m => m.HomePageModule)}
-
 ];
 
 @NgModule({

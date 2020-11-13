@@ -6,7 +6,7 @@
       <div class="divider"></div>
       <a routerLinkActive="active" class="align-horizontal-vertical" routerLink="/main-page/add-content">Add Content</a>
       <div class="divider"></div>
-      <a routerLinkActive="active" class="align-horizontal-vertical" >Manage Account</a>
+      <a routerLinkActive="active" class="align-horizontal-vertical" routerLink="/main-page/manage-account">Manage Account</a>
       <a routerLinkActive="active" class="align-horizontal-vertical logOut" (click)="onLogOut()">Log Out</a>
     </div>
     <button class="hamburger" (window:resize)="onResize($event)" mat-icon-button #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -21,7 +21,7 @@
         <mat-icon>input</mat-icon>
         <span>Add Content</span>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item routerLink="/main-page/manage-account">
         <mat-icon>edit</mat-icon>
         <span>Manage Account</span>
       </button>
