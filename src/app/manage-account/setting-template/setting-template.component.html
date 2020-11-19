@@ -1,6 +1,17 @@
 <app-header></app-header>
 <div class="adjustBackgroundBecauseHeader">
     <div class="container">
-
+        <mat-accordion class="example-headers-align">
+            <mat-expansion-panel disabled [expanded]="true" hideToggle>
+              <mat-form-field>
+                <p>Rename Category</p>
+              </mat-form-field>
+          
+              <mat-action-row>
+                <button mat-button color="warn">Back</button>
+                <button mat-button color="primary">Confirm</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+        </mat-accordion>
     </div>
 </div>
