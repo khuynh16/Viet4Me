@@ -3,14 +3,19 @@
     <div class="container">
         <mat-accordion class="example-headers-align">
             <mat-expansion-panel disabled [expanded]="true" hideToggle>
-              <mat-form-field>
-                <p>Rename Category</p>
-              </mat-form-field>
-          
-              <mat-action-row>
-                <button mat-button color="warn">Back</button>
-                <button mat-button color="primary">Confirm</button>
-              </mat-action-row>
+                
+
+                <app-delete-category *ngIf="router.url === '/main-page/manage-account/delete-category'"></app-delete-category>
+                <app-rename-category *ngIf="router.url === '/main-page/manage-account/rename-category'"></app-rename-category>
+                <app-change-password *ngIf="router.url === '/main-page/manage-account/change-password'"></app-change-password>
+                <app-change-email *ngIf="router.url === '/main-page/manage-account/change-email'"></app-change-email>
+
+                <mat-action-row>
+                    <button mat-button color="warn" routerLink="/main-page/manage-account">
+                        Back
+                    </button>
+                    <button mat-button color="primary">{{ routeConfirmation }}</button>
+                </mat-action-row>
             </mat-expansion-panel>
         </mat-accordion>
     </div>

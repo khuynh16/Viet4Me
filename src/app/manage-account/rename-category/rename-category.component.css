@@ -1,0 +1,80 @@
+:host {
+    width: 100%;
+}
+
+.title {
+    font-size: 1.5rem;
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.currentCategory {
+    background-color: lightgray;
+    display: flex;
+    align-items: center;
+    border: 1px solid darkgray;
+    border-radius: 5px;
+    height: 3em;
+    padding: 5px;
+}
+
+.manageAccountContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.innerContent {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    /* height: 100%; */
+}
+
+:host ::ng-deep mat-selection-list {
+    border: 1px solid darkgray;
+    border-radius: 10px;
+    width: 40%;
+    height: 40vh;
+    overflow: auto;
+    margin-bottom: 20px;
+}
+
+.rightInnerContent {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+:host ::ng-deep .mat-form-field {
+    width: 100%;
+}
+
+@media only screen and (max-width: 750px) {
+    .innerContent {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .rightInnerContent {
+        width: 100%;
+    }
+
+    :host {
+        height: 100%;
+    }
+
+    :host ::ng-deep .mat-form-field,
+    :host ::ng-deep mat-selection-list,
+    .currentCategory,
+    .rightInnerContent {
+        width: 100%;
+    }
+
+    .title {
+        padding-top: 30px;
+        padding-bottom: 30px;
+        font-size: 4vw;
+    }
+}

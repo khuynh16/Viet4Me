@@ -12,6 +12,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   exports: [
@@ -27,7 +28,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatDialogModule,
-    MatMenuModule
+    MatMenuModule,
+    MatListModule
   ]
 })
 export class AngularMaterialModule {
