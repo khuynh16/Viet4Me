@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rename-category.component.css']
 })
 export class RenameCategoryComponent implements OnInit {
-  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
+  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Cats', 'Dogs', 'Birds', 'Fish', 'Elephants', 'Whales'];
 
   constructor() { }
 

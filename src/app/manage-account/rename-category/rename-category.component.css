@@ -33,7 +33,7 @@
 
 :host ::ng-deep mat-selection-list {
     border: 1px solid darkgray;
-    border-radius: 10px;
+    border-radius: 10px 0 0 10px;
     width: 40%;
     height: 40vh;
     overflow: auto;
@@ -49,6 +49,15 @@
 
 :host ::ng-deep .mat-form-field {
     width: 100%;
+}
+
+:host ::ng-deep .mat-list-text {
+    padding-bottom: 10px !important;
+    padding-top: 10px !important;
+}
+
+:host ::ng-deep mat-list-option {
+    height: auto !important;
 }
 
 @media only screen and (max-width: 750px) {
