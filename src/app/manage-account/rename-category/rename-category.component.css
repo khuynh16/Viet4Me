@@ -64,7 +64,8 @@
     padding: 1.5em 0 1em 0;
 }
 
-:host ::ng-deep mat-label {
+:host ::ng-deep mat-label,
+:host ::ng-deep input {
     line-height: normal;
 }
 
