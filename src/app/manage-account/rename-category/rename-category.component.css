@@ -8,14 +8,22 @@
     padding-bottom: 50px;
 }
 
-.currentCategory {
-    background-color: lightgray;
+h4 {
     display: flex;
     align-items: center;
-    border: 1px solid darkgray;
-    border-radius: 5px;
-    height: 3em;
+    margin-bottom: 5px;
+}
+
+.stepNumber {
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
     padding: 5px;
+    background: #fff;
+    border: 1px solid #000;
+    color: #000;
+    text-align: center;
+    margin-right: 10px;
 }
 
 .manageAccountContent {
@@ -26,38 +34,9 @@
 
 .innerContent {
     display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    /* height: 100%; */
-}
-
-:host ::ng-deep mat-selection-list {
-    border: 1px solid darkgray;
-    border-radius: 10px 0 0 10px;
-    width: 40%;
-    height: 40vh;
-    overflow: auto;
-    margin-bottom: 20px;
-}
-
-.rightInnerContent {
-    width: 40%;
-    display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-}
-
-:host ::ng-deep .mat-form-field {
     width: 100%;
-}
-
-:host ::ng-deep .mat-list-text {
-    padding-bottom: 10px !important;
-    padding-top: 10px !important;
-}
-
-:host ::ng-deep mat-list-option {
-    height: auto !important;
 }
 
 :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
@@ -65,12 +44,9 @@
 }
 
 :host ::ng-deep mat-label,
-:host ::ng-deep input {
+:host ::ng-deep input,
+:host ::ng-deep mat-option {
     line-height: normal;
-}
-
-:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
-    margin-top: 5px;
 }
 
 /* moves placeholder text a little bit more up regarding category input */
@@ -78,30 +54,8 @@
     transform: translateY(-1.79375em) scale(0.75);
 }
 
-@media only screen and (max-width: 750px) {
-    .innerContent {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .rightInnerContent {
-        width: 100%;
-    }
-
-    :host {
-        height: 100%;
-    }
-
-    :host ::ng-deep .mat-form-field,
-    :host ::ng-deep mat-selection-list,
-    .currentCategory,
-    .rightInnerContent {
-        width: 100%;
-    }
-
-    .title {
-        padding-top: 30px;
-        padding-bottom: 30px;
-        font-size: 4vw;
+@media only screen and (max-width: 400px) {
+    h4 {
+        font-size: 12px;
     }
 }

@@ -1,20 +1,22 @@
 <div class="manageAccountContent">
-    <p class="title">Rename an Already Existing Category</p>
+    <p class="title">Rename Category</p>
     <div class="innerContent">
-        <mat-selection-list #shoes [multiple]="false">
-            <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
-            {{shoe}}
-            </mat-list-option>
-        </mat-selection-list>
-        <div class="rightInnerContent">
-            <p class="currentCategory">Current category: {{shoes.selectedOptions.selected[0]?.value }}</p>
-            <p>
-                <mat-form-field appearance="outline">
-                  <mat-label>Enter new category name:</mat-label>
-                  <input matInput>
-                  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-                </mat-form-field>
-              </p>
-        </div>
+        <h4><span class="stepNumber">1</span>Select one current category:</h4>
+        <mat-form-field appearance="outline">
+            <mat-label>Choose an option...</mat-label>
+            <mat-select>
+              <mat-option value="option1">Option 1</mat-option>
+              <mat-option value="option2">Option 2</mat-option>
+              <mat-option value="option3">Option 3</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <h4><span class="stepNumber">2</span> Enter new category name:</h4>
+        <mat-form-field appearance="outline">
+        <mat-label>Enter category name here...</mat-label>
+        <input matInput type="text" [(ngModel)]="value">
+        <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+            <mat-icon>close</mat-icon>
+        </button>
+        </mat-form-field>
     </div>
 </div>

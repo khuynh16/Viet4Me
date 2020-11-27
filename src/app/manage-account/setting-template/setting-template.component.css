@@ -34,7 +34,9 @@ mat-accordion {
     align-items: center;    
     justify-content: center;
     height: 85%;
-    width: 100%;
+    width: 60%;
+    margin: 0 auto;
+    padding-bottom: 0;
 }
 
 :host ::ng-deep mat-action-row {
@@ -49,7 +51,7 @@ mat-accordion {
 
 @media only screen and (max-width: 750px) {
     :host ::ng-deep .mat-expansion-panel-body {
-        overflow-y: scroll;
+        width: 100%;
     }
 }
 
