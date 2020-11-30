@@ -12,12 +12,10 @@ export class SettingTemplateComponent implements OnInit {
   constructor(public router: Router) { }
 
   ngOnInit(): void {
-    console.log(this.router.url);
     if (this.router.url === '/main-page/manage-account/delete-category') {
       this.routeConfirmation = 'Delete Category';
     }
     else if (this.router.url === '/main-page/manage-account/rename-category') {
-      console.log('true');
       this.routeConfirmation = 'Rename Category';
     }
     else if (this.router.url === '/main-page/manage-account/change-password') {
