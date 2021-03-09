@@ -21,6 +21,8 @@ The project is hosted via AWS S3 (the frontend) and Elastic Beanstalk (the backe
 
 &nbsp;&nbsp;&nbsp; http://viet4me.s3-website.us-east-2.amazonaws.com/landing-page
 
+*** IMPORTANT NOTE: Backend is currently down due to looking around for cheaper options to host backend :D Frontend is still viewable at the above link but you will not be able to login / connect to application. Sorry for the inconvenience! - 03/08/21 ***
+
 ## Functionality
 
 * __In terms of user__:
