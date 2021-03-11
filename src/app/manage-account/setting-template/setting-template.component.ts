@@ -25,5 +25,4 @@ export class SettingTemplateComponent implements OnInit {
       this.routeConfirmation = 'Change Email';
     }
   }
-
 }
