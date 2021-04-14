@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "start:server": "nodemon ./backend/server.js",
-    "heroku-postbuild": "ng build --prod"
+    "heroku-postbuild": "ng build — env=prod"
   },
   "private": true,
   "dependencies": {
@@ -41,7 +41,9 @@
     "rxjs": "~6.5.5",
     "sanitize-filename": "^1.6.3",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.3"
+    "zone.js": "~0.10.3",
+    "@angular/cli": "^10.2.0",
+    "@angular/compiler-cli": "~10.0.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1002.0",
