@@ -3,13 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "nodemon ./backend/server.js",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "start:server": "nodemon ./backend/server.js",
-    "heroku-postbuild": "ng build --configuration production"
+    "heroku-postbuild": "ng build --prod"
   },
   "private": true,
   "dependencies": {
@@ -42,7 +42,8 @@
     "sanitize-filename": "^1.6.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3",
-    "@angular/compiler-cli": "~10.0.4"
+    "@angular/compiler-cli": "~10.0.4",
+    "typescript": "~3.9.5"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1002.0",
