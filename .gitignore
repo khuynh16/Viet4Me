@@ -1,7 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-/src/environments/environment.ts
-/src/environments/environment.prod.ts
+# /src/environments/environment.ts
+# /src/environments/environment.prod.ts
 nodemon.json
 
 # compiled output
@@ -10,7 +10,7 @@ nodemon.json
 /out-tsc
 # Only exists if Bazel was run
 /bazel-out
- 
+
 # dependencies
 /node_modules
 
