@@ -2,7 +2,7 @@
 
 # /src/environments/environment.ts
 # /src/environments/environment.prod.ts
-# nodemon.json
+nodemon.json
 
 # compiled output
 /dist
