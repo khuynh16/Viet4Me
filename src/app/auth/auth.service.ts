@@ -65,6 +65,7 @@ export class AuthService {
   */
   login(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
+    console.log(environment.apiUrl);
     this.http.post<{token: string, expiresIn: number, userId: string}>(environment.apiUrl + '/user/login', authData)
       .subscribe(response => {
         const token = response.token;
