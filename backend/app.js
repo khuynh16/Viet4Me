@@ -27,8 +27,6 @@ mongoose.connect(process.env.DB_URL)
 // allow json data to be used and parsed
 app.use(bodyParser.json());
 
-app.use("/", express.static(path.join(__dirname, "Viet4Me")));
-
 /*
 * cross-origin resource sharing (CORS) between different domains
 * 'Access-Control-Allow-Origin': response header indicates whether the response
@@ -51,10 +49,6 @@ app.use((req, res, next) => {
 
 app.use('/api/posts', postRoutes);
 app.use('/api/user', userRoutes);
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "Viet4Me", "index.html"));
-
-})
 
 // exporting entire express app (which includes the middlewares)
 module.exports = app;
