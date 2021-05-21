@@ -27,6 +27,10 @@ mongoose.connect(process.env.DB_URL)
 // allow json data to be used and parsed
 app.use(bodyParser.json());
 
+
+// Serve only the static files form the dist directory
+app.use(express.static('dist/Viet4Me'));
+
 /*
 * cross-origin resource sharing (CORS) between different domains
 * 'Access-Control-Allow-Origin': response header indicates whether the response
@@ -49,6 +53,10 @@ app.use((req, res, next) => {
 
 app.use('/api/posts', postRoutes);
 app.use('/api/user', userRoutes);
+
+app.get('/*', function(req,res) {
+  res.sendFile(path.join('dist/Viet4Me/index.html'));
+});
 
 // exporting entire express app (which includes the middlewares)
 module.exports = app;
