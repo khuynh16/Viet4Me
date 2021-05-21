@@ -17,11 +17,9 @@ The project is a "self-learning" Vietnamese app where you are able to translate 
 
 ## Project Link
 
-The project is hosted via AWS S3 (the frontend) and Elastic Beanstalk (the backend) at:
+The project is hosted via Heroku at:
 
-&nbsp;&nbsp;&nbsp; http://viet4me.s3-website.us-east-2.amazonaws.com/landing-page
-
-*** IMPORTANT NOTE: Backend is currently down due to looking around for cheaper options to host backend :D Frontend is still viewable at the above link but you will not be able to login / connect to application. Sorry for the inconvenience! - 03/08/21 ***
+&nbsp;&nbsp;&nbsp; https://viet4me.herokuapp.com/
 
 ## Functionality
 
@@ -84,6 +82,10 @@ Libraries included:
   * Redesigned UI (Font style changes, coloring of filter component, button style of login/signup page)
 * __11/06/2020__
   * Implemented hiding/showing all posts when clicking master category checkbox
+* __3/08/2021__
+  * Website's backend utilizing AWS Elastic Beanstalk was took down due to financial-related issues
+* __5/21/2021__
+  * Website's front and backend hosted via Heroku and is now live 
   
 ## Images of Project
   
